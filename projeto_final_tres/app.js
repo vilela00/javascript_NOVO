@@ -1,5 +1,7 @@
 let produtoInner = document.getElementById('produto_vitrine')
 
+arrayNomeProduto = []
+
 let nomeProdutoVitrine = ''
 
 let produtoVitrine = ''
@@ -24,8 +26,10 @@ for (let vitrine of produtos) {
         </div>
         `
         produtoInner.innerHTML = produtoVitrine
+        arrayNomeProduto.push(vitrine.nome)
         nomeProdutoVitrine = vitrine.nome
         console.log(nomeProdutoVitrine)
+        console.log(arrayNomeProduto)
 }
 
 let produtoInnerComplementar = document.getElementById('produto_vitrine_complementar')
@@ -64,7 +68,7 @@ function addCart () {
 
     let produtoCarrinho = ''
     
-    produtoCarrinho = produtos.find((dados) => dados.nome === nomeProdutoVitrine)
+    produtoCarrinho = produtos.find((dados) => dados.nome === arrayNomeProduto[0])
       produtoCarrinho = `
       <div class="container_produto_modal">
           <div class="imagem_produto_modal"><img src="${produtoCarrinho.imagem}" alt=""></div>
