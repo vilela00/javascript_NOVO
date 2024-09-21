@@ -1477,6 +1477,7 @@ div.texto_sobre_nos2 {
     align-items: center;
     border-top: #747474 solid 0.1px;
     padding: 8px;
+    gap: 10px;
 }
 
 .modal1 .close_x {
@@ -1519,4 +1520,11 @@ div.texto_sobre_nos2 {
     text-align: center;
     margin-bottom: 10px;
     margin-top: 30px;
+}
+
+.total_carrinho {
+    display: flex;
+    justify-content: end;
+    gap: 40px;
+    margin-right: 20px;
 }

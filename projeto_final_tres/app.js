@@ -2,8 +2,6 @@ let produtoInner = document.getElementById('produto_vitrine')
 
 arrayNomeProduto = []
 
-let nomeProdutoVitrine = ''
-
 let produtoVitrine = ''
 for (let vitrine of produtos) {
     let precoComDesconto = vitrine.preco * 0.9
@@ -27,9 +25,6 @@ for (let vitrine of produtos) {
         `
         produtoInner.innerHTML = produtoVitrine
         arrayNomeProduto.push(vitrine.nome)
-        nomeProdutoVitrine = vitrine.nome
-        console.log(nomeProdutoVitrine)
-        console.log(arrayNomeProduto)
 }
 
 let produtoInnerComplementar = document.getElementById('produto_vitrine_complementar')
@@ -55,6 +50,7 @@ for (let vitrineComplementar of produtosComplementares) {
 }
 
 let arrayCarrinho = []
+let arrayPreco = []
 
 function addCart () {
     const modal = document.getElementById('modal')
@@ -67,9 +63,14 @@ function addCart () {
     let produtoModal = document.getElementById('produto_modal')
 
     let produtoCarrinho = ''
-    
-    produtoCarrinho = produtos.find((dados) => dados.nome === arrayNomeProduto[0])
-      produtoCarrinho = `
+      produtoCarrinho = produtos.find((dados) => {
+        return {
+          nome: dados.nome,
+          preco: dados.preco,
+          imagem: dados.imagem
+        }
+    })
+      let produtoCarrinhoTeste = `
       <div class="container_produto_modal">
           <div class="imagem_produto_modal"><img src="${produtoCarrinho.imagem}" alt=""></div>
           <div class="info_produto_modal">
@@ -87,6 +88,17 @@ function addCart () {
       </div>
       `
 
-    arrayCarrinho.push(produtoCarrinho)
+    arrayCarrinho.push(produtoCarrinhoTeste)
+    arrayPreco.push(produtoCarrinho.preco)
     produtoModal.innerHTML = arrayCarrinho
+
+    let totalCarrinho = arrayPreco.reduce((soma, preco) => soma + preco, 0)
+
+    let valorCarrinho = document.getElementById('valorTotal')
+
+    let valorTotal = ''
+      valorTotal = `
+      <h4>${totalCarrinho.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h4>
+      `
+    valorCarrinho.innerHTML = valorTotal
 }
