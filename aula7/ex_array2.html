@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        const cores = []
+
+        for(let i = 0; i < 5; i++) {
+            const cor = prompt('Digite uma cor')
+            cores.push(cor)
+        }
+
+        console.log(cores)
+        console.log(`Nesta array existem ${cores.length} cores`)
+
+        const index = prompt('Digite um index de 0 a 4 para ser removido')
+        cores.splice(index,1)
+        console.log(cores)
+
+        const emLista = [
+            `cor1: ${cores[0]}`, 
+            `cor2: ${cores[1]}`,
+            `cor3: ${cores[2]}`,
+            `cor4: ${cores[3]}`,
+            `cor5: ${cores[4]}`
+        ]
+
+        console.log(emLista)
+
+        const novaCor = prompt('digite uma nova cor')
+        if(!cores.includes(novaCor)) {
+            cores.unshift(novaCor)
+        }
+
+        console.log(cores)
+
+    </script>
+
+</body>
+</html>

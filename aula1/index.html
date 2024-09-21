@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Algoritimo JS Simples</title>
+</head>
+<body>
+    
+
+    <div>
+       <p>Tipos, variaveis e valores</p>
+
+        <p>string - para textos</p>
+        <p>float - numero</p>
+        <p>int - numero sem casas decimais</p>
+        <p>booleano - sim ou nao - true ou false</p>
+    </div>
+
+
+    <script>
+        console.log('Marcos Vilela')
+        // Comentario direto no script em linha
+    </script>
+
+    <script>
+
+        //Exemplo de operações matemáticas com JS
+
+
+        const vendasMesPassado = Number(3000)
+        const totalDeVendas = Number(10000)
+        const diasTrabalhados = Number(22)
+        const fimDeSemana = Number(8)
+        const numeroDeVendedores = Number(3)
+
+        const vendaMesAtual = totalDeVendas - vendasMesPassado
+        const vendasPorDia = totalDeVendas / diasTrabalhados
+        const mediaPorVendedor = totalDeVendas / numeroDeVendedores
+        const totalDias = diasTrabalhados + fimDeSemana
+        console.log(vendaMesAtual)
+        console.log(vendasPorDia)
+        console.log(mediaPorVendedor)
+        console.log(totalDias)
+
+        const vendaPorDiaPorVendedor = vendasPorDia / numeroDeVendedores
+        console.log(vendaPorDiaPorVendedor)
+        
+    </script>
+
+
+    <script>
+        // console.log('Marcos Vilela')
+
+        const name = 'Marcos'
+        const lastName = 'Vilela'
+        const fullName = name + ' ' + lastName
+
+        console.log(fullName)
+
+        const year = 2024
+        const bDay = 38
+        const born = year - bDay
+
+        console.log(born)
+
+    </script>
+
+    <script>
+        //prompt para DDD + numero de telefone
+
+        const ddd = prompt('Digite o DDD')
+        const telNumber = prompt('Digite agora seu telefone')
+
+        console.log(ddd + telNumber)
+        alert('Seu telefone com DDD é:' + ' ' + ddd + ' ' + telNumber)
+
+
+    </script>
+
+
+    <script>
+
+        //prompt('Insira seu nome')
+
+        alert('Ola user!')
+
+        const nome1 = prompt('Digite seu primeiro nome')
+        console.log(nome1)
+        const sobreNome1 = prompt('Digite agora seu sobrenome')
+        console.log(sobreNome1)
+        alert('Seu nome e' + ' ' + nome1 + ' ' + sobreNome1)
+
+        const num1 = prompt('Digite sua altura')
+        const num2 = prompt('Agora digite seu peso')
+        console.log(parseFloat(num2)/(parseFloat(num1)*parseFloat(num1)))
+        alert('Seu IMC e' + ' ' + parseFloat(num2)/(parseFloat(num1)*parseFloat(num1)))
+
+        //parseFloat para informar que eh numero com casas decimais e parseInt para numeros inteiros, ou pode usar number
+
+        const num3 = prompt('Digite o seu CEP')
+        const num4 = prompt('Digite o seu telefone')
+        //console.log(Number(num3) + Number(num4))
+        
+        alert('Seu nome e' + ' ' + nome1 + ' ' + sobreNome1 + ' ' + 'Seu IMC e' + ' ' + parseFloat(num2)/(parseFloat(num1)*parseFloat(num1)) + ' ' + 'Seu Cep e' + ' ' + num3 + ' ' + 'Seu telefone e' + ' ' + num4)
+        console.log('Seu nome e' + ' ' + nome1 + ' ' + sobreNome1 + ' ' + 'Seu IMC e' + ' ' + parseFloat(num2)/(parseFloat(num1)*parseFloat(num1)) + ' ' + 'Seu Cep e' + ' ' + num3 + ' ' + 'Seu telefone e' + ' ' + num4)
+    </script>
+
+
+    <script src="./script.js">
+        /*Comentario em bloco direto no script JS*/
+        //Comentário em linha no script JS - aqui está sendo importado o arquivo .js
+    </script>
+
+</body>
+</html>

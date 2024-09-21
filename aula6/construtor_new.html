@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+
+        function fruta(nome, cor, peso) {
+            this.nome = nome
+            this.cor = cor
+            this.peso = peso
+            this.informacoesFruta = function () {
+                console.log('Nome: ' + this.nome + ' Cor: ' + this.cor + ' Peso: ' + this.peso)
+                console.log(`Nome: ${this.nome}, cor: ${this.cor}, peso: ${this.peso}`)
+
+            }
+        }
+
+        const uva = new fruta('uva', 'roxo', 5)
+        console.log(uva)
+        // Contagem de caracteres
+        console.log(uva.nome.length)
+        // Transforma em letras maiusculas
+        console.log(uva.cor.toUpperCase())
+        // Transforma em letras minusculas
+        console.log(uva.nome.toLowerCase())
+
+        const morango = new fruta ('morango', 'vermelho', 8)
+        console.log(morango)
+
+        uva.informacoesFruta()
+        morango.informacoesFruta()
+
+    </script>
+
+</body>
+</html>

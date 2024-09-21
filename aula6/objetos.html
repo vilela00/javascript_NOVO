@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objetos</title>
+</head>
+<body>
+
+
+    <script>
+
+        let pessoa = {
+            nome: 'Marcos',
+            idade: 38,
+            peso: 82,
+            email: 'vilela00@hotmail.com'
+        }
+
+        console.log(pessoa)
+
+        // Como chamar as propriedades separadamente
+        console.log(pessoa.nome)
+        console.log(pessoa.idade)
+        console.log(pessoa.peso)
+        console.log(pessoa.email)
+
+        // Pode ser criada uma variavel utilizando uma propriedade do objeto
+        const pessoaTeste =  pessoa.nome
+        console.log(pessoaTeste)
+
+        // Desestruturacao (utilizado no React)
+        const {idade, peso} = pessoa
+        console.log(idade, peso)
+
+        // Alterando o valor de uma propriedade
+        pessoa.nome = 'Gabriel'
+
+        // Utilizando colchete para deixar a informacao dinamica, coletando o que o usuario quer exibir no console
+        const propriedade = prompt('Digite a propriedade.')
+        const pessoaTesteDois = pessoa[propriedade]
+        console.log(pessoaTesteDois)
+
+            
+
+    </script>
+
+</body>
+</html>

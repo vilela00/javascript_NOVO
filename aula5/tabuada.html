@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+
+
+        // Dentro do for sempre usa uma let pois vai pegar um valor novo a cada ciclo
+        const numero = Number(prompt('Insira um numero'))
+
+        for (let i = 1; i <= 10; i++) {
+            const resultado = numero * i
+            console.log(numero + ' x ' + i + ' = ' + resultado)
+        } 
+
+
+        // Break utilizado para quebrar a sequencia de loop do for, quando o i for igual a 8, para a execucao (saida do laco)
+        for (let i = 1; i <= 10; i++) {
+            if (i === 8) {
+                break
+            }
+            // Continue utilizado para pular a condicao, quando o i for igual a 3 ele vai pular o 3, e continua o restante da execucao
+            if (i === 3) {
+                continue
+            }
+            const resultado = numero * i
+            console.log(numero + ' x ' + i + ' = ' + resultado)
+        } 
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+    <script>
+
+        // Processo complexo entrega 2 21/08/2024 Marcos Vilela
+
+        // Cálculo de importação de acordo com o valor da compra e frete (importação, ICMS)
+        function coleta() {
+            const precoProd = Number(prompt('Digite o preco do produto, em dolar, sem o valor do frete:'))
+            const freteProd = Number(prompt('Digite agora o valor do frete somado ao seguro, tambem em dolar:'))                                 
+            return precoProd + freteProd
+        }
+
+        function cambio() {
+            const dolarHoje = Number(prompt('Digite a cotacao atual do dolar:'))
+            return dolarHoje
+        }
+
+        function mult(num1, num2) {
+            const resultado = num1 * num2
+            alert('Voce ira pagar R$ ' + resultado + ' convertido em Real Brasileiro.')
+        }
+        
+        /*function mult1(num3, num4) {
+            const resultado1 = num3 * num4
+            alert('Voce ira pagar a bagatela de R$ ' + resultado1 + ' Janjoletas em impostos.')
+        }*/
+
+        // Desbilitei o mult1 acima e habilitei o sub abaixo, basta remover as linhas comentadas para utilizar o mult1
+
+        function sub(num3,num4,num5) {
+            const resultado1 = (num3 - num4) * num5
+            alert('E voce ira pagar a bagatela de R$ ' + resultado1 + ' Janjoletas em impostos.')
+        }
+
+        function valorImposto (valor) {
+            if (valor <= 50) {
+                alert('O valor do imposto sera de: $' + ' ' + (valor) * (0.2) + '.')
+                return valor * 0.2
+            }   else {
+                alert('O valor do imposto sera de: $' + ' ' + (valor) * (0.77) + '.')
+                return valor * 0.77
+            }
+        }
+
+        function valorTotal (valor1) {
+            if (valor1 <= 50) {
+                alert('O valor total da sua compra sera de: $' + ' ' + (valor1) * (1.2) + '.')
+                return valor1 * 1.2
+            }   else {
+                alert('O valor total da sua compra sera de: $' + ' ' + (valor1) * (1.77) + '.')
+                return valor1 * 1.77
+            }
+        }
+
+        const somaPreco = coleta()
+        
+        // Aqui estou usando a function mult1
+        //const valorImposto1 = valorImposto(somaPreco)
+
+        // Aqui fiz apenas uma outra forma de calculo, usando a function sub
+        valorImposto(somaPreco)
+
+        const valorTotal1 = valorTotal(somaPreco)
+
+        const precoReal = cambio()
+
+        mult(precoReal, valorTotal1)
+        
+        // Aqui estou usando a function mult1
+        //mult1(precoReal, valorImposto1)    
+
+        // Aqui fiz apenas uma outra forma de calculo, usando a function sub
+        sub(valorTotal1,somaPreco, precoReal)
+
+    </script>
+
+</body>
+</html>

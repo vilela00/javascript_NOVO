@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        // Definido um parametro acao para ser usado na funcao
+        function somar(a, b, acao) {
+            acao(a + b) 
+        }
+
+        // Passamos uma acao por parametro, e assim conseguimos usar a mesma funcao para diferentes frentes
+        somar(10, 10, console.log)
+        somar(30, 30, alert)
+
+        // Usando a mesma funcao somar e criando uma nova funcao multiplicando por 10
+        const multiplicar = (n) => {
+            console.log(10 * n)
+        }
+
+        somar(5, 6, multiplicar)
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        // Criar uma funcao para calcular quantos dias faltam pro aniversario de acordo com a data informada
+        function diasProAniversario (dataAniversario) {
+            // New date retorna o data de hoje
+            let anoAtual = new Date().getFullYear()
+            let hoje = new Date()
+            // getDate usado abaixo retorna o dia do mes, getDay retorna o dia da semana
+            let aniversarioDesteAno = new Date(anoAtual, dataAniversario.getMonth(), dataAniversario.getDate())
+
+            // Criamos uma condicao para que o codigo identifique se estamos antes ou depois da data de aniversario de entrada
+            let proximoAniversario
+            if (hoje > aniversarioDesteAno) {
+                proximoAniversario = new Date(anoAtual +1, dataAniversario.getMonth(), dataAniversario.getDate())
+            } else {
+                proxAniversario = aniversarioDesteAno
+            }
+            // Usando uma funcao nativa para trazer o resultado conforme formatacao brasileira
+            console.log (`O proximo aniversario sera em ${proximoAniversario.toLocaleString('pt-BR')}`)
+
+            // Aqui vamos calcular quantos dias faltam para o proximo aniversario
+            let diferenca = proximoAniversario - hoje
+            let diferencaDias = Math.ceil(diferenca / (1000 * 60 * 60 * 24))
+
+            return diferencaDias
+        }
+
+        // Nao consegui descobrir como aceitar uma entrada escrita no formato DD/MM/AAAA
+        let dataAniversario = new Date(prompt('Digite a sua data de nascimento no formato AAAA/MM/DD').replace('/' , ','))
+        console.log (`Ainda faltam ${diasProAniversario(dataAniversario)} dias para o proximo aniversario`)
+
+    </script>
+
+</body>
+</html>

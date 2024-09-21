@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        const usuarios = [
+            {nome: 'Marcos', idade: 38, estado: 'MG'},
+            {nome:'Andre', idade: 29, estado: 'SP'},
+            {nome: 'Joao', idade: 32, estado: 'RJ'},
+            {nome: 'Maria', idade: 28, estado: 'MG'}
+        ]
+
+        // Criamos uma variavel para receber o valor do usuario e comparar com os dados da array
+        let buscaNome = prompt('Busque pelo nome:')
+
+        // Criamos um parametro para trazer o valor do find
+        const resultadoNome = usuarios.find((dado) => dado.nome.toLowerCase() === buscaNome.toLocaleLowerCase())
+        
+        // Criei uma condicao para quando o resultado for 'undefined' - Perceba que o retorno do find e sempre um objeto completo
+        if(!resultadoNome) {
+            console.log('Nenhum nome foi encontrado')
+        } else {
+            console.log(resultadoNome)
+        }
+
+        let buscaIdade = Number(prompt('Digite a idade:'))
+
+        const resultadoIdade = usuarios.find((dado) => dado.idade === buscaIdade)
+
+        if(!resultadoIdade) {
+            console.log('Essa idade nao foi encontrada')
+        } else {
+            console.log(resultadoIdade)
+        }
+
+        let buscaEstado = prompt('Digite o estado:')
+
+        const resultadoEstado = usuarios.find((dado) => dado.estado.toLocaleLowerCase() === buscaEstado.toLocaleLowerCase())
+
+        // Perceba que o find retorna apenas o primeiro resultado encontrado. Se buscar por MG, mesmo existindo 2 resultados, ele volta apenas o primeiro
+        if(!resultadoEstado) {
+            console.log('Esse estado nao foi encontrado')
+        } else {
+            console.log(resultadoEstado)
+        }
+
+    </script>
+
+</body>
+</html>

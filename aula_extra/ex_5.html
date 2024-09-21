@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        // Somatorio de um numero
+        const calcularSomatorio = (numero) => {
+            let somatorio = 0
+            for(let i = 1; i <= numero; i++) {
+                console.log(`${i} + ${somatorio} = ${somatorio + i}`)
+                somatorio += i
+            }
+            console.log(`O somatorio de 1 ate ${numero} e: ${somatorio}`)
+            
+        }
+
+        calcularSomatorio(10)
+
+    </script>
+
+</body>
+</html>

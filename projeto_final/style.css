@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet');
+
+@media screen and (max-width: 900px) {
+    .container-fluid .container_home {
+        margin: 100px 20px 90px 20px;
+    }
+    .container_nome_empresa {
+        flex-direction: column;
+        gap: 0 !important;
+        margin-top: 50px;
+    }
+    .topo_esq {
+        top: -15vh !important;
+    }
+    .topo_dir {
+        top: calc(-15vh - 40px) !important;
+    }
+    .fundo_dir {
+        bottom: -470px !important;
+    }
+    .fundo_esq {
+        bottom: -430px !important;
+    }
+    .container_topo .user {
+        top: 10px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .container-fluid .container_home {
+        margin: 60px 15px 80px 15px;
+    }
+    .container_nome_empresa .nome_empresa, .container_nome_empresa .nome_empresa1 {
+        font-size: 60px;
+    }
+    .logo {
+        left: 80px !important;
+        top: -30px !important;
+    }
+    .container_nome_empresa .logo img {
+        width: 60px;
+    }
+    .fundo_dir {
+        bottom: -360px !important;
+    }
+    .fundo_esq {
+        bottom: -320px !important;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .container-fluid .container_home {
+        margin-bottom: 40px;
+    }
+}
+
+.body_index {
+    height: calc(100vh - 180px);
+    background: linear-gradient(0deg, #121212, #252525, #2b2b2b, #414141);
+    background-repeat: no-repeat;
+    background-color: #121212;
+}
+
+.container_home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 130px 220px 120px 220px;
+}
+
+.user {
+    text-align: center;
+}
+
+.logo {
+    position: fixed;
+    left: 130px;
+    top: -40px;
+}
+
+.container_nome_empresa {
+    display: flex;
+    gap: 35px;
+    filter: brightness();
+    perspective: 0dvh;
+    margin-top: 30px;
+}
+
+.nome_empresa {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-style: normal;
+    font-size: 100px;
+    text-align: center;
+    color: #ff5757;
+
+}
+
+.nome_empresa1 {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-style: normal;
+    font-size: 100px;
+    text-align: center;
+    color: #2b2b2b;
+    text-shadow: 
+    1px 1px 0 #dee2e6,
+    -1px 1px 0 #dee2e6,
+    -1px -1px 0 #dee2e6,
+    1px -1px 0 #dee2e6;
+}
+
+.container_home .texto_home {
+    text-align: center;
+}
+
+.container_home .caixa_busca, .btn-secondary {
+    width: 300px;
+}
+
+.caixa_busca {
+    font-style: italic;
+}
+
+.form-range {
+    width: 50%;
+    max-width: 700px;
+}
+
+.form-label {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+#rangeValue {
+    border: #ff5757 solid 1px;
+    border-radius: 8px;
+    padding: 5px 22px 5px 20px;
+}
+
+.btn_search {
+    background: linear-gradient(45deg, #ff5757, #bb3333, #bb3333, #ff5757);
+    border: none;
+    width: 120px;
+}
+
+.fundo_section {
+    position: absolute;
+    top: 180px;
+    left: 0;
+}
+
+.fundo_section img {
+    opacity: 0.3;
+}
+
+.topo_esq {
+    position: relative;
+    left: 10vw;
+    top: -80px;
+    width: 100%;
+    max-width: 40px;
+    height: 100%;
+    max-height: 40px;
+}
+
+.topo_dir {
+    position: relative;
+    left: calc(90vw - 40px);
+    top: -120px;
+    width: 100%;
+    max-width: 40px;
+    height: 100%;
+    max-height: 40px;
+}
+
+.fundo_dir {
+    position: relative;
+    bottom: -380px;
+    left: calc(90vw - 40px);
+    width: 100%;
+    max-width: 40px;
+    height: 100%;
+    max-height: 40px;
+}
+
+.fundo_esq {
+    position: relative;
+    left: 10vw;
+    bottom: -340px;
+    width: 100%;
+    max-width: 40px;
+    height: 100%;
+    max-height: 40px;
+}
+
+.resultado_filmes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    padding-bottom: 60PX;
+}
+
+.resultado_filme {
+    padding: 30px 30px 20px 30px;
+    border: #3d3d3d solid 0.2px;
+    border-radius: 10px;
+    max-width: 1200px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.resultado_filme:hover {
+    transform: scale(1.005);
+    transition-duration: 0.3s;
+    border-color: #ff5757;
+}
+
+.resultado_filme p {
+    margin-bottom: 10px;
+}
+
+.resultado_filme h2 {
+    margin-bottom: 20px;
+}

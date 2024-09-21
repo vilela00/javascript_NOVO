@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+const usuarios = [
+            {nome: 'Marcos', idade: 38, estado: 'MG'},
+            {nome:'Andre', idade: 29, estado: 'SP'},
+            {nome: 'Joao', idade: 32, estado: 'RJ'},
+            {nome: 'Maria', idade: 28, estado: 'MG'}
+        ]
+
+        // O map reune os dados solicitados da array original, e cria uma nova array. Perceba que abaixo criamos 3 novas arrays buscando os dados da array original
+        const nomes = usuarios.map((dados) => dados.nome)
+        console.log('Nomes: ' + nomes)
+
+        const idades = usuarios.map((dados) => dados.idade)
+        console.log('Idades: ' + idades)
+
+        const estados = usuarios.map((dados) => dados.estado)
+        console.log('Estados: ' + estados)
+
+        // Aqui nos conseguimos incluir uma nova informacao dentro da nossa propriedade que esta dentro da nova array criada pelo map
+        const capital = usuarios.map((dados) => {
+            return {
+                nome: dados.nome,
+                idade: dados.idade,
+                estado: dados.estado + ' capital'
+            }
+        })
+        console.log(capital)
+
+        // Aqui nos conseguimos incluir uma nova propriedade no novo array
+        const novaPropriedade = usuarios.map((dados) => {
+            return {
+                nome: dados.nome,
+                idade: dados.idade,
+                estado: dados.estado,
+                email: prompt(`Digite o e-mail para: ${dados.nome}`)
+            }
+        })
+        console.log(novaPropriedade)
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <section>
+        <h1>Sacolao do Vilela</h1>
+        <p>Pesquise a fruta desejada</p>
+        <input type="search" id="campo_pesquisa_frutas">
+        <button onclick="pesquisarFrutas()">Pesquisar</button>
+    </section>
+    <section class="resultado_frutas" id="resultado_frutas">
+
+    </section>
+    <section>
+        <h1>Filmes e Series</h1>
+        <p>Pesquise o titulo desejado</p>
+        <input type="search" id="campo_pesquisa">
+        <button onclick="pesquisar()">Pesquisar</button>
+    </section>
+    <section class="resultado_filmes" id="resultado_filmes">
+        
+    </section>
+
+    <script src="./dados.js"></script>
+    <script src="./dados_gpt.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>

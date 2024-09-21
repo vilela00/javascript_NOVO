@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+    <script>
+
+        // Aqui foi definido o valor mínimo aceito para atender a condição através de uma nova variável * const *
+
+        const idade = Number(prompt('Digite sua idade'))
+        const maiorIdade = (idade >= 18) // Nova variável que será utilizada na condição
+
+        if (maiorIdade) {
+            alert ('Acesso autorizado')
+        } else {
+            alert ('Voce nao pode acessar')
+        }
+
+
+        // O mesmo fluxo pode ser escrito dessa outra forma - aqui estamos escrevendo a condição diretamente no * if *
+
+        const idade1 = Number(prompt('Digite a sua idade'))
+
+        if (idade1 >= 18) {
+            alert ('Acesso liberado')
+        } else {
+            alert ('Acesso negado')
+        }
+
+        // Comparativo de faixa etária
+
+        const suaIdade = Number(prompt('Digite sua idade'))
+
+        if (suaIdade <= 21) {
+            alert ('Voce tem de 1 a 21 anos, e sua idade e ' + suaIdade + 'anos!')
+        } else if (suaIdade <= 35) {
+            alert ('Voce tem de 22 a 35 anos, e sua idade e ' + suaIdade + 'anos!')
+        } else if (suaIdade <= 50) {
+            alert ('Voce tem de 36 a 50 anos, e sua idade e ' + suaIdade + 'anos!')
+        } else {
+            alert ('Voce e muito velho para essa tarefa')
+        }
+
+    </script>
+
+</body>
+</html>
+
+

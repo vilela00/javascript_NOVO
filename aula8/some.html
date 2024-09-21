@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        const usuarios = [
+            {nome: 'Marcos', idade: 38, estado: 'MG'},
+            {nome:'Andre', idade: 29, estado: 'SP'},
+            {nome: 'Joao', idade: 32, estado: 'RJ'},
+            {nome: 'Maria', idade: 28, estado: 'MG'}
+        ]
+
+        // Criamos uma variavel para receber o valor do usuario e comparar com os dados da array
+        let buscaNome = prompt('Busque pelo nome:')
+
+        // Criamos um parametro para trazer o valor do some
+        const resultadoNome = usuarios.some((dado) => dado.nome.toLowerCase() === buscaNome.toLocaleLowerCase())
+        
+        // Criei uma condicao para quando o resultado for true ou false - Perceba que o some retorna apenas se a condicao foi ou nao atendida, nao retorna nenhum resultado
+        if(!resultadoNome) {
+            console.log('Nenhum nome foi encontrado')
+        } else {
+            console.log(`O nome ${buscaNome} foi encontrado. "true"`)
+        }
+
+        let buscaIdade = Number(prompt('Digite a idade:'))
+
+        const resultadoIdade = usuarios.some((dado) => dado.idade === buscaIdade)
+
+        if(!resultadoIdade) {
+            console.log('Essa idade nao foi encontrada')
+        } else {
+            console.log(`A idade ${buscaIdade} foi encontrada. "true"`)
+        }
+
+        let buscaEstado = prompt('Digite o estado:')
+
+        const resultadoEstado = usuarios.some((dado) => dado.estado.toLocaleLowerCase() === buscaEstado.toLocaleLowerCase())
+
+        if(!resultadoEstado) {
+            console.log('Esse estado nao foi encontrado')
+        } else {
+            console.log(`O estado ${buscaEstado} foi encontrado. "true"`)
+        }
+
+    </script>
+
+</body>
+</html>

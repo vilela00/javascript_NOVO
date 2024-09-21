@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./img/favicon.png">
+    <title>Calculadora de Juros Compostos</title>
+</head>
+<body class="body_index" data-bs-theme="dark">
+    <div class="container-fluid">
+        <header></header>
+        
+        <div class="container_home">
+            <div class="logo"><i class="fa-solid fa-calculator"></i></div>
+            <section class="container_dados">
+                <h2 class="titulo_calculadora">CALCULADORA DE JUROS</h2>
+                <div class="container_input">
+                    <label for="valor_emprestimo">Digite o valor pretendido:</label>
+                    <input type="text" name="valor" id="valor_emprestimo">
+                    <label for="taxa_juros">Digite a taxa de jutos ao mês:</label>
+                    <input type="text" name="taxa" id="taxa_juros">
+                    <label for="prazo">Digite o prazo também em meses:</label>
+                    <input type="text" name="prazo1" id="prazo">
+                </div>
+                <button class="btn btn-secondary btn_calcular" onclick="calcular()" id="btn_calcular">Calcular</button>
+            </section>
+
+            <section class="resultado_calculo" id="resultado_calculo"></section>
+        </div>
+
+
+        <dialog id="modal">
+            <div class="modal1">
+                <div class="modal_header">
+                    <h4 class="titulo_modal">Alerta!</h4>
+                    <div class="botao_x"><button class="btn btn-secondary close_x">X</button></div>
+                </div>
+                <div class="modal_body">
+                    <p>Todos os campos devem ser preenchidos.</p>
+                </div>
+                <div class="modal_footer">
+                    <button class="btn btn-secondary close">Voltar</button>
+                </div>                
+            </div>
+        </dialog>
+
+        <dialog id="modal_analise">
+            <div class="modal1">
+                <div class="modal_header">
+                    <h4 class="titulo_modal">Análise resumo da Operação</h4>
+                    <div class="botao_x"><button class="btn btn-secondary close_x_1">X</button></div>
+                </div>
+                <div class="modal_body">
+                    <div id="texto_analise"></div>
+                </div>
+                <div class="modal_footer">
+                    <button class="btn btn-secondary close_1">Voltar</button>
+                </div>                
+            </div>
+        </dialog>
+
+        <footer></footer>
+    </div>
+
+    <script src="./app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/6336585fd2.js" crossorigin="anonymous"*></script>
+</body>
+</html>

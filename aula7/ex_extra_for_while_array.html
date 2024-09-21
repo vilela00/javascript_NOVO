@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+
+        // Inicia um array vazio
+        let nomes = []
+
+        // Le o primeiro nome fora do loop
+        let nome = prompt('Digite um nome, ou "fim" para encerrar.')
+
+        // Inicio do loop para continuar recebendo ate digitar fim
+        while (nome.toLowerCase() !== 'fim') {
+            // Adiciona entrada no array
+            nomes.push(nome)
+
+            // Solicita novo nome
+            nome = prompt('Digite um nome, ou "fim" para encerrar.')
+        }
+
+        // Exibe os nomes da entrada
+        for (let i = 0; i < nomes.length; i++) {
+            console.log(nomes[i])
+        }
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+
+        let usuario = {
+            nome: prompt('DIgite seu nome'),
+            idade: prompt('Digite sua idade'),
+            telefone: prompt('Digite seu telefone'),
+            peso: prompt('Digite seu peso')
+        }
+
+        // Utilizando o alert para chamar uma propriedade
+        alert(usuario.nome)
+
+        // Solicitande uma propriedade que o usuário quer exibir
+        const propriedade = prompt('Digite a propriedade desejada')
+        const user = usuario[propriedade]
+
+        alert(user)
+
+    </script>
+
+</body>
+</html>

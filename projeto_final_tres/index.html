@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/6336585fd2.js" crossorigin="anonymous"></script>
+  <link rel="icon" href="./img/favicon.png">
+  <link rel="stylesheet" href="./style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <title>Gadu Fashion E-Commerce</title>
+</head>
+
+<body class="body">
+  <div class="container-fluid">
+    
+    <header class="header">
+      <div class="header__logo">
+        <a href="./index.html"><img src="./img/logo.png" alt="" class="header__logo_img"></a>
+      </div>
+      <nav class="header__nav">
+        <ul class="header__list">
+          <li><button type="button" class="btn btn-dark">MEN</button></li>          
+          <li><a href="./categoria.html" target="iframe_home"><button type="button" class="btn btn-dark">WOMAN</button></a></li>
+          <li><button type="button" class="btn btn-dark">KIDS</button></li>
+          <li><button type="button" class="btn btn-dark">SHOES</button></li>
+          <li><button type="button" class="btn btn-dark">See All</button></li>
+        </ul>
+      </nav>
+      <div class="header__box_busca">
+        <input type="search" name="buscar" placeholder="search here" class="header__search">
+        <button type="button" class="btn btn-secondary btn-sm botao_news"><i
+            class="fa-solid fa-magnifying-glass"></i></button>
+        <!--<a href=""><img src="./img/cart_icon.png" width="25px" height="25px" alt="" class="header__cart_icon"></a>-->
+        <a href=""><i class="fa-solid fa-cart-shopping"></i></a>
+        <!--<a href=""><img src="./img/user_icon.png" width="25px" height="25px" alt="" class="header__login_icon"></a>-->
+        <a href=""><i class="fa-solid fa-user"></i></a>
+      </div>
+      <nav class="navbar bg-body-tertiary fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="./index.html"><img src="./img/logo.png" alt="" class="header__logo_img"></a>
+  
+          <div class="busca_hamburguer">
+            <input type="search" name="buscar" placeholder="search here" class="header__search">
+            <button type="button" class="btn btn-secondary btn-sm botao_news"><i
+                class="fa-solid fa-magnifying-glass"></i></button>
+            <!--<a href=""><img src="./img/cart_icon.png" width="25px" height="25px" alt="" class="header__cart_icon"></a>-->
+            <a href=""><i class="fa-solid fa-cart-shopping"></i></a>
+            <!--<a href=""><img src="./img/user_icon.png" width="25px" height="25px" alt="" class="header__login_icon"></a>-->
+            <a href=""><i class="fa-solid fa-user"></i></a>
+          </div>
+  
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>          
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Gadu Store</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Men</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./categoria.html" target="iframe_home">Woman</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Kids</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Shoes</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">See All</a>
+                </li>
+                <form class="d-flex mt-3" role="search">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-secondary" type="submit">Search</button>
+                </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+  </div>
+  </header>
+
+    <iframe src="./home.html" frameborder="0" name="iframe_home" class="iframe_home"></iframe>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

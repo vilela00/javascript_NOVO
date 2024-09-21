@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+
+        let modalSaida = prompt('Bem vindo ao cadastrador de produtos. Voce gostaria de cadastrar um produto? Digite "sim" para prosseguir, ou para sair, digite "nao".')
+        if(modalSaida === 'sim') {
+            while (modalSaida !== 'nao') {
+                class Produto {
+                    constructor(tipo, nome, cor, tamanho, preco) {
+                        this.tipo = tipo
+                        this.nome = nome
+                        this.cor = cor
+                        this.tamanho = tamanho
+                        this.preco = preco
+                    }
+
+                    infoProduto () {
+                        alert(`Informacoes do produto cadastrado: Tipo: ${this.tipo}; Nome: ${this.nome}; Cor: ${this.cor}; Tamanho: ${this.tamanho}; Preco: ${this.preco}.`)
+                    }
+                }
+
+                let novoProduto = new Produto(prompt('Tipo:'), prompt('Nome:'), prompt('Cor:'), prompt('Tamanho:'), prompt('Preco:'))
+                novoProduto.infoProduto()
+                console.log(novoProduto)
+
+                modalSaida = prompt('Voce gostaria de cadastrar outro produto?')
+            }
+
+            alert('Produto(s) cadastrado(s) com sucesso. Consulte o console para historico.')
+        } else if (modalSaida === 'nao') {
+            alert('Nenhum produto cadastrado. Atualize a pagina para iniciar o cadastro.')
+        } else {
+            alert('Entrada invalida. Digite sim ou nao. Atualize a pagina para reiniciar o cadastro.')
+        }
+
+    </script>
+
+</body>
+</html>

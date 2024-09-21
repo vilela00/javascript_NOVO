@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet');
+
+@media screen and (max-width: 600px) {
+    .body_index .container_home {
+        margin-top: 20px;
+        padding-bottom: 0;
+        margin-bottom: 20px;
+    }
+}
+
+.body_index {
+    height: calc(100vh - 180px);
+    background: linear-gradient(0deg, #121212, #252525, #2b2b2b, #414141);
+    background-repeat: no-repeat;
+    background-color: #121212;
+}
+
+.container-fluid {
+    display: flex;
+    justify-content: center;
+}
+
+.container_home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: #2bdefd solid 0.1px;
+    border-radius: 15px;
+    margin-top: 80px;
+    padding: 30px;
+    max-width: 400px;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.container_input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: left;
+    font-size: 14px;
+    width: 75%;
+    margin-bottom: 30px;
+}
+
+.btn_calcular, .open {
+    width: 75%;
+    background: linear-gradient(90deg, #227d8d, #0b6879, #0b6879, #259db3);
+}
+
+.open {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(45deg, #83ecff, #028fa8, #5dadbb, #2bdefd);
+    border-radius: 50px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-calculator {
+    font-size: 70px;
+    color: #252525;
+}
+
+.titulo_calculadora {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 36px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.container_dados {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#valor_emprestimo, #taxa_juros, #prazo {
+    border: none;
+    border-bottom: #2bdefd solid 1px;
+    background-color: transparent;
+    margin-bottom: 5px;
+}
+
+#valor_emprestimo:focus, #taxa_juros:focus, #prazo:focus {
+    box-shadow: 0 0 0 0;
+    outline: 0;
+}
+
+#modal, #modal_analise {
+    border: none;
+    background-color: transparent;
+    margin-top: 250px;
+    height: auto;
+}
+
+#modal::backdrop, #modal_analise::backdrop {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.modal1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+    background-color: #3d3d3d;
+    border: #cccccc solid 1px;
+    text-align: center;
+}
+
+.modal_header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: #747474 solid 0.1px;
+}
+
+.titulo_modal {
+    padding: 10px 0 10px 16px;
+}
+
+.botao_x {
+    padding: 3px 5px 0 0;
+}
+
+.modal_body {
+    padding: 15px;
+}
+
+.modal_footer {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    border-top: #747474 solid 0.1px;
+    padding: 8px;
+}
+
+.close_x, .close_x_1 {
+    padding: 0;
+    font-size: 10px;
+    width: 20px;
+    height: 20px;
+    border: 0;
+}
+
+.resultado_calculo {
+    text-align: center;
+    font-weight: bold;
+    width: 100%;
+    line-height: 30px;
+}
+
+.border1 {
+    border: #2bdefd solid 0.1px;
+    border-radius: 5px;
+    padding: 2px 4px 2px 4px;
+}

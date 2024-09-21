@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+
+        const umNumero = Number(prompt('Digite um numero de 1 a 10'))
+
+        if (umNumero >= 1 && umNumero <= 10) {
+
+            for (let count = 1; count <= 10; count++) {
+                if (count === umNumero) {
+                    break
+                }
+            console.log(count)
+            }
+        }
+
+        // Usando function mesmo resultado
+
+        const umNumero1 = Number(prompt('Digite um numero de 1 a 10'))
+
+        function numeroContador (num) {
+            if (umNumero1 >= 1 && umNumero1 <= 10) {
+
+                for (let count = 1; count <= 10; count++) {
+                    if (count === umNumero1) {
+                        break
+                    }
+                console.log(count)
+                }
+            } else {
+                console.log('Numero fora do intervalo')
+            }
+        }
+
+        numeroContador(umNumero1)
+
+    </script>
+
+</body>
+</html>

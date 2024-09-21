@@ -1,0 +1,74 @@
+.body_index {
+    height: calc(100vh - 180px);
+    background: linear-gradient(0deg, #121212, #252525, #2b2b2b, #414141);
+    background-repeat: no-repeat;
+    background-color: #121212;
+}
+
+.container_home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin-top: 50px;
+    gap: 10px;
+    text-align: center;
+}
+
+.container_home h5 {
+    margin-top: 80px;
+}
+
+.container_cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.card_projeto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 160px;
+    height: 180px;
+    background: linear-gradient(0deg, #121212, #252525, #2b2b2b, #414141);
+    border: #2bdefd solid 1px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    -webkit-transition-duration: 0.3s;
+    text-align: center;
+    padding: 20px;
+}
+
+.container_cards a {
+    text-decoration: none;
+    color: #dee2e6;
+}
+
+.card_projeto h6 {
+    font-size: 14px;
+}
+
+.card_projeto:hover {
+    -webkit-transform: translateY(10px);
+    transform: translateY(-10px);
+    box-shadow: rgba(2, 247, 255, 0.7) 0 4px 10px;
+}
+
+.img_card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    bottom:-20px;
+}
+
+.info_contato {
+    text-align: center;
+    margin: 100px 0 30px 0;
+    font-size: 12px
+}

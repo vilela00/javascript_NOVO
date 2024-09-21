@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+
+<script>
+
+    // Exemplo com operadores E
+    const nome = prompt('Digite seu primeiro nome:')
+    const sobreNome = prompt('Agora digite seu sobrenome:')
+
+    if ((nome != "") && (sobreNome != "")) {
+        alert ('Seu nome e: ' + nome + '.' + ' E seu sobrenome e: ' + sobreNome + '.' + ' Seu nome completo e ' + nome + ' ' + sobreNome)
+    }   else {
+        alert ('Voce nao digitou o seu nome ou sobrenome. Por favor digite os dados solicitados.')
+    }
+    
+    // Exemplo com operadores OU
+    const nome1 = prompt('Insira o nome do gestor:')
+
+    if ((nome1 === 'marcos') || (nome1 === 'Marcos') || (nome1 === 'MARCOS') || (nome1 === 'gabriel') || (nome1 === 'Gabriel') || (nome1 === 'GABRIEL')) {
+        alert ('Seu gestor foi identificado')
+    } else {
+        alert ('Nao encontramos o gestor informado')
+    }
+
+    // Exemplo com NOT ! - invertendo o false em true
+    const nome2 = prompt ('Insira seu nome')
+    const eVazio = nome2 == ""
+
+    if (!eVazio) {
+        alert ('Nome: ' + nome2)
+    }   else {
+        alert ('Sem nome')
+    }
+    
+    // Exemplo com AND e OR
+    const nome3 = prompt ('Dgite seu nome')
+
+    if ((nome3 !== "") && ((nome3 === 'Marcos') || (nome3 === 'marcos') || (nome3 === 'MARCOS'))) {
+        alert ('Ola Marcos!')
+    } else {
+        alert ('Insira um nome valido.')
+    }
+
+
+
+</script>
+
+
+
+</body>
+</html>

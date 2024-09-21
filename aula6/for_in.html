@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+
+        const fruta = {
+            nome: 'morango',
+            peso: '8',
+            cor: 'vermelho'
+        }
+
+        // Listando as propriedades
+        for(const item in fruta) {
+            console.log(fruta[item])
+        }
+
+        // Trazendo a propriedade junto com o valor
+        for(const item in fruta) {
+            console.log(`${item} = ${fruta[item]}`)
+        }
+
+    </script>
+    
+</body>
+</html>

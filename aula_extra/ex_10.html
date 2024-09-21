@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+
+        // Calcular idade
+        const ano = Number(prompt('Digite o ano de nascimento'))
+        const mes = Number(prompt('Digite o mes de nascimento'))
+        const dia = Number(prompt('Digite o dia de nascimento'))
+
+        function calcularIdade(anoNascimento, mesNascimento, diaNascimento) {
+            const dataAtual = new Date()
+            const anoAtual = dataAtual.getFullYear()
+            const diaAtual = dataAtual.getDate()
+            const mesAtual = dataAtual.getMonth() + 1
+            const idadeAnos = anoAtual - anoNascimento
+            const idadeDia = diaAtual - diaNascimento
+            const idadeMes = mesAtual - mesNascimento
+
+            console.log(`Voce tem ${idadeAnos}, ${idadeMes} meses e ${idadeDia}`)
+        }
+        
+        calcularIdade(ano, mes, dia)
+
+    </script>
+
+</body>
+</html>

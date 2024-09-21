@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        function maiorQue(n) {
+            console.log('n', n)
+            return (m) => m > n
+        }
+
+        // Retorna a funcao, e aqui substitui o n por 10
+        const nome = maiorQue(10)
+
+        // Mostra que 20 e maior que 10 'true'
+        console.log(nome(20))
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        // Calcular a potencia - com Math
+        const calcularPotencia = (base, expoente) => {
+            return Math.pow(base, expoente)
+        }
+        
+        console.log(calcularPotencia(3,3))
+
+        // Sem Math
+        const calcularPotencia1 = (base1, expoente1) => {
+            let resultado = 1
+            for(let i = 0; i < expoente1; i++) {
+                resultado *= base1
+            }
+            return resultado
+        }
+
+        const baseNumero = Number(prompt('Digite a base'))
+        const expoenteNumero = Number(prompt('Digite o expoente'))
+        
+        console.log(calcularPotencia1(baseNumero, expoenteNumero))
+
+    </script>
+
+</body>
+</html>

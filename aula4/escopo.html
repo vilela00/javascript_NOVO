@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <p>Escopo Global, de Função e de Bloco. Os escopos de função e de bloco, conseguem acessar as variáveis declaradas no escopo global (como se fosse o pai). O global não acessa as variáveis declaradas dos blocos ou das funções.</p>
+    <p>Um alert ou console log global não consegue buscar um resultado de uma variável dentro de uma function. Somente utilizando return.</p>
+
+
+
+    <script>
+
+        // Exemplo de escopos
+
+        const umNumero = 2
+
+        function somar (a,b) {
+            return a + b
+        }
+
+        function multiplicar (a,b) {            
+            if ((a * b) % umNumero === 0) {
+                alert('O resultado da multiplicacao e par')
+                return a * b
+            }   else {
+                alert('O resultado da multiplicacao e impar')
+                return a * b
+            }
+        }        
+
+        const resultadoSoma = somar()
+
+        const resultadoMultiplicacao = multiplicar(10,10)
+        
+
+    </script>
+
+</body>
+</html>

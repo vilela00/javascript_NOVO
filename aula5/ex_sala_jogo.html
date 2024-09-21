@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+
+        // Exemplo de acerto de um  numero de 1 a 10
+        let numero = Number(prompt('Digite um numero de 1 a 10'))
+        const numeroAleatorio = Math.floor(Math.random() * 10)
+
+        while (numero !== numeroAleatorio) {
+            alert('Voce errou!')
+            numero = Number(prompt('Tente novamente'))
+        }
+
+        alert('Parabens, voce acertou', numeroAleatorio)
+
+    </script>
+
+</body>
+</html>

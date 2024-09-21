@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        // Receber numero e mostrar mes correspondente
+        function obterNumeroMes(numero) {
+            switch(numero) {
+                case 1:
+                    return 'Janeiro'
+                case 2:
+                    return 'Fevereiro'
+                case 3:
+                    return 'Marco'
+                case 4:
+                    return 'Abril'
+                case 5:
+                    return 'Maio'
+                case 6:
+                    return 'Junho'
+                case 7:
+                    return 'Julho'
+                case 8:
+                    return 'Agosto'
+                case 9:
+                    return 'Setembro'
+                case 10:
+                    return 'Outubro'
+                case 11:
+                    return 'Novembro'
+                case 12:
+                    return 'Dezembro'
+                default:
+                    return 'Vamor do mes incorreto'
+            }
+        }
+
+        function solicitarMes() {
+            let numero 
+            do {
+                numero = Number(prompt('Informe um numero de 1 a 12 ou 0 para sair'))
+                if(numero !== 0) {
+                    alert(obterNumeroMes(numero))
+                }
+            } while(numero !== 0)
+        }
+        solicitarMes()
+
+    </script>
+
+</body>
+</html>

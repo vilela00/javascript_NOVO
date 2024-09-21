@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        // Apresentar os numeros de um array no console
+        const numeros = [1, 2, 3, 4, 5, 6, 7]
+
+        // Inserir valor no final da array
+        numeros.push(8,9)
+
+        // Colocar no inicio da lista
+        numeros.unshift(10,11)
+
+        // Remover o ultimo da lista (tirou o 9)
+        numeros.pop()
+
+        // Remover do inicio da lista (tirou o 10)
+        numeros.shift()
+
+        // Remover um indice especifico (tirou o 3 que esta na quarta posicao) - primeiro parametro e o indice, segundo e quantos elementos a partir dali serao removidos, e se utilizar o terceiro parametro, ele substitui os valores que foram removidos
+        // O numero 88 foi inserido no local do 
+        numeros.splice(3, 1, 88)
+
+        // Primeiro parametro e o indice, segundo parametro e o intervalo que vai pegar (pegou 2 e 88) - o slice nao remove da array, apenas pega e usa em outra variavel
+        const slice = numeros.slice(2,4)
+        console.log(slice)
+
+        // Inserir entre a lista
+        const join = numeros.join(' e ')
+        console.log(join)
+
+        // Juntas duas arrays
+        const numeros2 = [9, 23, 7, 45, 3]
+        const concatenar = numeros.concat(numeros2)
+        console.log(concatenar)
+
+        // Includes verifica se tem o valor dentro da array
+        if(numeros.includes(5)) {
+            console.log('numero 5 ok')
+        }
+
+        // Retorna o index de algum valor que existe no array
+        const index2 = numeros.indexOf(88)
+        console.log(`O index do numero 88 e ${index2}`)
+
+        // Inverte a array
+        numeros.reverse()
+
+        for (let index = 0; index < numeros.length; index++) {
+            console.log(numeros[index])
+        }
+
+    </script>
+
+</body>
+</html>

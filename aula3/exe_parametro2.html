@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+
+        function nomeCompleto (nome, sobrenome) {
+            return nome + ' ' +  sobrenome
+        }
+
+        function idade (ano) {
+            return 2024 - ano
+        }
+
+        function podeBeber (valor) {
+            if (valor > 18) {
+                console.log ('Pode beber')
+            }   else {
+                console.log ('Nao pode beber')
+            }
+        }
+
+        const resultNomeCompleto = nomeCompleto ('Marcos', 'Vilela')
+        const resultIdade = idade (1986)
+
+        console.log ('Seu nome e ' + resultNomeCompleto + ' e vc tem ' + resultIdade + ' anos.')
+
+        podeBeber(resultIdade)
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+
+        // Entrega 3 - criar um ciclo - Marcos Vilela 29/08/2024
+
+        alert('Seja bem vindo ao nosso Quizz. A qualquer momento, digite "sair" para terminar o jogo. Voce também pode digitar "dica" pra ter uma ajudinha, ou "desisto" para desistir e saber a resposta correta.')
+
+        alert('Bora pra nossa primeira pergunta.')
+        let primeiraPergunta = prompt('Quem é o maior ladrão da história do Brasil?')
+        const respostaUm = 'lula'
+
+        while (primeiraPergunta !== 'sair') {
+            if (primeiraPergunta === 'dica') {
+                alert('Ele é o atual presidente do Brasil!')
+                primeiraPergunta = prompt('Quem é o maior ladrão da história do Brasil?')
+            } else if (primeiraPergunta === respostaUm) {
+                alert('Acertou miseraaavi!!!')
+                break
+            } else if (primeiraPergunta === 'desisto') {
+                alert('Nao é tão difícil assim né? A resposta certa é: ' + respostaUm)
+                break
+            } else {
+                alert('Voce errou. Tente novamente.')
+                primeiraPergunta = prompt('Quem é o maior ladrão da história do Brasil?')
+            }
+        }         
+
+        if (primeiraPergunta !== 'sair') {
+            alert("Bora pra pergunta número 2.")
+
+            let segundaPergunta = prompt('Qual é o déficit nominal no acumulado de 12 meses até maio de 2024? Atenção, escreva sua resposta por extenso com a frase "de reais" no final.')
+            const respostaDois = 'hum mil cento e oito bilhões de reais'
+
+            while (segundaPergunta !== 'sair') {
+                if (segundaPergunta === 'dica') {
+                    alert('É o maior valor já visto na história do Brasil - sim, é um RECORD! Chama o Guinness =O')
+                    segundaPergunta = prompt('Qual é o déficit nominal no acumulado de 12 meses até maio de 2024? Atenção, escreva sua resposta por extenso com a frase "de reais" no final.')
+                } else if (segundaPergunta === respostaDois) {
+                    alert('Acertou miseraaavi!!!')
+                    break
+                } else if (segundaPergunta === 'desisto') {
+                    alert('Essa tava fácil... era só pesquisar no Google, no site do Banco Central do Brasil: ' + respostaDois)
+                    break
+                } else {
+                    alert('Voce errou. Tente novamente.')
+                    segundaPergunta = prompt('Qual é o déficit nominal no acumulado de 12 meses até maio de 2024? Atenção, escreva sua resposta por extenso com a frase "de reais" no final.')
+                }
+            }
+
+            if (segundaPergunta !== 'sair') {
+                alert("Bora pra pergunta número 3.")
+
+                let terceiraPergunta = prompt('Quanto o atual governo gastou com viagens somente no primeiro trimestre de 2024? Escreva sua resposta com números, sem vírgula ou ponto.')
+                const respostaTres = '277400000'
+
+                while (terceiraPergunta !== 'sair') {
+                    if (terceiraPergunta === 'dica') {
+                        alert('As companhias aéreas estão em festa! o valor gasto com passagens neste período ultrapassou R$ 108800000 - isso mesmo, cento e oito MILHÕES de reais só em passagens ;D')
+                        terceiraPergunta = prompt('Quanto o atual governo gastou com viagens somente no primeiro trimestre de 2024? Escreva sua resposta com números, sem vírgula ou ponto.')
+                    } else if (terceiraPergunta === respostaTres) {
+                        alert('Acertou miseraaavi!!!')
+                        break
+                    } else if (terceiraPergunta === 'desisto') {
+                        alert('Essa demanda um pouco mais de pesquisa né, já que tem gente que diz que ele nem gasta tanto assim... R$ ' + respostaTres)
+                        break
+                    } else {
+                        alert('Voce errou. Tente novamente.')
+                        terceiraPergunta = prompt('Quanto o atual governo gastou com viagens somente no primeiro trimestre de 2024? Escreva sua resposta com números, sem vírgula ou ponto.')
+                    }
+                }    
+
+                if (terceiraPergunta !== 'sair') {
+                    alert('Muito bom! Chegamos ao fim do nosso Quizz. Agora você já sabe: o maior ladrão da história do Brasil é o ' + respostaUm + ' e ele já conseguiu acumular um déficit nominal de ' + respostaDois + ', e já gastou, somente no primeiro tri de 2024, R$ ' + respostaTres + ' (duzentos e setenta e sete milhões e quatrocentos mil reais)' + '. Faz u L.' )
+                    } else {
+                        alert('Você saiu. Reinicie seu navegador para iniciar novamente.')
+                    }
+            } else if (segundaPergunta === 'sair') {
+                            alert('Você saiu. Reinicie seu navegador para iniciar novamente.')            
+            }
+        } else if (primeiraPergunta === 'sair') {
+            alert('Você saiu. Reinicie seu navegador para iniciar novamente.')
+        }
+    </script>
+    
+</body>
+</html>

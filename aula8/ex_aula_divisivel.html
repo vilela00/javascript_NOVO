@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+
+        function numeroDivisivel(n) {
+            return (numero) => {
+                return numero % n === 0
+            }
+        }
+
+        // Aqui esta sendo verificado se um numero e divisivel por outro, via return de funcoes
+        const funcao = numeroDivisivel(2)
+        console.log(funcao(200))
+
+    </script>
+
+</body>
+</html>

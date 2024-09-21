@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        function usuario(nome, email, telefone) {
+            this.nome = nome
+            this.email = email
+            this.telefone = telefone
+        }
+
+        const user = new usuario(prompt('Digite seu nome'), prompt('Digite seu email'), prompt('Digite seu telefone'))
+        console.log(user)
+
+        const userDois = new usuario(prompt('Digite seu nome'), prompt('Digite seu email'), prompt('Digite seu telefone'))
+        console.log(userDois)
+
+        const userTres = new usuario(prompt('Digite seu nome'), prompt('Digite seu email'), prompt('Digite seu telefone'))
+        console.log(userTres)
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        const usuarios = [
+            {nome: 'Marcos', idade: 38, estado: 'MG'},
+            {nome:'Andre', idade: 29, estado: 'SP'},
+            {nome: 'Joao', idade: 32, estado: 'RJ'},
+            {nome: 'Maria', idade: 28, estado: 'MG'}
+        ]
+
+        // Criamos uma variavel para receber o valor do usuario e comparar com os dados da array
+        let buscaNome = prompt('Busque pelo nome:')
+
+        // Criamos um parametro para trazer o valor do filter
+        const resultadoNome = usuarios.filter((dado) => dado.nome.toLowerCase() === buscaNome.toLocaleLowerCase())
+        
+        // Criei uma condicao para quando o resultado for uma array vazia - Perceba que o filter retorna uma array completa {} - tudo que esta entre as chaves
+        if(resultadoNome.length === 0) {
+            console.log('Nenhum nome foi encontrado')
+        } else {
+            console.log(resultadoNome)
+        }
+
+        let buscaIdade = Number(prompt('Digite a idade:'))
+
+        const resultadoIdade = usuarios.filter((dado) => dado.idade === buscaIdade)
+
+        if(resultadoIdade.length === 0) {
+            console.log('Essa idade nao foi encontrada')
+        } else {
+            console.log(resultadoIdade)
+        }
+
+        let buscaEstado = prompt('Digite o estado:')
+
+        const resultadoEstado = usuarios.filter((dado) => dado.estado.toLocaleLowerCase() === buscaEstado.toLocaleLowerCase())
+
+        // Perceba que o filter retorna todos os resultados que atendam ao parametro estabelecido
+        if(resultadoEstado.length === 0) {
+            console.log('Esse estado nao foi encontrado')
+        } else {
+            console.log(resultadoEstado)
+        }
+
+    </script>
+
+</body>
+</html>

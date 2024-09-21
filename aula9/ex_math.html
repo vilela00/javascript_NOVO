@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        // Funcao para gerar numero aleatorio de 30 a 60 - perceba que primeiro definimos a partir de qual numero vamos iniciar, e depois somamos um valor para chegar no numero que queremos que seja o fim do intervalo
+        function numeroAleatorio () {
+            return Math.round(Math.random() * 30 + 30)
+        }
+        let numero = numeroAleatorio()
+        console.log(`O numero aleatorio gerado e ${numero}`)
+
+        // Solicitar a quantidade de numeros aleatorios a serem gerados
+        let digitarNumero = Number(prompt('Digite quantos numeros aleatorios voce quer gerar: '))
+        // Criar uma array
+        function criarArray () {
+            let array = []
+            // rodar o for quantas vezes for definido pelo usuario
+            for (let i = 0; i <+ digitarNumero; i++) {
+                array.push(Math.round(Math.random() * 30 + 30))
+            }
+            return array
+        }
+
+        // chamar a funcao com a quantidade de numeros gerados pro array, ordenar de maneira crescente
+        let resultado = criarArray(digitarNumero)
+        console.log(resultado.sort((a, b) => a - b))
+
+        // Criar uma funcao que retorna a raiz quadrada do array que foi criado com os numeros aleatorios
+        function arrayRaiz (resultado) {
+            let array = resultado.map((n) => Math.sqrt(n).toFixed(2))
+            return array
+        }
+
+        let novoArray = arrayRaiz(resultado)
+        console.log(novoArray)
+
+    </script>
+
+</body>
+</html>

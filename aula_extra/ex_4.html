@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        // Numero primo
+        
+        /* exemplo enviado por outro aluno
+        function isPrime(num) {
+        if (num < 2) return false;
+        for (let i = 2; i < num; i++) {
+            console.log(num)
+            console.log(i)
+            console.log(num%i)
+        if (num % i === 0) {
+            return false;
+        }
+        }
+        return true;
+        }
+        function askForPrimeNumber() {
+        let num;
+        do {
+            num = parseInt(prompt("Digite um número:"));
+            if (isNaN(num)) {
+                alert("Por favor, digite um número válido.");
+                continue;
+            } if (!isPrime(num)) {
+                alert("Esse número não é primo. Tente novamente.");
+            }
+        } while (!isPrime(num));
+        alert(`Parabéns! ${num} é um número primo.`);
+        }
+        askForPrimeNumber();
+        */
+
+
+        function ePrimo(num) {
+            if(num < 2) return false
+
+            for(let i = 2; i < num; i++) {
+                if(num % i === 0) {
+                    return false
+                }
+            }
+            return true
+        }
+
+        function solicitarNumeroPrimo() {
+            let numero
+            do {
+                numero = prompt('Digite um numero')
+            } while(!ePrimo(numero))
+            alert(`O numero ${numero} e primo`)
+        }
+
+        solicitarNumeroPrimo()
+
+    </script>
+    
+</body>
+</html>

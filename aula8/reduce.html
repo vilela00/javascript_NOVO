@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        const produtos = [
+            {nome:'Camisa Amarela', preco: 199.90, tamanho: 'G'},
+            {nome:'Camisa Azul', preco: 129.90, tamanho: 'G'},
+            {nome:'Bermuda Cinza', preco: 219.90, tamanho: 'G'},
+            {nome:'Casaco Preto', preco: 319.90, tamanho: 'G'},
+            {nome:'Calca Branca', preco: 109.90, tamanho: 'G'}
+        ]
+
+        // Utilizamos o reduce para extrair os precos da array e depois somar
+        const valorTotal = produtos.reduce((soma, dados) => soma + dados.preco, 0)
+        console.log(`O valor total dos itens e ${valorTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}`)
+
+        const ticketMedio = valorTotal / produtos.length
+        console.log(`O ticket medio e ${ticketMedio.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}`)
+
+    </script>
+
+</body>
+</html>
