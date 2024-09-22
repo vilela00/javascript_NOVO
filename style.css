@@ -1,3 +1,15 @@
+@media screen and (max-width: 600px) {
+    .body_index .container_home h5 {
+        margin-top: 30px;
+    }
+    .container_cards {
+        flex-direction: column;
+    }
+    .body_index .info_contato {
+        margin-top: 20px;
+    }
+}
+
 .body_index {
     height: calc(100vh - 180px);
     background: linear-gradient(0deg, #121212, #252525, #2b2b2b, #414141);

@@ -42,8 +42,8 @@ for (let vitrineComplementar of produtosComplementares) {
           <p class="titulo_box_produto">${vitrineComplementar.nome}</p>
           <p class="preco_box_produto">${vitrineComplementar.preco.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</p>
           <p class="detalhe_pagamento">${precoComDesconto.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})} com 10% de Desconto à Vista ou 3x de ${precoDividido.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})} sem juros no cartão</p>
-          <button class="bt_add_cart_home">ADD CARRINHO</button>
-          <button class="bt_buy_home">VER PRODUTO</button>
+          <button class="bt_add_cart_home open" onclick="addCart()">ADD CARRINHO</button>
+          <a href="./produto.html"><button class="bt_buy_home bt1">VER PRODUTO</button></a>
         </div>
     `
     produtoInnerComplementar.innerHTML = produtoVitrineComplementar
@@ -70,6 +70,7 @@ function addCart () {
           imagem: dados.imagem
         }
     })
+
       let produtoCarrinhoTeste = `
       <div class="container_produto_modal">
           <div class="imagem_produto_modal"><img src="${produtoCarrinho.imagem}" alt=""></div>
@@ -79,15 +80,18 @@ function addCart () {
           </div>
           <div class="quantidade_produto_modal">
               <h6>Quantidade</h6>
-              <input class="quantidade" type="text" name="quantidade" value="1">
+              <input class="quantidade" id="quantidadeCart" type="text" name="quantidadeCart" value="1">
           </div>
           <div class="preco_modal">
               <h6>Valor</h6>
               <p>${produtoCarrinho.preco.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</p>
           </div>
+          <div class="container_remove">
+              <button class="remove_cart" onclick="removeCart()"><i class="fa-solid fa-trash-can"></i></button>
+          </div>
       </div>
       `
-
+      
     arrayCarrinho.push(produtoCarrinhoTeste)
     arrayPreco.push(produtoCarrinho.preco)
     produtoModal.innerHTML = arrayCarrinho
@@ -96,9 +100,43 @@ function addCart () {
 
     let valorCarrinho = document.getElementById('valorTotal')
 
+    let valorAVista = totalCarrinho * 0.9
+    let valorAPrazo = totalCarrinho / 3
+
     let valorTotal = ''
       valorTotal = `
-      <h4>${totalCarrinho.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h4>
+      <div  class="valor_total">
+        <div>
+          <h5>Valor total:</h5>
+        </div>
+        <div>
+          <h4>${totalCarrinho.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h4>
+        </div>
+      </div>
+      <div class="valor_total1">
+        <div>
+          <h6><i class="fa-solid fa-hand-holding-dollar"></i> Pague à vista:</h6>
+        </div>
+        <div>
+          <h6>${valorAVista.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
+        </div>
+      </div>
+      <div class="valor_total1">
+        <div>
+          <h6><i class="fa-solid fa-credit-card"></i> Divida em até 3x de:</h6>
+        </div>
+        <div>
+          <h6>${valorAPrazo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
+        </div>
+      </div>  
       `
     valorCarrinho.innerHTML = valorTotal
+    console.log(arrayCarrinho)
+    console.log(arrayPreco)
 }
+
+function removeCart () {
+  arrayCarrinho.splice(0,1)
+  arrayPreco.splice(0,1)
+}
+

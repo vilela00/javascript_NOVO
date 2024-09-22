@@ -722,7 +722,7 @@ i.fa-solid.fa-user {
    margin-bottom: 20px;
 }
 
-.box_vitrine a {
+.box_vitrine a, .box_vitrine1 a {
     width: 75%;
     display: flex;
     justify-content: center;
@@ -1522,9 +1522,26 @@ div.texto_sobre_nos2 {
     margin-top: 30px;
 }
 
-.total_carrinho {
+.valor_total {
     display: flex;
     justify-content: end;
     gap: 40px;
     margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+.valor_total1 {
+    display: flex;
+    justify-content: end;
+    gap: 80px;
+    margin-right: 20px;
+}
+
+.container_remove {
+    margin: 65px 10px 0 30px;
+}
+
+.remove_cart {
+    border: none;
+    background-color: transparent;
 }
