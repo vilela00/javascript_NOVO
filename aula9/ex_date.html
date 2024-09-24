@@ -20,7 +20,7 @@
             // Criamos uma condicao para que o codigo identifique se estamos antes ou depois da data de aniversario de entrada
             let proximoAniversario
             if (hoje > aniversarioDesteAno) {
-                proximoAniversario = new Date(anoAtual +1, dataAniversario.getMonth(), dataAniversario.getDate())
+                proximoAniversario = new Date(anoAtual +1, dataAniversario.getMonth() - 1, dataAniversario.getDate())
             } else {
                 proxAniversario = aniversarioDesteAno
             }
@@ -35,7 +35,12 @@
         }
 
         // Nao consegui descobrir como aceitar uma entrada escrita no formato DD/MM/AAAA
-        let dataAniversario = new Date(prompt('Digite a sua data de nascimento no formato AAAA/MM/DD').replace('/' , ','))
+        //let dataAniversario = new Date(prompt('Digite a sua data de nascimento no formato AAAA/MM/DD').replace('/' , ','))
+        let data =  prompt('Digite a data de nascimento:')
+
+        let dataArray = data.split('/')
+        let dataAniversario = new Date(dataArray[2], dataArray[1], dataArray[0])
+
         console.log (`Ainda faltam ${diasProAniversario(dataAniversario)} dias para o proximo aniversario`)
 
     </script>
