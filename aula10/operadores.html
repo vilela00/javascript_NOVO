@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        // ++ e += aumenta o valor da variavel em 1
+        let num = 10
+
+        num += 1
+        console.log(num)
+        
+        num ++
+        console.log(num)
+
+        // ternario substitui o if else - condicao ? caso1 (true) : caso2 (false)
+        let numDois = 20
+
+        numDois > 25 ? console.log('Dia quente') : console.log('Dia frio')
+
+        const usuario = {
+            nome: 'Maria',
+            idade: 18
+        }
+        usuario.idade >= 18 ? console.log('Pode beber') : console.log('Nao pode beber')
+
+        // operador logico AND && - retorna algo se a condicao for verdadeira
+        const pessoaUm = []
+        pessoaUm.length === 0 && console.log('Objeto vazio')
+
+        // operador logico or || - usado para retornar algo quando o resultado for 0, null, undefined, "", NaN e false
+        const pessoa = ['Joao']
+        pessoa.length === 0 || console.log(pessoa)
+
+        // operador nullish ?? - usado para retonar algo quando o resultado for null ou undefined
+
+        // acesso condicional ? - usado para solicitar o dado apenas se ele for encontrado, para evitar erro do codigo caso nao exista na fonte
+        const usuarioDois = null
+        console.log(usuarioDois?.nome || 'Propriedade nao econtrada')
+
+    </script>
+
+</body>
+</html>

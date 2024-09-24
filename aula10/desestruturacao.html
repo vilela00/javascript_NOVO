@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        // desestruturar objetos
+        const usuario = {
+            nome: 'Marcos',
+            idade: 38,
+            cidade: 'Belo Horizonte',
+            telefone: {
+                celular: 21312312312,
+                fixo: 1321312312
+            },
+            email: 'sadasdasd'
+        }
+
+        const {nome, idade, cidade, telefone, email} = usuario
+        console.log(nome, idade, cidade, telefone, email)
+
+        // para desestruturar objetos dentro de objetos
+        const {telefone: {celular}, telefone: {fixo}} = usuario
+        console.log(celular, fixo)
+
+        // desestruturar arrays
+        const usuarios = ['Marcos', 'Joao', 'Maria', 'Jose']
+        const [usuario1, usuario2, usuario3, usuario4] = usuarios
+        console.log(usuario1, usuario2, usuario3, usuario4)
+
+        // caso seja necessario pode-se pular o indice do array
+        const [index0, , index2,] = usuarios
+        console.log(index0, index2)
+
+    </script>
+
+</body>
+</html>

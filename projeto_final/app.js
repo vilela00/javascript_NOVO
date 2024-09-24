@@ -2,12 +2,13 @@ const nomeUsuario = prompt('Seja bem vindo ao buscador de filmes e séries Moovi
 
 const user = document.getElementById('user')
 
-if(nomeUsuario ==='') {
+nomeUsuario === '' ?  user.innerHTML = `<h2>Olá visitante!</h2>` : user.innerHTML = `<h2>Olá ${nomeUsuario}!</h2>`
+/*if(nomeUsuario === '') {
     user.innerHTML = `<h2>Olá visitante!</h2>`
 } else {
     user.innerHTML = `<h2>Olá ${nomeUsuario}!</h2>`
-}
-console.log(`Olá ${nomeUsuario}!`)
+}*/
+console.log(`Olá ${nomeUsuario}`) || console.log('Ola visitante')
 
 let enter = document.getElementById('campo_pesquisa')
 
@@ -70,3 +71,31 @@ function pesquisar() {
         console.log(`Você pesquisou pelo seguinte termo: ${campoPesquisa}. O resultado pode ser visualizado no navegador.`)
     }
 }
+
+const [filme1, filme2, filme3, filme4, filme5] = obras
+console.log(filme1, filme2, filme3, filme4, filme5)
+
+const {titulo, descricao, genero} = filme4
+console.log(titulo, descricao, genero)
+
+const spreadFilme = {
+    ...filme1
+}
+console.log(spreadFilme)
+
+const novosFilmes = [
+    ...obras,
+    {
+        titulo: "Filme de Teste",
+        descricao: "Inclusao via spread",
+        genero: "Teste",
+        anoLancamento: 2023,
+        principaisAtores: ["Cillian Murphy", "Emily Blunt", "Matt Damon"],
+        avaliacoes: {
+          publico: 8.5,
+          criticos: 8.7
+        },
+        plataforma: "Teste"
+      }
+]
+console.log(novosFilmes)

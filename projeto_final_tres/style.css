@@ -1545,3 +1545,7 @@ div.texto_sobre_nos2 {
     border: none;
     background-color: transparent;
 }
+
+.carrinho_vazio {
+    margin-bottom: 30px;
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        const produto = {
+            nome: 'Vestido Longo',
+            preco: 399.9,
+            tamanho: 'GG'
+        }
+
+        function descontruir ({nome, preco, tamanho}) {
+            console.log(nome, preco, tamanho)
+        }
+
+        descontruir(produto)
+
+    </script>
+
+</body>
+</html>

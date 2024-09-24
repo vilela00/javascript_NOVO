@@ -1,6 +1,6 @@
 let produtoInner = document.getElementById('produto_vitrine')
 
-arrayNomeProduto = []
+let arrayListaProduto = []
 
 let produtoVitrine = ''
 for (let vitrine of produtos) {
@@ -24,8 +24,11 @@ for (let vitrine of produtos) {
         </div>
         `
         produtoInner.innerHTML = produtoVitrine
-        arrayNomeProduto.push(vitrine.nome)
+        let listaProdutos = {nome: vitrine.nome, imagem: vitrine.imagem, preco: vitrine.preco}
+        arrayListaProduto.push(listaProdutos)
 }
+
+//console.log(arrayListaProduto)
 
 let produtoInnerComplementar = document.getElementById('produto_vitrine_complementar')
 
@@ -51,6 +54,8 @@ for (let vitrineComplementar of produtosComplementares) {
 
 let arrayCarrinho = []
 let arrayPreco = []
+//let arrayPrecoRemove = []
+//let arrayPrecoRemoveTeste = []
 
 function addCart () {
     const modal = document.getElementById('modal')
@@ -63,15 +68,18 @@ function addCart () {
     let produtoModal = document.getElementById('produto_modal')
 
     let produtoCarrinho = ''
-      produtoCarrinho = produtos.find((dados) => {
+      //produtoCarrinho = arrayListaProduto[0, 1, 2]
+      produtoCarrinho = arrayListaProduto.find ((dados) => dados.nome === 'Vestido Longo de Malha')
+     /*produtoCarrinho = arrayListaProduto.find((dados) => {
         return {
           nome: dados.nome,
-          preco: dados.preco,
-          imagem: dados.imagem
+          imagem: dados.imagem,
+          preco: dados.preco
         }
-    })
+    })*/
+    console.log(produtoCarrinho)
 
-      let produtoCarrinhoTeste = `
+    let produtoCarrinhoShow = `
       <div class="container_produto_modal">
           <div class="imagem_produto_modal"><img src="${produtoCarrinho.imagem}" alt=""></div>
           <div class="info_produto_modal">
@@ -92,7 +100,7 @@ function addCart () {
       </div>
       `
       
-    arrayCarrinho.push(produtoCarrinhoTeste)
+    arrayCarrinho.push(produtoCarrinhoShow)
     arrayPreco.push(produtoCarrinho.preco)
     produtoModal.innerHTML = arrayCarrinho
 
@@ -131,12 +139,62 @@ function addCart () {
       </div>  
       `
     valorCarrinho.innerHTML = valorTotal
-    console.log(arrayCarrinho)
-    console.log(arrayPreco)
+    //arrayPrecoRemove.push(valorTotal)
+    //arrayPrecoRemoveTeste.push(totalCarrinho)
+    //console.log(arrayCarrinho)
+    //console.log(arrayPreco)
 }
 
 function removeCart () {
   arrayCarrinho.splice(0,1)
   arrayPreco.splice(0,1)
+
+  let produtoModalRemove = document.getElementById('produto_modal')
+  produtoModalRemove.innerHTML = arrayCarrinho
+
+  let valorCarrinhoRemove = document.getElementById('valorTotal')
+
+  let totalCarrinhoRemove = ''
+  if (arrayPreco.length >= 1) {
+    totalCarrinhoRemove = arrayPreco.reduce((soma, preco) => soma + preco, 0)
+
+  let valorAVistaRemove = totalCarrinhoRemove * 0.9
+  let valorAPrazoRemove = totalCarrinhoRemove / 3
+
+  let valorTotalRemove = ''
+    valorTotalRemove = `
+    <div  class="valor_total">
+      <div>
+        <h5>Valor total:</h5>
+      </div>
+      <div>
+        <h4>${totalCarrinhoRemove.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h4>
+      </div>
+    </div>
+    <div class="valor_total1">
+      <div>
+        <h6><i class="fa-solid fa-hand-holding-dollar"></i> Pague à vista:</h6>
+      </div>
+      <div>
+        <h6>${valorAVistaRemove.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
+      </div>
+    </div>
+    <div class="valor_total1">
+      <div>
+        <h6><i class="fa-solid fa-credit-card"></i> Divida em até 3x de:</h6>
+      </div>
+      <div>
+        <h6>${valorAPrazoRemove.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
+      </div>
+    </div>  
+    `
+  valorCarrinhoRemove.innerHTML = valorTotalRemove
+
+} else {
+  valorCarrinhoRemove.innerHTML = `<h5 class="carrinho_vazio">Seu carrinho está vazio!</h5>`
+} 
 }
 
+// Duvidas: como trazer o produto certo pro carrinho ao clicar nele
+// Referenciar corretamente o indice da exclusao no remove cart com o split
+// Clicar no carrinho na pagina index e abrir o modal na pagina home (iframe)

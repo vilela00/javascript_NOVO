@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        // o spread e muito utilizado para concatenar duas arrays
+        const usuarios = ['Joao', 'Maria', 'Jose']
+        const cidades = ['BH', 'SP', 'RJ']
+
+        const usuariosCidades = [...usuarios, ...cidades]
+
+        console.log(usuariosCidades)
+
+        // spread de um array em um objeto
+        const nomesObjetos = {
+            ...usuariosCidades
+        }
+
+        console.log(nomesObjetos)
+
+        // usado diretamente no console.log pra trazer o resultado
+        console.log(...usuarios, ...cidades)
+
+    </script>
+
+</body>
+</html>
