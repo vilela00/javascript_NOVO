@@ -19,7 +19,7 @@ for (let vitrine of produtos) {
           <p class="titulo_box_produto">${vitrine.nome}</p>
           <p class="preco_box_produto">${vitrine.preco.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</p>
           <p class="detalhe_pagamento">${precoComDesconto.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})} com 10% de Desconto à Vista ou 3x de ${precoDividido.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})} sem juros no cartão</p>
-          <button class="bt_add_cart_home open" onclick="addCart()">ADD CARRINHO</button>
+          <button class="bt_add_cart_home open" onclick="addCart(this)">ADD CARRINHO</button>
           <a href="./produto.html"><button class="bt_buy_home bt1">VER PRODUTO</button></a>
         </div>
         `
@@ -27,8 +27,6 @@ for (let vitrine of produtos) {
         let listaProdutos = {nome: vitrine.nome, imagem: vitrine.imagem, preco: vitrine.preco}
         arrayListaProduto.push(listaProdutos)
 }
-
-//console.log(arrayListaProduto)
 
 let produtoInnerComplementar = document.getElementById('produto_vitrine_complementar')
 
@@ -45,19 +43,20 @@ for (let vitrineComplementar of produtosComplementares) {
           <p class="titulo_box_produto">${vitrineComplementar.nome}</p>
           <p class="preco_box_produto">${vitrineComplementar.preco.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</p>
           <p class="detalhe_pagamento">${precoComDesconto.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})} com 10% de Desconto à Vista ou 3x de ${precoDividido.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})} sem juros no cartão</p>
-          <button class="bt_add_cart_home open" onclick="addCart()">ADD CARRINHO</button>
+          <button class="bt_add_cart_home open" onclick="addCart(this)">ADD CARRINHO</button>
           <a href="./produto.html"><button class="bt_buy_home bt1">VER PRODUTO</button></a>
         </div>
     `
     produtoInnerComplementar.innerHTML = produtoVitrineComplementar
+    let listaProdutosComplementar = {nome: vitrineComplementar.nome, imagem: vitrineComplementar.imagem, preco: vitrineComplementar.preco}
+    arrayListaProduto.push(listaProdutosComplementar)
 }
 
 let arrayCarrinho = []
+let arrayCarrinhoRemove = []
 let arrayPreco = []
-//let arrayPrecoRemove = []
-//let arrayPrecoRemoveTeste = []
 
-function addCart () {
+function addCart (element) {
     const modal = document.getElementById('modal')
     const closeModalBtn = document.querySelector('.close')
     closeModalBtn.addEventListener('click', () => modal.close())
@@ -67,40 +66,41 @@ function addCart () {
 
     let produtoModal = document.getElementById('produto_modal')
 
+    const elementoPai = element.parentElement;
+    const nomeProduto = elementoPai.querySelector('.titulo_box_produto').innerHTML
+    
+    let quantidade = 2
     let produtoCarrinho = ''
-      //produtoCarrinho = arrayListaProduto[0, 1, 2]
-      produtoCarrinho = arrayListaProduto.find ((dados) => dados.nome === 'Vestido Longo de Malha')
-     /*produtoCarrinho = arrayListaProduto.find((dados) => {
-        return {
-          nome: dados.nome,
-          imagem: dados.imagem,
-          preco: dados.preco
-        }
-    })*/
-    console.log(produtoCarrinho)
+      produtoCarrinho = arrayListaProduto.find ((dados) => dados.nome === nomeProduto)
 
+      let precoxQuantidade = produtoCarrinho.preco * quantidade
     let produtoCarrinhoShow = `
       <div class="container_produto_modal">
           <div class="imagem_produto_modal"><img src="${produtoCarrinho.imagem}" alt=""></div>
           <div class="info_produto_modal">
               <h6>Produto</h6>
-              <p>${produtoCarrinho.nome}</p>
+              <p class="nome_carrinho">${produtoCarrinho.nome}</p>
           </div>
           <div class="quantidade_produto_modal">
               <h6>Quantidade</h6>
-              <input class="quantidade" id="quantidadeCart" type="text" name="quantidadeCart" value="1">
+              <div class="container_quantidade">
+                <span class="botao_quantidade"><i class="fa-solid fa-minus"></i></span>
+                <input class="quantidade" id="quantidadeCart" type="text" name="quantidadeCart" value="${quantidade}">
+                <span class="botao_quantidade"><i class="fa-solid fa-plus"></i></span>
+              </div>
           </div>
           <div class="preco_modal">
               <h6>Valor</h6>
-              <p>${produtoCarrinho.preco.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</p>
+              <p>${precoxQuantidade.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</p>
           </div>
-          <div class="container_remove">
-              <button class="remove_cart" onclick="removeCart()"><i class="fa-solid fa-trash-can"></i></button>
-          </div>
+          <button class="remove_cart" onclick="removeCart(this)"><i class="fa-solid fa-trash-can"></i></button>
+
       </div>
       `
-      
     arrayCarrinho.push(produtoCarrinhoShow)
+
+    let listaProdutosCarrinho = {nome: produtoCarrinho.nome, imagem: produtoCarrinho.imagem, preco: produtoCarrinho.preco}
+    arrayCarrinhoRemove.push(listaProdutosCarrinho)
     arrayPreco.push(produtoCarrinho.preco)
     produtoModal.innerHTML = arrayCarrinho
 
@@ -139,15 +139,19 @@ function addCart () {
       </div>  
       `
     valorCarrinho.innerHTML = valorTotal
-    //arrayPrecoRemove.push(valorTotal)
-    //arrayPrecoRemoveTeste.push(totalCarrinho)
-    //console.log(arrayCarrinho)
-    //console.log(arrayPreco)
 }
 
-function removeCart () {
-  arrayCarrinho.splice(0,1)
-  arrayPreco.splice(0,1)
+function removeCart (elementRemove) {
+  const elementoPaiRemove = elementRemove.parentElement
+  const nomeProdutoRemove = elementoPaiRemove.querySelector('.nome_carrinho').innerHTML
+
+  let produtoRemoveCarrinho = arrayCarrinhoRemove.find((dados) => dados.nome === nomeProdutoRemove)
+
+  let index = arrayCarrinhoRemove.indexOf(produtoRemoveCarrinho)
+  
+  arrayCarrinho.splice(index, 1)
+  arrayCarrinhoRemove.splice(index, 1)
+  arrayPreco.splice(index, 1)
 
   let produtoModalRemove = document.getElementById('produto_modal')
   produtoModalRemove.innerHTML = arrayCarrinho
@@ -195,6 +199,5 @@ function removeCart () {
 } 
 }
 
-// Duvidas: como trazer o produto certo pro carrinho ao clicar nele
-// Referenciar corretamente o indice da exclusao no remove cart com o split
 // Clicar no carrinho na pagina index e abrir o modal na pagina home (iframe)
+// proximas etapas: ver produto, aumentar ou diminuir quantidade no carrinho, pagina de checkout

@@ -1450,6 +1450,7 @@ div.texto_sobre_nos2 {
     min-width: 600px;
     background-color: #ffffff;
     text-align: center;
+    border-radius: 8px 0 0 8px;
 }
 
 .modal_header {
@@ -1501,12 +1502,7 @@ div.texto_sobre_nos2 {
 
 .imagem_produto_modal img {
     width: 100%;
-}
-
-.info_produto_modal, .quantidade_produto_modal, .preco_modal {
-    margin: 10px 0 0 10px;
-    text-align: center;
-    align-items: center;
+    border-radius: 8px;
 }
 
 .info_produto_modal p, .quantidade_produto_modal p, .preco_modal p {
@@ -1518,8 +1514,6 @@ div.texto_sobre_nos2 {
     border-radius: 5px;
     padding: 2px;
     text-align: center;
-    margin-bottom: 10px;
-    margin-top: 30px;
 }
 
 .valor_total {
@@ -1537,10 +1531,6 @@ div.texto_sobre_nos2 {
     margin-right: 20px;
 }
 
-.container_remove {
-    margin: 65px 10px 0 30px;
-}
-
 .remove_cart {
     border: none;
     background-color: transparent;
@@ -1548,4 +1538,28 @@ div.texto_sobre_nos2 {
 
 .carrinho_vazio {
     margin-bottom: 30px;
+}
+
+.container_quantidade {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 35px;
+}
+
+.botao_quantidade {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    border: #2e2e2e solid 1px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.botao_quantidade:hover {
+    background-color: #d6d3e6;
 }
