@@ -1534,6 +1534,7 @@ div.texto_sobre_nos2 {
 .remove_cart {
     border: none;
     background-color: transparent;
+    margin-top: 20px;
 }
 
 .carrinho_vazio {
@@ -1549,15 +1550,33 @@ div.texto_sobre_nos2 {
 }
 
 .botao_quantidade {
+    background-color: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 20px;
     height: 20px;
-    padding: 5px;
     border: #2e2e2e solid 1px;
     border-radius: 50px;
-    cursor: pointer;
+    margin-top: 60px;
+    font-size: 12px;
+    position: relative;
+    left: 20px;
+}
+
+.botao_quantidade1 {
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border: #2e2e2e solid 1px;
+    border-radius: 50px;
+    margin-top: 60px;
+    font-size: 14px;
+    position: relative;
+    left: -20px;
 }
 
 .botao_quantidade:hover {
