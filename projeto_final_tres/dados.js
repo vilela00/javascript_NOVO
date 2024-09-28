@@ -6,6 +6,7 @@ const produtos = [
         descricao: 'ushdia uhds iuhdaiuhd uisaha i',
         especificacoes: 'sadas dasdasdasd ad asd asa d',
         imagem: './img/1.png',
+        quantidade: 1,
     },
     {
         nome: 'Vestido Longo de Malha',
@@ -14,6 +15,7 @@ const produtos = [
         descricao: 'ushdia uhds iuhdaiuhd uisaha i',
         especificacoes: 'sadas dasdasdasd ad asd asa d',
         imagem: './img/2.png',
+        quantidade: 1,
     },
     {
         nome: 'Blusa de Manga Comprida',
@@ -22,6 +24,7 @@ const produtos = [
         descricao: 'ushdia uhds iuhdaiuhd uisaha i',
         especificacoes: 'sadas dasdasdasd ad asd asa d',
         imagem: './img/3.png',
+        quantidade: 1,
     }
 ]
 
@@ -33,6 +36,7 @@ const produtosComplementares = [
         descricao: 'ushdia uhds iuhdaiuhd uisaha i',
         especificacoes: 'sadas dasdasdasd ad asd asa d',
         imagem: './img/1.png',
+        quantidade: 1,
     },
     {
         nome: 'Vestido Curto com Bolsos',
@@ -41,6 +45,7 @@ const produtosComplementares = [
         descricao: 'ushdia uhds iuhdaiuhd uisaha i',
         especificacoes: 'sadas dasdasdasd ad asd asa d',
         imagem: './img/2.png',
+        quantidade: 1,
     },
     {
         nome: 'Calca de Linho com Ziper',
@@ -49,6 +54,7 @@ const produtosComplementares = [
         descricao: 'ushdia uhds iuhdaiuhd uisaha i',
         especificacoes: 'sadas dasdasdasd ad asd asa d',
         imagem: './img/3.png',
+        quantidade: 1,
     },
     {
         nome: 'Macacao Decote V',
@@ -57,5 +63,6 @@ const produtosComplementares = [
         descricao: 'ushdia uhds iuhdaiuhd uisaha i',
         especificacoes: 'sadas dasdasdasd ad asd asa d',
         imagem: './img/1.png',
+        quantidade: 1,
     }
 ]

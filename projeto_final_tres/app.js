@@ -24,7 +24,7 @@ for (let vitrine of produtos) {
         </div>
         `
         produtoInner.innerHTML = produtoVitrine
-        let listaProdutos = {nome: vitrine.nome, imagem: vitrine.imagem, preco: vitrine.preco}
+        let listaProdutos = {nome: vitrine.nome, imagem: vitrine.imagem, preco: vitrine.preco, quantidade: vitrine.quantidade}
         arrayListaProduto.push(listaProdutos)
 }
 
@@ -48,15 +48,13 @@ for (let vitrineComplementar of produtosComplementares) {
         </div>
     `
     produtoInnerComplementar.innerHTML = produtoVitrineComplementar
-    let listaProdutosComplementar = {nome: vitrineComplementar.nome, imagem: vitrineComplementar.imagem, preco: vitrineComplementar.preco}
+    let listaProdutosComplementar = {nome: vitrineComplementar.nome, imagem: vitrineComplementar.imagem, preco: vitrineComplementar.preco, quantidade: vitrineComplementar.quantidade}
     arrayListaProduto.push(listaProdutosComplementar)
 }
 
 let arrayCarrinho = []
 let arrayCarrinhoRemove = []
-let arrayPreco = []
-
-let quantidade = 1
+let arrayPrecoCarrinho = []
 
 function addCart (element) {
     const modal = document.getElementById('modal')
@@ -70,14 +68,14 @@ function addCart (element) {
 
     const elementoPai = element.parentElement;
     const nomeProduto = elementoPai.querySelector('.titulo_box_produto').innerHTML
-    
+
     let produtoCarrinho = ''
       produtoCarrinho = arrayListaProduto.find ((dados) => dados.nome === nomeProduto)
     
     let verificacaoCarrinho = arrayCarrinhoRemove.find((dados) => dados.nome === nomeProduto)
 
     if (!verificacaoCarrinho) {
-    let precoxQuantidade = produtoCarrinho.preco * quantidade
+    let precoxQuantidade = produtoCarrinho.preco * produtoCarrinho.quantidade
     let produtoCarrinhoShow = `
       <div class="container_produto_modal" data-nome-produto="${produtoCarrinho.nome}">
           <div class="imagem_produto_modal"><img src="${produtoCarrinho.imagem}" alt=""></div>
@@ -89,7 +87,7 @@ function addCart (element) {
           <div class="quantidade_produto_modal">
               <h6>Quantidade</h6>
               <div class="container_quantidade">
-                <div class="quantidade_carrinho"><input class="quantidade" id="quantidadeCart" type="text" name="quantidadeCart" value="${quantidade}"></div>
+                <div class="quantidade_carrinho"><input class="quantidade" id="quantidadeCart" type="text" name="quantidadeCart" value="${produtoCarrinho.quantidade}"></div>
               </div>
           </div>
           <button class="botao_quantidade1" onclick="aumentaQuantidade(this)"><i class="fa-solid fa-plus"></i></button>
@@ -100,14 +98,14 @@ function addCart (element) {
           <button class="remove_cart" onclick="removeCart(this)"><i class="fa-solid fa-trash-can"></i></button>
       </div>
       `
-    arrayCarrinho.push(produtoCarrinhoShow)
-
-    let listaProdutosCarrinho = {nome: produtoCarrinho.nome, imagem: produtoCarrinho.imagem, preco: produtoCarrinho.preco}
+    
+    let listaProdutosCarrinho = {nome: produtoCarrinho.nome, imagem: produtoCarrinho.imagem, preco: produtoCarrinho.preco, quantidade: produtoCarrinho.quantidade, precoxQuantidade: precoxQuantidade}
     arrayCarrinhoRemove.push(listaProdutosCarrinho)
-    arrayPreco.push(precoxQuantidade)
-    produtoModal.innerHTML = arrayCarrinho.join('')
 
-    let totalCarrinho = arrayPreco.reduce((soma, preco) => soma + preco, 0)
+    arrayCarrinho.push(produtoCarrinhoShow)
+    produtoModal.innerHTML = arrayCarrinho.join('')
+    
+    let totalCarrinho = arrayCarrinhoRemove.reduce((soma, preco) => soma + preco.precoxQuantidade, 0)
 
     let valorCarrinho = document.getElementById('valorTotal')
 
@@ -120,7 +118,7 @@ function addCart (element) {
           <div>
             <h5>Valor total:</h5>
           </div>
-          <div>
+          <div id="total_carrinho">
             <h4>${totalCarrinho.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h4>
           </div>
         </div>
@@ -128,7 +126,7 @@ function addCart (element) {
           <div>
             <h6><i class="fa-solid fa-hand-holding-dollar"></i> Pague à vista:</h6>
           </div>
-          <div>
+          <div id="valor_a_vista">
             <h6>${valorAVista.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
           </div>
         </div>
@@ -136,7 +134,7 @@ function addCart (element) {
           <div>
             <h6><i class="fa-solid fa-credit-card"></i> Divida em até 3x de:</h6>
           </div>
-          <div>
+          <div id="valor_a_prazo">
             <h6>${valorAPrazo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
           </div>
         </div>  
@@ -146,33 +144,9 @@ function addCart (element) {
   let containerProduto = document.querySelector(`[data-nome-produto="${nomeProduto}"]`)
   if (containerProduto) {
     let aumentarQuantidadeBtn = containerProduto.querySelector('.botao_quantidade1')
-  aumentaQuantidade(aumentarQuantidadeBtn)         
+  aumentaQuantidade(aumentarQuantidadeBtn)       
   }
-} 
 }
-
-function diminuiQuantidade(elementDiminui) {
-  let elementoPaiCarrinho = elementDiminui.parentElement
-  let nomeProdutoDiminui = elementoPaiCarrinho.querySelector('.nome_carrinho').innerHTML
-
-  let buscaPrecoListaArray = arrayCarrinhoRemove.find((dados) => dados.nome === nomeProdutoDiminui)
-
-  quantidade = elementoPaiCarrinho.querySelector('.quantidade').value
-  if (quantidade > 1) {
-    quantidade = quantidade - 1
-    let novoPrecoxQuantidade = buscaPrecoListaArray.preco * quantidade
-    let novaQuantidadeInput = `
-      <input class="quantidade" id="quantidadeCart" type="text" name="quantidadeCart" value="${quantidade}">
-    `
-    let novoPrecoQuantidadeInner = `
-      <p>${novoPrecoxQuantidade.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</p>
-    `
-
-    let novaQuantidade = elementoPaiCarrinho.querySelector('.quantidade_carrinho')
-    let novoPrecoQuantidade = elementoPaiCarrinho.querySelector('.novo_preco_quantidade')
-    novaQuantidade.innerHTML = novaQuantidadeInput
-    novoPrecoQuantidade.innerHTML = novoPrecoQuantidadeInner
-  }
 }
 
 function aumentaQuantidade(elementAumenta) {
@@ -181,8 +155,68 @@ function aumentaQuantidade(elementAumenta) {
 
   let buscaPrecoListaArray = arrayCarrinhoRemove.find((dados) => dados.nome === nomeProdutoAumenta)
 
-  quantidade = elementoPaiCarrinho.querySelector('.quantidade').value
-    quantidade = +quantidade + 1
+  let quantidade = ++buscaPrecoListaArray.quantidade
+  let precoxQuantidade = {nome: buscaPrecoListaArray.nome, precoxQuantidade:buscaPrecoListaArray.preco * quantidade}
+  
+  if (buscaPrecoListaArray.nome === nomeProdutoAumenta) {
+    arrayPrecoCarrinho.pop()
+    arrayPrecoCarrinho.push(precoxQuantidade)
+    console.log(arrayPrecoCarrinho)
+} else {
+  arrayPrecoCarrinho.push(precoxQuantidade)
+}
+
+  let novoPrecoxQuantidade = buscaPrecoListaArray.preco * quantidade
+
+  let novaQuantidadeInput = `
+    <input class="quantidade" id="quantidadeCart" type="text" name="quantidadeCart" value="${quantidade}">
+  `
+  let novoPrecoQuantidadeInner = `
+    <p>${novoPrecoxQuantidade.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</p>
+  `
+
+  let novaQuantidade = elementoPaiCarrinho.querySelector('.quantidade_carrinho')
+  let novoPrecoQuantidade = elementoPaiCarrinho.querySelector('.novo_preco_quantidade')
+    novaQuantidade.innerHTML = novaQuantidadeInput
+    novoPrecoQuantidade.innerHTML = novoPrecoQuantidadeInner
+
+  let totalCarrinho = arrayPrecoCarrinho.reduce((soma, preco) => soma + preco.precoxQuantidade, 0)
+
+  let valorAVista = totalCarrinho * 0.9
+  let valorAPrazo = totalCarrinho / 3
+
+  let elementoTotalCarrinho = document.getElementById('total_carrinho')
+  let conteudoTotalCarrinho = ''
+    conteudoTotalCarrinho = `
+      <h4>${totalCarrinho.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h4>
+    `
+    elementoTotalCarrinho.innerHTML = conteudoTotalCarrinho
+
+  let elementoPrecoAVistaCarrinho = document.getElementById('valor_a_vista')
+  let conteudoPrecoAVistaCarrinho = ''
+    conteudoPrecoAVistaCarrinho = `
+      <h6>${valorAVista.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
+    `
+    elementoPrecoAVistaCarrinho.innerHTML = conteudoPrecoAVistaCarrinho
+
+  let elementoPrecoAPrazoCarrinho = document.getElementById('valor_a_prazo')
+  let conteudoPrecoAPrazoCarrinho = ''
+    conteudoPrecoAPrazoCarrinho = `
+      <h6>${valorAPrazo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
+    `
+    elementoPrecoAPrazoCarrinho.innerHTML = conteudoPrecoAPrazoCarrinho
+}
+
+function diminuiQuantidade(elementDiminui) {
+  let elementoPaiCarrinho = elementDiminui.parentElement
+  let nomeProdutoDiminui = elementoPaiCarrinho.querySelector('.nome_carrinho').innerHTML
+
+  let buscaPrecoListaArray = arrayCarrinhoRemove.find((dados) => dados.nome === nomeProdutoDiminui)
+
+  let quantidade = buscaPrecoListaArray.quantidade
+
+  if (quantidade > 1) {
+    quantidade = --buscaPrecoListaArray.quantidade
     let novoPrecoxQuantidade = buscaPrecoListaArray.preco * quantidade
     let novaQuantidadeInput = `
       <input class="quantidade" id="quantidadeCart" type="text" name="quantidadeCart" value="${quantidade}">
@@ -193,8 +227,35 @@ function aumentaQuantidade(elementAumenta) {
 
     let novaQuantidade = elementoPaiCarrinho.querySelector('.quantidade_carrinho')
     let novoPrecoQuantidade = elementoPaiCarrinho.querySelector('.novo_preco_quantidade')
-    novaQuantidade.innerHTML = novaQuantidadeInput
-    novoPrecoQuantidade.innerHTML = novoPrecoQuantidadeInner
+      novaQuantidade.innerHTML = novaQuantidadeInput
+      novoPrecoQuantidade.innerHTML = novoPrecoQuantidadeInner
+
+    let totalCarrinho = arrayCarrinhoRemove.reduce((soma, preco) => soma + preco.precoxQuantidade, 0)
+
+    let valorAVista = totalCarrinho * 0.9
+    let valorAPrazo = totalCarrinho / 3
+
+    let elementoTotalCarrinho = document.getElementById('total_carrinho')
+    let conteudoTotalCarrinho = ''
+      conteudoTotalCarrinho = `
+        <h4>${totalCarrinho.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h4>
+      `
+    elementoTotalCarrinho.innerHTML = conteudoTotalCarrinho
+
+    let elementoPrecoAVistaCarrinho = document.getElementById('valor_a_vista')
+    let conteudoPrecoAVistaCarrinho = ''
+      conteudoPrecoAVistaCarrinho = `
+        <h6>${valorAVista.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
+      `
+    elementoPrecoAVistaCarrinho.innerHTML = conteudoPrecoAVistaCarrinho
+
+    let elementoPrecoAPrazoCarrinho = document.getElementById('valor_a_prazo')
+    let conteudoPrecoAPrazoCarrinho = ''
+      conteudoPrecoAPrazoCarrinho = `
+        <h6>${valorAPrazo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
+      `
+    elementoPrecoAPrazoCarrinho.innerHTML = conteudoPrecoAPrazoCarrinho
+  }
 }
 
 function removeCart (elementRemove) {
@@ -207,7 +268,7 @@ function removeCart (elementRemove) {
   
   arrayCarrinho.splice(index, 1)
   arrayCarrinhoRemove.splice(index, 1)
-  arrayPreco.splice(index, 1)
+  //arrayPreco.splice(index, 1)
 
   let produtoModalRemove = document.getElementById('produto_modal')
   produtoModalRemove.innerHTML = arrayCarrinho
@@ -215,46 +276,39 @@ function removeCart (elementRemove) {
   let valorCarrinhoRemove = document.getElementById('valorTotal')
 
   let totalCarrinhoRemove = ''
-  if (arrayPreco.length >= 1) {
-    totalCarrinhoRemove = arrayPreco.reduce((soma, preco) => soma + preco, 0)
+  if (arrayCarrinhoRemove.length >= 1) {
+    totalCarrinhoRemove = arrayCarrinhoRemove.reduce((soma, preco) => soma + preco.precoxQuantidade, 0)
 
   let valorAVistaRemove = totalCarrinhoRemove * 0.9
   let valorAPrazoRemove = totalCarrinhoRemove / 3
 
-  let valorTotalRemove = ''
-    valorTotalRemove = `
-      <div  class="valor_total">
-        <div>
-          <h5>Valor total:</h5>
-        </div>
-        <div>
-          <h4>${totalCarrinhoRemove.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h4>
-        </div>
-      </div>
-      <div class="valor_total1">
-        <div>
-          <h6><i class="fa-solid fa-hand-holding-dollar"></i> Pague à vista:</h6>
-        </div>
-        <div>
-          <h6>${valorAVistaRemove.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
-        </div>
-      </div>
-      <div class="valor_total1">
-        <div>
-          <h6><i class="fa-solid fa-credit-card"></i> Divida em até 3x de:</h6>
-        </div>
-        <div>
-          <h6>${valorAPrazoRemove.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
-        </div>
-      </div>  
-    `
-  valorCarrinhoRemove.innerHTML = valorTotalRemove
+  let elementoTotalCarrinho = document.getElementById('total_carrinho')
+    let conteudoTotalCarrinho = ''
+      conteudoTotalCarrinho = `
+        <h4>${totalCarrinhoRemove.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h4>
+      `
+    elementoTotalCarrinho.innerHTML = conteudoTotalCarrinho
 
+    let elementoPrecoAVistaCarrinho = document.getElementById('valor_a_vista')
+    let conteudoPrecoAVistaCarrinho = ''
+      conteudoPrecoAVistaCarrinho = `
+        <h6>${valorAVistaRemove.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
+      `
+    elementoPrecoAVistaCarrinho.innerHTML = conteudoPrecoAVistaCarrinho
+
+    let elementoPrecoAPrazoCarrinho = document.getElementById('valor_a_prazo')
+    let conteudoPrecoAPrazoCarrinho = ''
+      conteudoPrecoAPrazoCarrinho = `
+        <h6>${valorAPrazoRemove.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
+      `
+    elementoPrecoAPrazoCarrinho.innerHTML = conteudoPrecoAPrazoCarrinho
+    console.log(arrayCarrinhoRemove)
 } else {
   valorCarrinhoRemove.innerHTML = `<h5 class="carrinho_vazio">Seu carrinho está vazio!</h5>`
+  console.log(arrayCarrinhoRemove)
 } 
 }
 
 // Clicar no carrinho na pagina index e abrir o modal na pagina home (iframe)
 // proximas etapas: ver produto, aumentar ou diminuir quantidade no carrinho, pagina de checkout
-// incluir somar quantidade, alterar valor total de acordo com mudancas da quantidade, aumentar quantidade se o produto ja estiver incluso no carrinho
+// descobrir como evitar que a quantidade seja atribuida as funcoes que estao sendo executadas
