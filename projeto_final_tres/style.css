@@ -256,7 +256,7 @@
         flex-direction: column;
         align-items: center;
     }
-    .body .about_us {
+    .overflow .about_us {
         flex-direction: column;
     }
     .organize_produto {
@@ -385,15 +385,15 @@
         align-items: center;
         flex-direction: column;
     }
-    .body .about_us {
-        flex-direction: column;
+    .overflow .about_us {
+        flex-direction: column !important;
     }
     .sobre_n .sobre_nos1 {
         margin-left: 10px;
         margin-right: 10px;
 
     }
-    .body .banner_rodape {
+    .overflow .banner_rodape {
         display: none;
     }
     .organize_produto {
@@ -1534,7 +1534,6 @@ div.texto_sobre_nos2 {
 .remove_cart {
     border: none;
     background-color: transparent;
-    margin-top: 20px;
 }
 
 .carrinho_vazio {
