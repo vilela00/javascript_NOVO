@@ -194,6 +194,7 @@ function aumentaQuantidade(elementAumenta) {
       <h6>${valorAPrazo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
     `
     elementoPrecoAPrazoCarrinho.innerHTML = conteudoPrecoAPrazoCarrinho
+    //console.log(arrayCarrinhoRemove)
 }
 
 function diminuiQuantidade(elementDiminui) {
