@@ -53,8 +53,7 @@ for (let vitrineComplementar of produtosComplementares) {
 }
 
 let arrayCarrinho = []
-let arrayCarrinhoRemove = []
-let arrayPrecoCarrinho = []
+let arrayCarrinhoObjeto = []
 
 function addCart (element) {
     const modal = document.getElementById('modal')
@@ -71,7 +70,7 @@ function addCart (element) {
 
     let produtoCarrinho = arrayListaProduto.find ((dados) => dados.nome === nomeProduto)
     
-    let verificacaoCarrinho = arrayCarrinhoRemove.find((dados) => dados.nome === nomeProduto)
+    let verificacaoCarrinho = arrayCarrinhoObjeto.find((dados) => dados.nome === nomeProduto)
 
     if (!verificacaoCarrinho) {
     let precoxQuantidade = produtoCarrinho.preco * produtoCarrinho.quantidade
@@ -99,12 +98,12 @@ function addCart (element) {
       `
     
     let listaProdutosCarrinho = {nome: produtoCarrinho.nome, imagem: produtoCarrinho.imagem, preco: produtoCarrinho.preco, quantidade: produtoCarrinho.quantidade, precoxQuantidade: precoxQuantidade}
-    arrayCarrinhoRemove.push(listaProdutosCarrinho)
+    arrayCarrinhoObjeto.push(listaProdutosCarrinho)
 
     arrayCarrinho.push(produtoCarrinhoShow)
     produtoModal.innerHTML = arrayCarrinho.join('')
 
-    let totalCarrinho = arrayCarrinhoRemove.reduce((soma, preco) => soma + (preco.precoxQuantidade * preco.quantidade), 0)
+    let totalCarrinho = arrayCarrinhoObjeto.reduce((soma, preco) => soma + (preco.precoxQuantidade * preco.quantidade), 0)
 
     let valorCarrinho = document.getElementById('valorTotal')
 
@@ -152,7 +151,7 @@ function aumentaQuantidade(elementAumenta) {
   let elementoPaiCarrinho = elementAumenta.parentElement
   let nomeProdutoAumenta = elementoPaiCarrinho.querySelector('.nome_carrinho').innerHTML
 
-  let buscaPrecoListaArray = arrayCarrinhoRemove.find((dados) => dados.nome === nomeProdutoAumenta)
+  let buscaPrecoListaArray = arrayCarrinhoObjeto.find((dados) => dados.nome === nomeProdutoAumenta)
 
   let quantidade = ++buscaPrecoListaArray.quantidade
   let precoxQuantidade = buscaPrecoListaArray.preco * quantidade
@@ -169,7 +168,7 @@ function aumentaQuantidade(elementAumenta) {
     novaQuantidade.innerHTML = novaQuantidadeInput
     novoPrecoQuantidade.innerHTML = novoPrecoQuantidadeInner
 
-  let totalCarrinho = arrayCarrinhoRemove.reduce((soma, preco) => soma + (preco.precoxQuantidade * preco.quantidade), 0)
+  let totalCarrinho = arrayCarrinhoObjeto.reduce((soma, preco) => soma + (preco.precoxQuantidade * preco.quantidade), 0)
 
   let valorAVista = totalCarrinho * 0.9
   let valorAPrazo = totalCarrinho / 3
@@ -194,14 +193,14 @@ function aumentaQuantidade(elementAumenta) {
       <h6>${valorAPrazo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
     `
     elementoPrecoAPrazoCarrinho.innerHTML = conteudoPrecoAPrazoCarrinho
-    //console.log(arrayCarrinhoRemove)
+    //console.log(arrayCarrinhoObjeto)
 }
 
 function diminuiQuantidade(elementDiminui) {
   let elementoPaiCarrinho = elementDiminui.parentElement
   let nomeProdutoDiminui = elementoPaiCarrinho.querySelector('.nome_carrinho').innerHTML
 
-  let buscaPrecoListaArray = arrayCarrinhoRemove.find((dados) => dados.nome === nomeProdutoDiminui)
+  let buscaPrecoListaArray = arrayCarrinhoObjeto.find((dados) => dados.nome === nomeProdutoDiminui)
 
   let quantidade = buscaPrecoListaArray.quantidade
 
@@ -220,7 +219,7 @@ function diminuiQuantidade(elementDiminui) {
       novaQuantidade.innerHTML = novaQuantidadeInput
       novoPrecoQuantidade.innerHTML = novoPrecoQuantidadeInner
 
-    let totalCarrinho = arrayCarrinhoRemove.reduce((soma, preco) => soma + (preco.precoxQuantidade * preco.quantidade), 0)
+    let totalCarrinho = arrayCarrinhoObjeto.reduce((soma, preco) => soma + (preco.precoxQuantidade * preco.quantidade), 0)
 
     let valorAVista = totalCarrinho * 0.9
     let valorAPrazo = totalCarrinho / 3
@@ -252,12 +251,12 @@ function removeCart (elementRemove) {
   const elementoPaiCarrinho = elementRemove.parentElement
   const nomeProdutoRemove = elementoPaiCarrinho.querySelector('.nome_carrinho').innerHTML
 
-  let produtoRemoveCarrinho = arrayCarrinhoRemove.find((dados) => dados.nome === nomeProdutoRemove)
+  let produtoRemoveCarrinho = arrayCarrinhoObjeto.find((dados) => dados.nome === nomeProdutoRemove)
 
-  let index = arrayCarrinhoRemove.indexOf(produtoRemoveCarrinho)
+  let index = arrayCarrinhoObjeto.indexOf(produtoRemoveCarrinho)
   
   arrayCarrinho.splice(index, 1)
-  arrayCarrinhoRemove.splice(index, 1)
+  arrayCarrinhoObjeto.splice(index, 1)
 
   let produtoModalRemove = document.getElementById('produto_modal')
   produtoModalRemove.innerHTML = arrayCarrinho
@@ -265,8 +264,8 @@ function removeCart (elementRemove) {
   let valorCarrinhoRemove = document.getElementById('valorTotal')
 
   let totalCarrinhoRemove = ''
-  if (arrayCarrinhoRemove.length >= 1) {
-    totalCarrinhoRemove = arrayCarrinhoRemove.reduce((soma, preco) => soma + (preco.precoxQuantidade * preco.quantidade), 0)
+  if (arrayCarrinhoObjeto.length >= 1) {
+    totalCarrinhoRemove = arrayCarrinhoObjeto.reduce((soma, preco) => soma + (preco.precoxQuantidade * preco.quantidade), 0)
 
   let valorAVistaRemove = totalCarrinhoRemove * 0.9
   let valorAPrazoRemove = totalCarrinhoRemove / 3
