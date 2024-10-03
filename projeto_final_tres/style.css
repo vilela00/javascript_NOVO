@@ -438,6 +438,22 @@
     .menu_secundario {
         margin-bottom: 10px;
     }
+    .modal_carrinho #modal {
+        left: 0;
+        margin-top: 0;
+    }
+    .modal_carrinho .modal1 {
+        min-width: 0;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+    .imagem_produto_modal img {
+        margin-top: 60px;
+    }
+}
+
+dialog:-internal-dialog-in-top-layer {
+    max-width: 100%;
 }
 
 .header {

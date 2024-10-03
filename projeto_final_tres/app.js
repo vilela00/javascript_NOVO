@@ -24,7 +24,7 @@ for (let vitrine of produtos) {
         </div>
         `
         produtoInner.innerHTML = produtoVitrine
-        let listaProdutos = {nome: vitrine.nome, imagem: vitrine.imagem, preco: vitrine.preco, quantidade: vitrine.quantidade}
+        let listaProdutos = {...vitrine}
         arrayListaProduto.push(listaProdutos)
 }
 
@@ -48,7 +48,7 @@ for (let vitrineComplementar of produtosComplementares) {
         </div>
     `
     produtoInnerComplementar.innerHTML = produtoVitrineComplementar
-    let listaProdutosComplementar = {nome: vitrineComplementar.nome, imagem: vitrineComplementar.imagem, preco: vitrineComplementar.preco, quantidade: vitrineComplementar.quantidade}
+    let listaProdutosComplementar = {...vitrineComplementar}
     arrayListaProduto.push(listaProdutosComplementar)
 }
 
@@ -97,7 +97,7 @@ function addCart (element) {
       </div>
       `
     
-    let listaProdutosCarrinho = {nome: produtoCarrinho.nome, imagem: produtoCarrinho.imagem, preco: produtoCarrinho.preco, quantidade: produtoCarrinho.quantidade, precoxQuantidade: precoxQuantidade}
+    let listaProdutosCarrinho = {...produtoCarrinho, precoxQuantidade: precoxQuantidade}
     arrayCarrinhoObjeto.push(listaProdutosCarrinho)
 
     arrayCarrinho.push(produtoCarrinhoShow)
