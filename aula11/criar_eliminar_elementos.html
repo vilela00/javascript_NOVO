@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div>
+        <p class="nomes">Maria</p>
+        <p class="nomes">Joao</p>
+        <p class="nomes">Jose</p>
+    </div>
+
+
+    <script>
+
+        let criarElemento = document.createElement('div')
+        criarElemento.innerHTML = `
+            <div>
+                <p>Ola</p>
+            </div>
+        `
+        // utilizamos o append para inserir o trecho criado via JS
+        document.body.append(criarElemento)
+        console.log(criarElemento.innerText)
+
+        // aqui usamos o remove para remover a tag p - a tag div continua sendo criada e inserida
+        criarElemento.remove('p')
+
+        // aqui usamos o remove para remover um indice do array - perceba que ao remover o indice 0, o indice 1 se torna o indice 0 e assim por diante
+        let nomes = document.getElementsByClassName('nomes')
+        nomes[0].remove()
+        console.log(nomes)
+
+    </script>
+
+</body>
+</html>

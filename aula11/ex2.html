@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="text" name="tarefa" id="tarefa">
+    <button type="submit" id="gravar" onclick="gravar()">Gravar Tarefa</button>
+    <button type="reset" id="limpar" onclick="limpar()">Limpar Ultima Tarefa</button>
+    <button onclick="limparTudo()">Limpar Tudo</button>
+    <div id="lista_tarefas">
+
+    </div>
+
+    <script>
+
+        let tarefas = []
+
+        function gravar() {
+            let tarefa = document.getElementById('tarefa').value
+            tarefas.push(tarefa)
+            console.log(tarefas)
+
+            let listaTarefas = document.getElementById('lista_tarefas')
+            listaTarefas.innerHTML += `
+                <p id="tarefa_inner">${tarefa}</p>
+            `
+            tarefa = document.getElementById('tarefa')
+            tarefa.value = ''
+        }
+
+        function limpar() {
+
+            if (tarefas.length > 0) {
+                tarefas.pop()
+                console.log(tarefas)
+                let apagar = document.getElementById('tarefa_inner')
+                apagar.remove()
+            } else {
+                alert('Array vazio')
+            }
+        }
+
+        function limparTudo() {
+            while (tarefas.length > 0) {
+                tarefas.pop()
+                console.log(tarefas)
+                let apagar = document.getElementById('tarefa_inner')
+                apagar.remove()
+            }
+        }
+
+
+    </script>
+
+</body>
+</html>

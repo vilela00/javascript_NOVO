@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="teste_id">
+        <p>TESTE DOM JS</p>
+    </div>
+    <div class="teste_class">1</div>
+    <div class="teste_class">2</div>
+    <div class="teste_class">3</div>
+    <div class="teste_class">4</div>
+    <div class="teste_class">5</div>
+
+    <script>
+
+        // pegar o elemento html pelo id - pega apenas 1 elemento
+        let id = document.getElementById('teste_id')
+        console.log(id)
+
+        // pegar os elementos html pela classe - pega todos elementos com a classe definida, retorna um array
+        let classe = document.getElementsByClassName('teste_class')
+        console.log(classe)
+        for (let listaClasses of classe) {
+            console.log(listaClasses)
+        }
+
+        // pega os elementos pelo nome da tag - pega todos elementos que tenham aquela tag, retorna um array
+        let tag = document.getElementsByTagName('div')
+        for (let listaTags of tag) {
+            console.log(listaTags)
+        }
+        let tagP = document.getElementsByTagName('p')
+        for (let listaTagsP of tagP) {
+            console.log(listaTagsP)
+        }
+
+        // pega o primeiro elemento que corresponda ao parametro de busca, que pode ser id, class ou tag
+        let query = document.querySelector('#teste_id')
+        console.log(query)
+        // utilizando uma tag name para pegar apenas o item dentro da div do id chamado
+        let queryTag = document.querySelector('#teste_id p')
+        console.log(queryTag)
+        // perceba que o query retorna apenas o primeiro item com a classe chamada, os demais nao sao chamados
+        let queryClass = document.querySelector('.teste_class')
+        console.log(queryClass)
+        // aqui usamos o All para pegar todas as classes, que funciona tmb com as tag name
+        let queryAllClasses = document.querySelectorAll('.teste_class')
+        for (let listaQueryAllClasses of queryAllClasses) {
+            console.log(listaQueryAllClasses)
+        }
+
+    </script>
+
+</body>
+</html>

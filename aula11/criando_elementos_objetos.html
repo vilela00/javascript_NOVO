@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        // vamos criar a lista de produtos no body do HTML sem digitar nenhuma tag html acima do script
+        let produtos = [
+            {nome: 'Tablet', preco: 1990, descricao: 'bajda sdn lalsdka ndaldknasl', avaliacoes: 9},
+            {nome: 'Celular', preco: 3990, descricao: 'fsgsfdgdfgs sg f gds', avaliacoes: 10},
+            {nome: 'Relogio', preco: 390, descricao: 'fsdf sad fds fa sdaf', avaliacoes: 8},
+            {nome: 'Teclado', preco: 90, descricao: 'f d dsf s ds fd dsfs', avaliacoes: 9},
+            {nome: 'Mouse', preco: 20, descricao: 'fdsd FDS FSA FDS FASD FSA S', avaliacoes: 7},
+            {nome: 'Monitor', preco: 490, descricao: 'asd asdas da sda DSAFA SDF', avaliacoes: 9},
+            {nome: 'Lampada', preco: 2, descricao: 'dfgh dhghdfg dfs gsdffd', avaliacoes: 5},
+            {nome: 'Cadeira', preco: 990, descricao: 'gt dg z aertre gdfg dfgdfx', avaliacoes: 10}
+        ]
+
+        for (let produto of produtos) {
+            let container = document.createElement('div')
+            container.innerHTML = `
+                <div>
+                    <h2>${produto.nome}</h2>
+                    <p>${produto.preco}</p>
+                    <p>${produto.descricao}</p>
+                    <p>${produto.avaliacoes}</p>
+            `
+            document.body.append(container)
+        }
+
+    </script>
+
+</body>
+</html>
