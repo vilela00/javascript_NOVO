@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.css" rel="stylesheet" />
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>Teste</h1>
+    <pre>
+        <code class="language-html">
+            &lt;div&gt;
+                &lt;p&gt;Aqui e um exemplo&lt;/p&gt;
+            &lt;/div&gt;
+
+            &lt;script&gt;
+            function addCart (element) {
+                const modal = document.getElementById('modal')
+                const closeModalBtn = document.querySelector('.close')
+                closeModalBtn.addEventListener('click', () => modal.close())
+                const closeModalBtnX = document.querySelector('.close_x')
+                closeModalBtnX.addEventListener('click', () => modal.close())
+                modal.showModal()
+            
+                let produtoModal = document.getElementById('produto_modal')
+            
+                const elementoPai = element.parentElement;
+                const nomeProduto = elementoPai.querySelector('.titulo_box_produto').innerHTML
+            
+                let produtoCarrinho = arrayListaProduto.find ((dados) => dados.nome === nomeProduto)
+                
+                let verificacaoCarrinho = arrayCarrinhoObjeto.find((dados) => dados.nome === nomeProduto)
+                }
+                &lt;/script&gt;
+        </code>
+    </pre>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.js"></script>
+</body>
+</html>
