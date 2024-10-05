@@ -584,6 +584,7 @@ i.fa-solid.fa-user {
     rgba(0,0,0,0.1) 0 2px 2px,
     rgba(0,0,0,0.1) 0 4px 4px,
     rgba(0,0,0,0.1) 0 8px 8px;
+    position: relative;
 }
 
 .imgg {
@@ -605,8 +606,35 @@ i.fa-solid.fa-user {
     border: #dddddd solid 0.1px;
     z-index: 1;
     position: absolute;
-    margin-top: 10px;
-    margin-right: 10px;
+    top: 23px;
+    right: 15px;
+    box-shadow:
+    rgba(0,0,0,0.1) 0 2px 2px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    content: "\f004";
+    font-family: fontawesome;
+    font-size: 1em;
+    color: #ffffff;
+}
+
+.favorito_click {
+    content: "\f004";
+    font-family: fontawesome;
+    position: absolute;
+    font-size: 1em;
+    color: #424242;
+    display: flex;
+    background-color: #ffffff;
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+    border: #dddddd solid 0.1px;
+    z-index: 1;
+    position: absolute;
+    top: 23px;
+    right: 15px;
     box-shadow:
     rgba(0,0,0,0.1) 0 2px 2px;
     justify-content: center;
@@ -614,20 +642,9 @@ i.fa-solid.fa-user {
     cursor: pointer;
 }
 
-.botao_fav::before {
-    content: "\f004";
-    font-family: fontawesome;
-    position: absolute;
-    font-size: 1em;
-    color: #ffffff;
-}
-
-.botao_fav:hover::before {
-    content: "\f004";
-    font-family: fontawesome;
-    position: absolute;
-    font-size: 1em;
-    color: #424242;
+.botao_fav_click {
+    border: none;
+    background-color: transparent;
 }
 
 .botao_fav .fa-heart {

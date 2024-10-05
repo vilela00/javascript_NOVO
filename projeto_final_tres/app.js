@@ -8,13 +8,13 @@ for (let vitrine of produtos) {
     let precoDividido = vitrine.preco / 3
     produtoVitrine += `
         <div class="box_vitrine">
+          <div id="favorito">
+            <button class="botao_fav" onclick="clicarFavorito(this)">
+              <li style="--color:#424242;"><i class="fa-solid fa-heart"></i></li>
+            </button>
+          </div>
           <div class="imgg">
             <img src="${vitrine.imagem}" alt="" class="imagem_vitrine">
-            <div class="botao_fav">
-              <li style="--color:#424242;">
-                <i class="fa-solid fa-heart"></i>
-              </li>
-            </div>
           </div>
           <p class="titulo_box_produto">${vitrine.nome}</p>
           <p class="preco_box_produto">${vitrine.preco.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</p>
@@ -294,6 +294,12 @@ function removeCart (elementRemove) {
   valorCarrinhoRemove.innerHTML = `<h5 class="carrinho_vazio">Seu carrinho está vazio!</h5>`
 } 
 }
+
+function clicarFavorito() {
+
+  let favorito = document.querySelector('.botao_fav')
+  favorito.className = 'favorito_click'
+  }
 
 /*function verProduto (elementProduto) {
 
