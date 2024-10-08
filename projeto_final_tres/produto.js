@@ -94,6 +94,21 @@ let guiaMedidasProduto = ''
 
 guiaMedidas.innerHTML = guiaMedidasProduto
 })
+
+function abrirCarrinho () {
+    const modal = document.getElementById('modal')
+    const closeModalBtn = document.querySelector('.close')
+    closeModalBtn.addEventListener('click', () => modal.close())
+    const closeModalBtnX = document.querySelector('.close_x')
+    closeModalBtnX.addEventListener('click', () => modal.close())
+    modal.showModal()
+  }
+  
+  window.addEventListener('message', function (event) {
+    if (event.data === 'abrirCarrinho') {
+      abrirCarrinho ()
+    }
+  })
     
 
 

@@ -52,25 +52,18 @@ for (let vitrineComplementar of produtosComplementares) {
     arrayListaProduto.push(listaProdutosComplementar)
 }
 
-let arrayCarrinho = []
-let arrayCarrinhoObjeto = []
-
-function abrirCarrinho () {
-  const modal = document.getElementById('modal')
-  const closeModalBtn = document.querySelector('.close')
-  closeModalBtn.addEventListener('click', () => modal.close())
-  const closeModalBtnX = document.querySelector('.close_x')
-  closeModalBtnX.addEventListener('click', () => modal.close())
-  modal.showModal()
-}
-
-window.addEventListener('message', function (event) {
-  if (event.data === 'abrirCarrinho') {
-    abrirCarrinho ()
-  }
-})
+let arrayCarrinho = JSON.parse(localStorage.getItem('carrinho'))
+let arrayCarrinhoObjeto = JSON.parse(localStorage.getItem('carrinho_objeto'))
 
 function addCart (element) {
+  
+    if (!arrayCarrinho) {
+      arrayCarrinho = []
+    }
+    if (!arrayCarrinhoObjeto) {
+      arrayCarrinhoObjeto = []
+    }
+
     const modal = document.getElementById('modal')
     const closeModalBtn = document.querySelector('.close')
     closeModalBtn.addEventListener('click', () => modal.close())
@@ -85,7 +78,7 @@ function addCart (element) {
 
     let produtoCarrinho = arrayListaProduto.find ((dados) => dados.nome === nomeProduto)
     
-    let verificacaoCarrinho = arrayCarrinhoObjeto.find((dados) => dados.nome === nomeProduto)
+    let verificacaoCarrinho = arrayCarrinhoObjeto.find ((dados) => dados.nome === nomeProduto)
 
     if (!verificacaoCarrinho) {
     let precoxQuantidade = produtoCarrinho.preco * produtoCarrinho.quantidade
@@ -115,10 +108,15 @@ function addCart (element) {
     let listaProdutosCarrinho = {...produtoCarrinho, precoxQuantidade: precoxQuantidade}
     arrayCarrinhoObjeto.push(listaProdutosCarrinho)
 
-    arrayCarrinho.push(produtoCarrinhoShow)
-    produtoModal.innerHTML = arrayCarrinho.join('')
+    localStorage.setItem('carrinho_objeto', JSON.stringify(arrayCarrinhoObjeto))
+    let localArrayCarrinhoObjeto = JSON.parse(localStorage.getItem('carrinho_objeto'))
 
-    let totalCarrinho = arrayCarrinhoObjeto.reduce((soma, preco) => soma + (preco.precoxQuantidade * preco.quantidade), 0)
+    arrayCarrinho.push(produtoCarrinhoShow)
+    localStorage.setItem('carrinho', JSON.stringify(arrayCarrinho))
+    let localArrayCarrinho = JSON.parse(localStorage.getItem('carrinho'))
+    produtoModal.innerHTML = localArrayCarrinho.join('')
+
+    let totalCarrinho = localArrayCarrinhoObjeto.reduce((soma, preco) => soma + (preco.precoxQuantidade * preco.quantidade), 0)
 
     let valorCarrinho = document.getElementById('valorTotal')
 
@@ -208,7 +206,6 @@ function aumentaQuantidade(elementAumenta) {
       <h6>${valorAPrazo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
     `
     elementoPrecoAPrazoCarrinho.innerHTML = conteudoPrecoAPrazoCarrinho
-    //console.log(arrayCarrinhoObjeto)
 }
 
 function diminuiQuantidade(elementDiminui) {
@@ -316,7 +313,21 @@ function clicarFavorito() {
   favorito.className = 'favorito_click'
   }
 
-//JSON.stringify(arrayListaProduto)
+  function abrirCarrinho () {
+    const modal = document.getElementById('modal')
+    const closeModalBtn = document.querySelector('.close')
+    closeModalBtn.addEventListener('click', () => modal.close())
+    const closeModalBtnX = document.querySelector('.close_x')
+    closeModalBtnX.addEventListener('click', () => modal.close())
+    modal.showModal()
+  }
+  
+  window.addEventListener('message', function (event) {
+    if (event.data === 'abrirCarrinho') {
+      abrirCarrinho ()
+    }
+  })  
+
 localStorage.setItem('produto', JSON.stringify(arrayListaProduto))
 
 let listaProdutos = JSON.parse(localStorage.getItem('produto'))
