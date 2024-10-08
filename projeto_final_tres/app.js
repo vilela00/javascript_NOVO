@@ -55,6 +55,21 @@ for (let vitrineComplementar of produtosComplementares) {
 let arrayCarrinho = []
 let arrayCarrinhoObjeto = []
 
+function abrirCarrinho () {
+  const modal = document.getElementById('modal')
+  const closeModalBtn = document.querySelector('.close')
+  closeModalBtn.addEventListener('click', () => modal.close())
+  const closeModalBtnX = document.querySelector('.close_x')
+  closeModalBtnX.addEventListener('click', () => modal.close())
+  modal.showModal()
+}
+
+window.addEventListener('message', function (event) {
+  if (event.data === 'abrirCarrinho') {
+    abrirCarrinho ()
+  }
+})
+
 function addCart (element) {
     const modal = document.getElementById('modal')
     const closeModalBtn = document.querySelector('.close')
@@ -301,38 +316,21 @@ function clicarFavorito() {
   favorito.className = 'favorito_click'
   }
 
-JSON.stringify(arrayListaProduto)
+//JSON.stringify(arrayListaProduto)
 localStorage.setItem('produto', JSON.stringify(arrayListaProduto))
 
-let testeProdutos = JSON.parse(localStorage.getItem('produto'))
-console.log(testeProdutos)
+let listaProdutos = JSON.parse(localStorage.getItem('produto'))
 
 function verProduto (elementProduto) {
 
-  let imgMini = document.querySelector('.mini')
- //let imgPrincipal = document.querySelector('.mosaico_main')
-  //let nomeProduto = document.querySelector('.headline_produto')
- // let avaliacoes = document.querySelector('.review')
-  //let preco = document.querySelector('.valor')
-  //let formasPagamento = document.querySelector('.texto_formas')
-  //let descricao = document.querySelector('.descricao_produto')
-  //let especificacoes = document.querySelector('.especificacao_produto')
- // let guiaMedidas = document.querySelector('.guia_medidas')
-
-  const elementoPai = elementProduto.parentElement;
+  const elementoPai = elementProduto.parentElement.parentElement;
   const nomeProdutoVerifica = elementoPai.querySelector('.titulo_box_produto').innerHTML
-  console.log(elementoPai)
 
-  let detalheProduto = testeProdutos.find ((dados) => dados.nome === nomeProdutoVerifica)
-  console.log(detalheProduto)
+  let detalheProduto = listaProdutos.find ((dados) => dados.nome === nomeProdutoVerifica)
 
-  let imagemMini = ''
-    imagemMini = `
-    <img src="${detalheProduto.imagem}" alt="">
-  `
-  imgMini.innerHTML = imagemMini
-
+  localStorage.setItem('produto', JSON.stringify(detalheProduto))
 }
+
 
 // Verifiquei que para levar os dados de um produto de uma pagina para a outra, sera necessario usar JSON e/ou local storage
 // Clicar no carrinho na pagina index e abrir o modal na pagina home (iframe)

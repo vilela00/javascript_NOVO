@@ -30,10 +30,9 @@
       </nav>
       <div class="header__box_busca">
         <input type="search" name="buscar" placeholder="search here" class="header__search">
-        <button type="button" class="btn btn-secondary btn-sm botao_news"><i
-            class="fa-solid fa-magnifying-glass"></i></button>
+        <button type="button" class="btn btn-secondary btn-sm botao_news"><i class="fa-solid fa-magnifying-glass"></i></button>
         <!--<a href=""><img src="./img/cart_icon.png" width="25px" height="25px" alt="" class="header__cart_icon"></a>-->
-        <a href=""><i class="fa-solid fa-cart-shopping"></i></a>
+        <button id="abrir_carrinho"><i class="fa-solid fa-cart-shopping"></i></button>
         <!--<a href=""><img src="./img/user_icon.png" width="25px" height="25px" alt="" class="header__login_icon"></a>-->
         <a href=""><i class="fa-solid fa-user"></i></a>
       </div>
@@ -92,8 +91,10 @@
   </div>
   </header>
 
-    <iframe src="./home.html" frameborder="0" name="iframe_home" class="iframe_home"></iframe>
+    <iframe src="./home.html" frameborder="0" name="iframe_home" class="iframe_home" id="iframe_home"></iframe>
   </div>
+  <script src="./dados.js"></script>
+  <script src="./index.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
