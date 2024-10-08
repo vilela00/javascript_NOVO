@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="text" id="entrada">
+    <button onclick="salvar()">Salvar</button>
+    <button onclick="visualizar()">Visualizar</button>
+    <button onclick="limpar()">Limpar</button>
+    <p id="ver_tarefas"></p>
+
+    <script>
+
+        let tarefas = []
+
+        function salvar() {
+
+            let tarefa = document.getElementById('entrada').value
+            tarefas.push(tarefa)
+            localStorage.setItem('tarefas', tarefas)
+        }
+
+        function visualizar() {
+            let verTarefas = document.getElementById('ver_tarefas')
+            verTarefas.innerHTML = tarefas
+        }
+
+        function limpar() {
+            localStorage.clear()
+            tarefas = []
+            visualizar()
+        }
+
+    </script>
+
+
+</body>
+</html>

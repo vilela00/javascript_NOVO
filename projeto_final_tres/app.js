@@ -301,23 +301,30 @@ function clicarFavorito() {
   favorito.className = 'favorito_click'
   }
 
-/*function verProduto (elementProduto) {
+JSON.stringify(arrayListaProduto)
+localStorage.setItem('produto', JSON.stringify(arrayListaProduto))
+
+let testeProdutos = JSON.parse(localStorage.getItem('produto'))
+console.log(testeProdutos)
+
+function verProduto (elementProduto) {
 
   let imgMini = document.querySelector('.mini')
-  let imgPrincipal = document.querySelector('.mosaico_main')
-  let nomeProduto = document.querySelector('.headline_produto')
-  let avaliacoes = document.querySelector('.review')
-  let preco = document.querySelector('.valor')
-  let formasPagamento = document.querySelector('.texto_formas')
-  let descricao = document.querySelector('.descricao_produto')
-  let especificacoes = document.querySelector('.especificacao_produto')
-  let guiaMedidas = document.querySelector('.guia_medidas')
+ //let imgPrincipal = document.querySelector('.mosaico_main')
+  //let nomeProduto = document.querySelector('.headline_produto')
+ // let avaliacoes = document.querySelector('.review')
+  //let preco = document.querySelector('.valor')
+  //let formasPagamento = document.querySelector('.texto_formas')
+  //let descricao = document.querySelector('.descricao_produto')
+  //let especificacoes = document.querySelector('.especificacao_produto')
+ // let guiaMedidas = document.querySelector('.guia_medidas')
 
   const elementoPai = elementProduto.parentElement;
   const nomeProdutoVerifica = elementoPai.querySelector('.titulo_box_produto').innerHTML
   console.log(elementoPai)
 
-  let detalheProduto = arrayListaProduto.find ((dados) => dados.nome === nomeProdutoVerifica)
+  let detalheProduto = testeProdutos.find ((dados) => dados.nome === nomeProdutoVerifica)
+  console.log(detalheProduto)
 
   let imagemMini = ''
     imagemMini = `
@@ -325,7 +332,7 @@ function clicarFavorito() {
   `
   imgMini.innerHTML = imagemMini
 
-}*/
+}
 
 // Verifiquei que para levar os dados de um produto de uma pagina para a outra, sera necessario usar JSON e/ou local storage
 // Clicar no carrinho na pagina index e abrir o modal na pagina home (iframe)
