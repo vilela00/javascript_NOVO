@@ -72,13 +72,15 @@ function addCart (element) {
     modal.showModal()
 
     let produtoModal = document.getElementById('produto_modal')
+    let valorCarrinho = document.getElementById('valorTotal')
 
     const elementoPai = element.parentElement;
     const nomeProduto = elementoPai.querySelector('.titulo_box_produto').innerHTML
 
     let produtoCarrinho = arrayListaProduto.find ((dados) => dados.nome === nomeProduto)
     
-    let verificacaoCarrinho = arrayCarrinhoObjeto.find ((dados) => dados.nome === nomeProduto)
+    let localArrayCarrinhoObjeto = JSON.parse(localStorage.getItem('carrinho_objeto'))
+    let verificacaoCarrinho = localArrayCarrinhoObjeto.find ((dados) => dados.nome === nomeProduto)
 
     if (!verificacaoCarrinho) {
     let precoxQuantidade = produtoCarrinho.preco * produtoCarrinho.quantidade
@@ -104,7 +106,6 @@ function addCart (element) {
           <button class="remove_cart" onclick="removeCart(this)"><i class="fa-solid fa-trash-can"></i></button>
       </div>
       `
-    
     let listaProdutosCarrinho = {...produtoCarrinho, precoxQuantidade: precoxQuantidade}
     arrayCarrinhoObjeto.push(listaProdutosCarrinho)
 
@@ -117,8 +118,6 @@ function addCart (element) {
     produtoModal.innerHTML = localArrayCarrinho.join('')
 
     let totalCarrinho = localArrayCarrinhoObjeto.reduce((soma, preco) => soma + (preco.precoxQuantidade * preco.quantidade), 0)
-
-    let valorCarrinho = document.getElementById('valorTotal')
 
     let valorAVista = totalCarrinho * 0.9
     let valorAPrazo = totalCarrinho / 3
@@ -151,7 +150,12 @@ function addCart (element) {
         </div>  
       `
     valorCarrinho.innerHTML = valorTotal
+    localStorage.setItem('valorTotal', JSON.stringify(valorTotal))
 } else {
+  produtoModal.innerHTML = JSON.parse(localStorage.getItem('carrinho'))
+
+  valorCarrinho.innerHTML = JSON.parse(localStorage.getItem('valorTotal'))
+  
   let containerProduto = document.querySelector(`[data-nome-produto="${nomeProduto}"]`)
   if (containerProduto) {
     let aumentarQuantidadeBtn = containerProduto.querySelector('.botao_quantidade1')
@@ -168,6 +172,9 @@ function aumentaQuantidade(elementAumenta) {
 
   let quantidade = ++buscaPrecoListaArray.quantidade
   let precoxQuantidade = buscaPrecoListaArray.preco * quantidade
+
+  localStorage.setItem('carrinho_objeto', JSON.stringify(arrayCarrinhoObjeto))
+  localStorage.setItem('carrinho', JSON.stringify(arrayCarrinho))
 
   let novaQuantidadeInput = `
     <input class="quantidade" id="quantidadeCart" type="text" name="quantidadeCart" value="${quantidade}">
@@ -270,6 +277,17 @@ function removeCart (elementRemove) {
   arrayCarrinho.splice(index, 1)
   arrayCarrinhoObjeto.splice(index, 1)
 
+  if (arrayCarrinho) {
+    delete arrayCarrinho.index
+    let novaArrayCarrinho = JSON.stringify(arrayCarrinho)
+    localStorage.setItem('carrinho', novaArrayCarrinho)
+  }
+  if (arrayCarrinhoObjeto) {
+    delete arrayCarrinho.index
+    let novaArrayCarrinhoObjeto = JSON.stringify(arrayCarrinhoObjeto)
+    localStorage.setItem('carrinho_objeto', novaArrayCarrinhoObjeto)
+  }
+
   let produtoModalRemove = document.getElementById('produto_modal')
   produtoModalRemove.innerHTML = arrayCarrinho
 
@@ -313,20 +331,27 @@ function clicarFavorito() {
   favorito.className = 'favorito_click'
   }
 
-  function abrirCarrinho () {
-    const modal = document.getElementById('modal')
-    const closeModalBtn = document.querySelector('.close')
-    closeModalBtn.addEventListener('click', () => modal.close())
-    const closeModalBtnX = document.querySelector('.close_x')
-    closeModalBtnX.addEventListener('click', () => modal.close())
-    modal.showModal()
-  }
+function abrirCarrinho () {
+  const modal = document.getElementById('modal')
+  const closeModalBtn = document.querySelector('.close')
+  closeModalBtn.addEventListener('click', () => modal.close())
+  const closeModalBtnX = document.querySelector('.close_x')
+  closeModalBtnX.addEventListener('click', () => modal.close())
+  modal.showModal()
   
-  window.addEventListener('message', function (event) {
-    if (event.data === 'abrirCarrinho') {
-      abrirCarrinho ()
-    }
-  })  
+  let produtoModal = document.getElementById('produto_modal')
+  let valorCarrinho = document.getElementById('valorTotal')
+
+  produtoModal.innerHTML = JSON.parse(localStorage.getItem('carrinho'))
+  
+  valorCarrinho.innerHTML = JSON.parse(localStorage.getItem('valorTotal'))
+}
+  
+window.addEventListener('message', function (event) {
+  if (event.data === 'abrirCarrinho') {
+    abrirCarrinho ()
+  }
+})
 
 localStorage.setItem('produto', JSON.stringify(arrayListaProduto))
 
@@ -341,7 +366,6 @@ function verProduto (elementProduto) {
 
   localStorage.setItem('produto', JSON.stringify(detalheProduto))
 }
-
 
 // Verifiquei que para levar os dados de um produto de uma pagina para a outra, sera necessario usar JSON e/ou local storage
 // Clicar no carrinho na pagina index e abrir o modal na pagina home (iframe)

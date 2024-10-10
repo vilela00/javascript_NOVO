@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .display_block {
+            display: block;
+        }
+        .display_none {
+            display: none;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    
+    <h4 class="display_block" id="carregando">Carregando a lista de produtos...</h4>
+
+    <section id="main"></section>
+
+    <script>
+
+        const produtos = [
+            {id: 1, nome: 'Camisa Camuflada', preco: 'R$ 199,90', descricao: 'Camisa de malha com estampa camuflada de malha de algodao'},
+            {id: 2, nome: 'Bermuda Cargo', preco: 'R$239,90', descricao: 'Bermuda de tecido plano com bolsos'},
+            {id: 3, nome: 'Camiseta Esportiva', preco: 'R$ 99,90', descricao: 'Camiseta de dryfit sem mangas'},
+            {id: 4, nome: 'Moletom com Capuz', preco: 'R$ 399,90', descricao: 'Moletom com bolsos kanguru e capuz'},
+            {id: 5, nome: 'Kit de Cuecas', preco: 'R$ 99,90', descricao: 'Kit de 5 cuecas Box'},
+        ]
+
+        // criamos uma nova promessa, sempre com os parametros resolve e reject, e para executar uma acao apos um certo periodo de tempo, usamos o setTimeout
+        // nesse caso, estamos apontando o resolve com a lista de produtos, e o reject com uma mensagem de erro
+        // o promisse sera executado apos o tempo definido, abaixo usamos 3 ou segundos 3000 ms
+        const listaProdutos = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(produtos)
+                //reject('Nao foi possivel carregar a lista de produtos')
+            }, 3000)
+        })
+
+        // criamos uma funcao que vai ser chamada ao carregar a tela, ustilizamos uma variavel para alterar a classe do texto carregando, para sumir apos carregamento
+        function telaCarregando() {
+            const carregando = document.getElementById('carregando')
+            carregando.classList = 'display_block'
+            // utilizamos o then, que retorna o resolve da promessa
+            const main  = document.getElementById('main')
+            listaProdutos.then((produtos) => {
+                produtos.forEach((produto) => {
+                    const novaDiv = document.createElement('div')
+                    novaDiv.innerHTML = `
+                        <h4>${produto.id}</h4>
+                        <h3>${produto.nome}</h3>
+                        <h4>${produto.preco}</h4>
+                        <h4>${produto.descricao}</h4>
+                    `
+                    main.append(novaDiv)
+                });
+            //utilizamos o catch para retornar o reject da promessa
+            }).catch((error) => {
+                main.innerHTML = `
+                    <h4>${error}</h4>
+                `
+            })
+            // utilizamos o finally para executar uma acao comum entre as duas funcoes then e catch, nesse caso precisamos alterar a classe para sumir com o texto
+            // nas duas situacoes
+            .finally (() => {
+                carregando.classList = 'display_none'
+            })
+        }
+
+        telaCarregando()
+    </script>
+
+</body>
+</html>

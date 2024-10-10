@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <button onclick="visualizar()">Ver Lista</button>
+    <button onclick="limpar()">Limpar</button>
+    <ul id="lista_compra"></ul>
+
+    <script>
+
+        function visualizar () {
+            let listaCompra = document.getElementById('lista_compra')
+            let listaLocal = JSON.parse(localStorage.getItem('entrada'))
+            if (listaLocal) {
+            let item = listaLocal.forEach((item) => listaCompra.innerHTML += `
+                <li>${item}</li>
+            `
+            )} else {
+                listaCompra.innerHTML = '<h3>Lista vazia</h3>'
+            }
+        }
+
+        function limpar () {
+            localStorage.clear('entrada')
+            lista = []
+            let limpaLista = document.getElementById('lista_compra')
+            limpaLista.innerHTML = ''
+        }
+        
+    </script>
+    
+</body>
+</html>
