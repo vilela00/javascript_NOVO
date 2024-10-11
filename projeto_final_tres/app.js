@@ -52,8 +52,23 @@ for (let vitrineComplementar of produtosComplementares) {
     arrayListaProduto.push(listaProdutosComplementar)
 }
 
+localStorage.setItem('produto', JSON.stringify(arrayListaProduto))
+
+let listaProdutos = JSON.parse(localStorage.getItem('produto'))
+
+function verProduto (elementProduto) {
+
+    const elementoPai = elementProduto.parentElement.parentElement;
+    const nomeProdutoVerifica = elementoPai.querySelector('.titulo_box_produto').innerHTML
+
+    let detalheProduto = listaProdutos.find ((dados) => dados.nome === nomeProdutoVerifica)
+
+    localStorage.setItem('produto', JSON.stringify(detalheProduto))
+}
+
 let arrayCarrinho = JSON.parse(localStorage.getItem('carrinho'))
 let arrayCarrinhoObjeto = JSON.parse(localStorage.getItem('carrinho_objeto'))
+let innerValorTotal = JSON.parse(localStorage.getItem('valor_total'))
 
 function addCart (element) {
   
@@ -77,13 +92,11 @@ function addCart (element) {
     const elementoPai = element.parentElement;
     const nomeProduto = elementoPai.querySelector('.titulo_box_produto').innerHTML
 
-    let produtoCarrinho = arrayListaProduto.find ((dados) => dados.nome === nomeProduto)
+    let produtoCarrinho = listaProdutos.find ((dados) => dados.nome === nomeProduto)
     
-    let localArrayCarrinhoObjeto = JSON.parse(localStorage.getItem('carrinho_objeto'))
-    let verificacaoCarrinho = localArrayCarrinhoObjeto.find ((dados) => dados.nome === nomeProduto)
+    let verificacaoCarrinho = arrayCarrinhoObjeto.find ((dados) => dados.nome === nomeProduto)
 
     if (!verificacaoCarrinho) {
-    let precoxQuantidade = produtoCarrinho.preco * produtoCarrinho.quantidade
     let produtoCarrinhoShow = `
       <div class="container_produto_modal" data-nome-produto="${produtoCarrinho.nome}">
           <div class="imagem_produto_modal"><img src="${produtoCarrinho.imagem}" alt=""></div>
@@ -101,23 +114,21 @@ function addCart (element) {
           <button class="botao_quantidade1" onclick="aumentaQuantidade(this)"><i class="fa-solid fa-plus"></i></button>
           <div class="preco_modal">
               <h6>Valor</h6>
-              <div class="novo_preco_quantidade"><p>${precoxQuantidade.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</p></div>
+              <div class="novo_preco_quantidade"><p>${produtoCarrinho.preco.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</p></div>
           </div>
           <button class="remove_cart" onclick="removeCart(this)"><i class="fa-solid fa-trash-can"></i></button>
       </div>
       `
-    let listaProdutosCarrinho = {...produtoCarrinho, precoxQuantidade: precoxQuantidade}
+    let listaProdutosCarrinho = {...produtoCarrinho}
     arrayCarrinhoObjeto.push(listaProdutosCarrinho)
-
     localStorage.setItem('carrinho_objeto', JSON.stringify(arrayCarrinhoObjeto))
-    let localArrayCarrinhoObjeto = JSON.parse(localStorage.getItem('carrinho_objeto'))
 
     arrayCarrinho.push(produtoCarrinhoShow)
     localStorage.setItem('carrinho', JSON.stringify(arrayCarrinho))
-    let localArrayCarrinho = JSON.parse(localStorage.getItem('carrinho'))
-    produtoModal.innerHTML = localArrayCarrinho.join('')
 
-    let totalCarrinho = localArrayCarrinhoObjeto.reduce((soma, preco) => soma + (preco.precoxQuantidade * preco.quantidade), 0)
+    produtoModal.innerHTML = JSON.parse(localStorage.getItem('carrinho')).join('')
+
+    let totalCarrinho = JSON.parse(localStorage.getItem('carrinho_objeto')).reduce((soma, preco) => soma + (preco.preco * preco.quantidade), 0)
 
     let valorAVista = totalCarrinho * 0.9
     let valorAPrazo = totalCarrinho / 3
@@ -149,12 +160,14 @@ function addCart (element) {
           </div>
         </div>  
       `
-    valorCarrinho.innerHTML = valorTotal
-    localStorage.setItem('valorTotal', JSON.stringify(valorTotal))
+    innerValorTotal = valorTotal
+    localStorage.setItem('valor_total', JSON.stringify(innerValorTotal))
+    valorCarrinho.innerHTML = JSON.parse(localStorage.getItem('valor_total'))
+
 } else {
   produtoModal.innerHTML = JSON.parse(localStorage.getItem('carrinho'))
 
-  valorCarrinho.innerHTML = JSON.parse(localStorage.getItem('valorTotal'))
+  valorCarrinho.innerHTML = JSON.parse(localStorage.getItem('valor_total'))
   
   let containerProduto = document.querySelector(`[data-nome-produto="${nomeProduto}"]`)
   if (containerProduto) {
@@ -168,19 +181,48 @@ function aumentaQuantidade(elementAumenta) {
   let elementoPaiCarrinho = elementAumenta.parentElement
   let nomeProdutoAumenta = elementoPaiCarrinho.querySelector('.nome_carrinho').innerHTML
 
-  let buscaPrecoListaArray = arrayCarrinhoObjeto.find((dados) => dados.nome === nomeProdutoAumenta)
+  let valorCarrinho = document.getElementById('valorTotal')
+  let buscaProduto = arrayCarrinhoObjeto.find((dados) => dados.nome === nomeProdutoAumenta)
 
-  let quantidade = ++buscaPrecoListaArray.quantidade
-  let precoxQuantidade = buscaPrecoListaArray.preco * quantidade
+  let index = arrayCarrinhoObjeto.indexOf(buscaProduto)
+  arrayCarrinhoObjeto.splice(index, 1)
+  let pushProduto = {...buscaProduto, quantidade: (++buscaProduto.quantidade)}
+  arrayCarrinhoObjeto.push(pushProduto)
+
+  let novoContainerProduto = ''
+  novoContainerProduto = `
+        <div class="container_produto_modal" data-nome-produto="${buscaProduto.nome}">
+          <div class="imagem_produto_modal"><img src="${buscaProduto.imagem}" alt=""></div>
+          <div class="info_produto_modal">
+              <h6>Produto</h6>
+              <p class="nome_carrinho">${buscaProduto.nome}</p>
+          </div>
+          <button class="botao_quantidade" onclick="diminuiQuantidade(this)"><i class="fa-solid fa-minus"></i></button>
+          <div class="quantidade_produto_modal">
+              <h6>Quantidade</h6>
+              <div class="container_quantidade">
+                <div class="quantidade_carrinho"><input class="quantidade" id="quantidadeCart" type="text" name="quantidadeCart" value="${buscaProduto.quantidade}"></div>
+              </div>
+          </div>
+          <button class="botao_quantidade1" onclick="aumentaQuantidade(this)"><i class="fa-solid fa-plus"></i></button>
+          <div class="preco_modal">
+              <h6>Valor</h6>
+              <div class="novo_preco_quantidade"><p>${(buscaProduto.preco * buscaProduto.quantidade).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</p></div>
+          </div>
+          <button class="remove_cart" onclick="removeCart(this)"><i class="fa-solid fa-trash-can"></i></button>
+        </div>
+      `
+  arrayCarrinho.splice(index, 1)
+  arrayCarrinho.push(novoContainerProduto)
 
   localStorage.setItem('carrinho_objeto', JSON.stringify(arrayCarrinhoObjeto))
   localStorage.setItem('carrinho', JSON.stringify(arrayCarrinho))
 
   let novaQuantidadeInput = `
-    <input class="quantidade" id="quantidadeCart" type="text" name="quantidadeCart" value="${quantidade}">
+    <input class="quantidade" id="quantidadeCart" type="text" name="quantidadeCart" value="${buscaProduto.quantidade}">
   `
   let novoPrecoQuantidadeInner = `
-    <p>${precoxQuantidade.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</p>
+    <p>${(buscaProduto.quantidade * buscaProduto.preco).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</p>
   `
 
   let novaQuantidade = elementoPaiCarrinho.querySelector('.quantidade_carrinho')
@@ -188,49 +230,91 @@ function aumentaQuantidade(elementAumenta) {
     novaQuantidade.innerHTML = novaQuantidadeInput
     novoPrecoQuantidade.innerHTML = novoPrecoQuantidadeInner
 
-  let totalCarrinho = arrayCarrinhoObjeto.reduce((soma, preco) => soma + (preco.precoxQuantidade * preco.quantidade), 0)
+    let totalCarrinho = JSON.parse(localStorage.getItem('carrinho_objeto')).reduce((soma, preco) => soma + (preco.preco * preco.quantidade), 0)
 
-  let valorAVista = totalCarrinho * 0.9
-  let valorAPrazo = totalCarrinho / 3
+    let valorAVista = totalCarrinho * 0.9
+    let valorAPrazo = totalCarrinho / 3
 
-  let elementoTotalCarrinho = document.getElementById('total_carrinho')
-  let conteudoTotalCarrinho = ''
-    conteudoTotalCarrinho = `
-      <h4>${totalCarrinho.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h4>
-    `
-    elementoTotalCarrinho.innerHTML = conteudoTotalCarrinho
-
-  let elementoPrecoAVistaCarrinho = document.getElementById('valor_a_vista')
-  let conteudoPrecoAVistaCarrinho = ''
-    conteudoPrecoAVistaCarrinho = `
-      <h6>${valorAVista.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
-    `
-    elementoPrecoAVistaCarrinho.innerHTML = conteudoPrecoAVistaCarrinho
-
-  let elementoPrecoAPrazoCarrinho = document.getElementById('valor_a_prazo')
-  let conteudoPrecoAPrazoCarrinho = ''
-    conteudoPrecoAPrazoCarrinho = `
-      <h6>${valorAPrazo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
-    `
-    elementoPrecoAPrazoCarrinho.innerHTML = conteudoPrecoAPrazoCarrinho
+    let valorTotal = ''
+      valorTotal = `
+        <div  class="valor_total">
+          <div>
+            <h5>Valor total:</h5>
+          </div>
+          <div id="total_carrinho">
+            <h4>${totalCarrinho.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h4>
+          </div>
+        </div>
+        <div class="valor_total1">
+          <div>
+            <h6><i class="fa-solid fa-hand-holding-dollar"></i> Pague à vista:</h6>
+          </div>
+          <div id="valor_a_vista">
+            <h6>${valorAVista.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
+          </div>
+        </div>
+        <div class="valor_total1">
+          <div>
+            <h6><i class="fa-solid fa-credit-card"></i> Divida em até 3x de:</h6>
+          </div>
+          <div id="valor_a_prazo">
+            <h6>${valorAPrazo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
+          </div>
+        </div>  
+      `
+    innerValorTotal = valorTotal
+    localStorage.setItem('valor_total', JSON.stringify(innerValorTotal))
+    valorCarrinho.innerHTML = JSON.parse(localStorage.getItem('valor_total'))
 }
 
 function diminuiQuantidade(elementDiminui) {
   let elementoPaiCarrinho = elementDiminui.parentElement
   let nomeProdutoDiminui = elementoPaiCarrinho.querySelector('.nome_carrinho').innerHTML
 
-  let buscaPrecoListaArray = arrayCarrinhoObjeto.find((dados) => dados.nome === nomeProdutoDiminui)
+  let valorCarrinho = document.getElementById('valorTotal')
+  let buscaProduto = arrayCarrinhoObjeto.find((dados) => dados.nome === nomeProdutoDiminui)
 
-  let quantidade = buscaPrecoListaArray.quantidade
+  if (buscaProduto.quantidade > 1) {
 
-  if (quantidade > 1) {
-    quantidade = --buscaPrecoListaArray.quantidade
-    let novoPrecoxQuantidade = buscaPrecoListaArray.preco * quantidade
+  let index = arrayCarrinhoObjeto.indexOf(buscaProduto)
+  arrayCarrinhoObjeto.splice(index, 1)
+  let pushProduto = {...buscaProduto, quantidade: (--buscaProduto.quantidade)}
+  arrayCarrinhoObjeto.push(pushProduto)
+
+  let novoContainerProduto = ''
+  novoContainerProduto = `
+        <div class="container_produto_modal" data-nome-produto="${buscaProduto.nome}">
+          <div class="imagem_produto_modal"><img src="${buscaProduto.imagem}" alt=""></div>
+          <div class="info_produto_modal">
+              <h6>Produto</h6>
+              <p class="nome_carrinho">${buscaProduto.nome}</p>
+          </div>
+          <button class="botao_quantidade" onclick="diminuiQuantidade(this)"><i class="fa-solid fa-minus"></i></button>
+          <div class="quantidade_produto_modal">
+              <h6>Quantidade</h6>
+              <div class="container_quantidade">
+                <div class="quantidade_carrinho"><input class="quantidade" id="quantidadeCart" type="text" name="quantidadeCart" value="${buscaProduto.quantidade}"></div>
+              </div>
+          </div>
+          <button class="botao_quantidade1" onclick="aumentaQuantidade(this)"><i class="fa-solid fa-plus"></i></button>
+          <div class="preco_modal">
+              <h6>Valor</h6>
+              <div class="novo_preco_quantidade"><p>${(buscaProduto.preco * buscaProduto.quantidade).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</p></div>
+          </div>
+          <button class="remove_cart" onclick="removeCart(this)"><i class="fa-solid fa-trash-can"></i></button>
+        </div>
+      `
+  arrayCarrinho.splice(index, 1)
+  arrayCarrinho.push(novoContainerProduto)
+
+  localStorage.setItem('carrinho_objeto', JSON.stringify(arrayCarrinhoObjeto))
+  localStorage.setItem('carrinho', JSON.stringify(arrayCarrinho))
+
     let novaQuantidadeInput = `
-      <input class="quantidade" id="quantidadeCart" type="text" name="quantidadeCart" value="${quantidade}">
+      <input class="quantidade" id="quantidadeCart" type="text" name="quantidadeCart" value="${buscaProduto.quantidade}">
     `
     let novoPrecoQuantidadeInner = `
-      <p>${novoPrecoxQuantidade.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</p>
+      <p>${(buscaProduto.preco * buscaProduto.quantidade).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</p>
     `
 
     let novaQuantidade = elementoPaiCarrinho.querySelector('.quantidade_carrinho')
@@ -238,31 +322,41 @@ function diminuiQuantidade(elementDiminui) {
       novaQuantidade.innerHTML = novaQuantidadeInput
       novoPrecoQuantidade.innerHTML = novoPrecoQuantidadeInner
 
-    let totalCarrinho = arrayCarrinhoObjeto.reduce((soma, preco) => soma + (preco.precoxQuantidade * preco.quantidade), 0)
+      let totalCarrinho = JSON.parse(localStorage.getItem('carrinho_objeto')).reduce((soma, preco) => soma + (preco.preco * preco.quantidade), 0)
 
-    let valorAVista = totalCarrinho * 0.9
-    let valorAPrazo = totalCarrinho / 3
-
-    let elementoTotalCarrinho = document.getElementById('total_carrinho')
-    let conteudoTotalCarrinho = ''
-      conteudoTotalCarrinho = `
-        <h4>${totalCarrinho.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h4>
-      `
-    elementoTotalCarrinho.innerHTML = conteudoTotalCarrinho
-
-    let elementoPrecoAVistaCarrinho = document.getElementById('valor_a_vista')
-    let conteudoPrecoAVistaCarrinho = ''
-      conteudoPrecoAVistaCarrinho = `
-        <h6>${valorAVista.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
-      `
-    elementoPrecoAVistaCarrinho.innerHTML = conteudoPrecoAVistaCarrinho
-
-    let elementoPrecoAPrazoCarrinho = document.getElementById('valor_a_prazo')
-    let conteudoPrecoAPrazoCarrinho = ''
-      conteudoPrecoAPrazoCarrinho = `
-        <h6>${valorAPrazo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
-      `
-    elementoPrecoAPrazoCarrinho.innerHTML = conteudoPrecoAPrazoCarrinho
+      let valorAVista = totalCarrinho * 0.9
+      let valorAPrazo = totalCarrinho / 3
+  
+      let valorTotal = ''
+        valorTotal = `
+          <div  class="valor_total">
+            <div>
+              <h5>Valor total:</h5>
+            </div>
+            <div id="total_carrinho">
+              <h4>${totalCarrinho.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h4>
+            </div>
+          </div>
+          <div class="valor_total1">
+            <div>
+              <h6><i class="fa-solid fa-hand-holding-dollar"></i> Pague à vista:</h6>
+            </div>
+            <div id="valor_a_vista">
+              <h6>${valorAVista.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
+            </div>
+          </div>
+          <div class="valor_total1">
+            <div>
+              <h6><i class="fa-solid fa-credit-card"></i> Divida em até 3x de:</h6>
+            </div>
+            <div id="valor_a_prazo">
+              <h6>${valorAPrazo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
+            </div>
+          </div>  
+        `
+      innerValorTotal = valorTotal
+      localStorage.setItem('valor_total', JSON.stringify(innerValorTotal))
+      valorCarrinho.innerHTML = JSON.parse(localStorage.getItem('valor_total'))
   }
 }
 
@@ -287,41 +381,56 @@ function removeCart (elementRemove) {
     let novaArrayCarrinhoObjeto = JSON.stringify(arrayCarrinhoObjeto)
     localStorage.setItem('carrinho_objeto', novaArrayCarrinhoObjeto)
   }
+  if (innerValorTotal) {
+    innerValorTotal = `<h5 class="carrinho_vazio">Seu carrinho está vazio!</h5>`
+    let novoInnerValorTotal = JSON.stringify(innerValorTotal)
+    localStorage.setItem('valor_total', novoInnerValorTotal)
+  }
 
   let produtoModalRemove = document.getElementById('produto_modal')
   produtoModalRemove.innerHTML = arrayCarrinho
 
-  let valorCarrinhoRemove = document.getElementById('valorTotal')
+  let valorCarrinho = document.getElementById('valorTotal')
 
-  let totalCarrinhoRemove = ''
+  let totalCarrinho = ''
   if (arrayCarrinhoObjeto.length >= 1) {
-    totalCarrinhoRemove = arrayCarrinhoObjeto.reduce((soma, preco) => soma + (preco.precoxQuantidade * preco.quantidade), 0)
+    totalCarrinho = JSON.parse(localStorage.getItem('carrinho_objeto')).reduce((soma, preco) => soma + (preco.preco * preco.quantidade), 0)
 
-  let valorAVistaRemove = totalCarrinhoRemove * 0.9
-  let valorAPrazoRemove = totalCarrinhoRemove / 3
+    let valorAVista = totalCarrinho * 0.9
+    let valorAPrazo = totalCarrinho / 3
 
-  let elementoTotalCarrinho = document.getElementById('total_carrinho')
-    let conteudoTotalCarrinho = ''
-      conteudoTotalCarrinho = `
-        <h4>${totalCarrinhoRemove.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h4>
+    let valorTotal = ''
+      valorTotal = `
+        <div  class="valor_total">
+          <div>
+            <h5>Valor total:</h5>
+          </div>
+          <div id="total_carrinho">
+            <h4>${totalCarrinho.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h4>
+          </div>
+        </div>
+        <div class="valor_total1">
+          <div>
+            <h6><i class="fa-solid fa-hand-holding-dollar"></i> Pague à vista:</h6>
+          </div>
+          <div id="valor_a_vista">
+            <h6>${valorAVista.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
+          </div>
+        </div>
+        <div class="valor_total1">
+          <div>
+            <h6><i class="fa-solid fa-credit-card"></i> Divida em até 3x de:</h6>
+          </div>
+          <div id="valor_a_prazo">
+            <h6>${valorAPrazo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
+          </div>
+        </div>  
       `
-    elementoTotalCarrinho.innerHTML = conteudoTotalCarrinho
-
-    let elementoPrecoAVistaCarrinho = document.getElementById('valor_a_vista')
-    let conteudoPrecoAVistaCarrinho = ''
-      conteudoPrecoAVistaCarrinho = `
-        <h6>${valorAVistaRemove.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
-      `
-    elementoPrecoAVistaCarrinho.innerHTML = conteudoPrecoAVistaCarrinho
-
-    let elementoPrecoAPrazoCarrinho = document.getElementById('valor_a_prazo')
-    let conteudoPrecoAPrazoCarrinho = ''
-      conteudoPrecoAPrazoCarrinho = `
-        <h6>${valorAPrazoRemove.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</h6>
-      `
-    elementoPrecoAPrazoCarrinho.innerHTML = conteudoPrecoAPrazoCarrinho
+    innerValorTotal = valorTotal
+    localStorage.setItem('valor_total', JSON.stringify(innerValorTotal))
+    valorCarrinho.innerHTML = JSON.parse(localStorage.getItem('valor_total'))
 } else {
-  valorCarrinhoRemove.innerHTML = `<h5 class="carrinho_vazio">Seu carrinho está vazio!</h5>`
+  valorCarrinho.innerHTML = `<h5 class="carrinho_vazio">Seu carrinho está vazio!</h5>`
 } 
 }
 
@@ -344,7 +453,7 @@ function abrirCarrinho () {
 
   produtoModal.innerHTML = JSON.parse(localStorage.getItem('carrinho'))
   
-  valorCarrinho.innerHTML = JSON.parse(localStorage.getItem('valorTotal'))
+  valorCarrinho.innerHTML = JSON.parse(localStorage.getItem('valor_total'))
 }
   
 window.addEventListener('message', function (event) {
@@ -352,23 +461,3 @@ window.addEventListener('message', function (event) {
     abrirCarrinho ()
   }
 })
-
-localStorage.setItem('produto', JSON.stringify(arrayListaProduto))
-
-let listaProdutos = JSON.parse(localStorage.getItem('produto'))
-
-function verProduto (elementProduto) {
-
-  const elementoPai = elementProduto.parentElement.parentElement;
-  const nomeProdutoVerifica = elementoPai.querySelector('.titulo_box_produto').innerHTML
-
-  let detalheProduto = listaProdutos.find ((dados) => dados.nome === nomeProdutoVerifica)
-
-  localStorage.setItem('produto', JSON.stringify(detalheProduto))
-}
-
-// Verifiquei que para levar os dados de um produto de uma pagina para a outra, sera necessario usar JSON e/ou local storage
-// Clicar no carrinho na pagina index e abrir o modal na pagina home (iframe)
-// proximas etapas: ver produto, aumentar ou diminuir quantidade no carrinho, pagina de checkout
-// Ao adicionar um novo produto ao carrinho, todos os que ja estao adicionados estao assumindo a quantiade e valor iniciais, e depois quando aumenta ou diminui a qntd 
-// ele adota o valor correto que estava armazenado

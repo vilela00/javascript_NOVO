@@ -1528,6 +1528,18 @@ div.texto_sobre_nos2 {
     border: 0;
 }
 
+.container_checkout #modal {
+    border: none;
+    background-color: transparent;
+    height: 100%;
+    top: 35%;
+    left: calc(50% - 300px);
+}
+
+.container_checkout .modal1 {
+    border-radius: 8px;
+}
+
 .container_produto_modal {
     display: flex;
     justify-content: space-between;
@@ -1541,12 +1553,26 @@ div.texto_sobre_nos2 {
 
 .imagem_produto_modal img {
     width: 100%;
-    border-radius: 8px;
+    border-radius: 2px;
+}
+
+.dados_carrinho .imagem_produto_modal img  {
+    display: flex;
+    align-items: center;
+    margin-top: 45px;
 }
 
 .info_produto_modal p, .quantidade_produto_modal p, .preco_modal p {
     margin-top: 40px;
 } 
+
+.dados_carrinho .info_produto_modal p, .dados_carrinho .quantidade_produto_modal p, .dados_carrinho .preco_modal p {
+    margin-top: 35px;
+}
+
+.dados_carrinho .container_produto_modal {
+    text-align: center;
+}
 
 .quantidade {
     width: 50px;
@@ -1563,11 +1589,29 @@ div.texto_sobre_nos2 {
     margin-bottom: 10px;
 }
 
+.dados_carrinho #valorTotal {
+    background-color: #f8f8f8;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.dados_carrinho .valorTotalVazio {
+    background-color: #f8f8f8;
+    padding: 15px;
+    border-radius: 10px;
+    height: 130px;
+    text-align: center;
+}
+
 .valor_total1 {
     display: flex;
     justify-content: end;
     gap: 80px;
     margin-right: 20px;
+}
+
+.dados_carrinho .remove_cart {
+    margin-top: 18px;
 }
 
 .remove_cart {
@@ -1617,8 +1661,16 @@ div.texto_sobre_nos2 {
     left: -20px;
 }
 
-.botao_quantidade:hover {
+.botao_quantidade:hover, .botao_quantidade1:hover {
     background-color: #d6d3e6;
+}
+
+.dados_carrinho .valor_total {
+    margin-right: 0;
+}
+
+.dados_carrinho .valor_total1 {
+    margin-right: 0;
 }
 
 #abrir_carrinho {
@@ -1673,10 +1725,14 @@ div.texto_sobre_nos2 {
 .dados_carrinho {
     height: 85%;
     width: 35%;
-    padding: 12px;
     border: #cacaca solid 1px;
     border-radius: 5px;
     margin-right: 30px;
+}
+
+#dados_carrinho {
+    height: 82.5%;
+    overflow-y: auto;
 }
 
 .dados_pessoais, .dados_endereco, .dados_pagamento {
