@@ -1532,8 +1532,10 @@ div.texto_sobre_nos2 {
     border: none;
     background-color: transparent;
     height: 100%;
-    top: 35%;
-    left: calc(50% - 300px);
+}
+
+.container_checkout #modal .botao_quantidade, .container_checkout #modal .botao_quantidade1, .container_checkout #modal .remove_cart {
+    display: none;
 }
 
 .container_checkout .modal1 {

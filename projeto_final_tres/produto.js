@@ -418,6 +418,8 @@ function addCart () {
     
     arrayCarrinho.splice(index, 1)
     arrayCarrinhoObjeto.splice(index, 1)
+    localStorage.setItem('carrinho', JSON.stringify(arrayCarrinho))
+    localStorage.setItem('carrinho_objeto', JSON.stringify(arrayCarrinhoObjeto))
   
     if (arrayCarrinho) {
       delete arrayCarrinho.index

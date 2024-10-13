@@ -215,6 +215,8 @@ function removeCart (elementRemove) {
   
   arrayCarrinho.splice(index, 1)
   arrayCarrinhoObjeto.splice(index, 1)
+  localStorage.setItem('carrinho', JSON.stringify(arrayCarrinho))
+  localStorage.setItem('carrinho_objeto', JSON.stringify(arrayCarrinhoObjeto))
 
   if (arrayCarrinho) {
     delete arrayCarrinho.index
@@ -285,9 +287,27 @@ function removeCart (elementRemove) {
 
 function finalizarCompra () {
 const modal = document.getElementById('modal')
-        const closeModalBtn = document.querySelector('.close')
-        closeModalBtn.addEventListener('click', () => modal.close())
-        const closeModalBtnX = document.querySelector('.close_x')
-        closeModalBtnX.addEventListener('click', () => modal.close())
-        modal.showModal()
-      }
+    const closeModalBtn = document.querySelector('.close')
+    closeModalBtn.addEventListener('click', () => modal.close())
+    const closeModalBtnX = document.querySelector('.close_x')
+    closeModalBtnX.addEventListener('click', () => modal.close())
+    modal.showModal()
+
+    let listaPedido = document.querySelector('.modal_body')
+    let listaArray = JSON.parse(localStorage.getItem('carrinho'))
+    let listaPreco = JSON.parse(localStorage.getItem('carrinho_objeto'))
+    let precoFInal = listaPreco.reduce((soma, preco) => soma + (preco.preco * preco.quantidade), 0)
+
+    new Promise ((resolve, reject) => {
+      setTimeout(() => {
+        resolve(listaPedido.innerHTML = `
+            <p>Uhuu!</p>
+            <p><strong>Marcos,</strong> recebemos o seu pedido e seu pagamento ja foi aprovado!</p>
+            <p>Segue abaixo o resumo do seu pedido:</p>
+            <p>${listaArray}</p>
+            <h5>O valor total da sua compra foi de: <strong>${precoFInal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</strong></h5>
+            <p>O seu pedido sera enviado conforme opcao de envio selecionada. Agradecemos a preferencia!</p>
+          `)
+      }, 3000)
+    })
+}
