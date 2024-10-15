@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <select name="select_tipo" id="select_tipo" onchange="filtrarTipo(event)"></select>
+    <section id="lista_pokemons"></section>
+
+    <script>
+
+        async function aoCarregar () {
+            let retorno = await fetch('https://pokeapi.co/api/v2/type/')
+            let dados = await retorno.json()
+
+            let selectTipo = document.getElementById('select_tipo')
+
+            dados.results.forEach(tipo => {
+                let option = document.createElement('option')
+                option.value = tipo.url
+                option.text = tipo.name
+
+                selectTipo.append(option)                
+            });
+        }
+
+        aoCarregar()
+
+        // usamos o event para nao ter que chamar o elemento com document.getElement
+        // usamos o .target.value para trazer o valor da opcao slecionada no select
+        async function filtrarTipo (event) {
+            
+            let opcao = event.target.value
+
+            let listaPokemons = document.getElementById('lista_pokemons')
+                listaPokemons.innerHTML = ''
+
+            let retorno = await fetch(opcao)
+            let pokemons = await retorno.json()
+
+            pokemons.pokemon.forEach((item) => {
+                let novaDiv = document.createElement('div')
+                
+                async function maisDados () {
+                    let retorno = await fetch(item.pokemon.url)
+                    let dados = await retorno.json()
+
+                    novaDiv.innerHTML = `
+                        <h3>${item.pokemon.name}</h3>
+                        <img src="${dados.sprites.other["official-artwork"].front_default}"></img>
+                        <img src="${dados.sprites.other["official-artwork"].front_shiny}"></img>                          
+                    `
+                    listaPokemons.append(novaDiv)
+
+                }
+            maisDados()
+            }) 
+        }
+        
+    </script>
+
+</body>
+</html>
