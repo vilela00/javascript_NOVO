@@ -3,6 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+
+        .d_none {
+            display: none;
+        }
+
+        .d_block {
+            display: block;
+        }
+
+
+    </style>
+
     <title>Document</title>
 </head>
 <body>
@@ -44,22 +58,54 @@
             pokemons.pokemon.forEach((item) => {
                 let novaDiv = document.createElement('div')
                 
-                async function maisDados () {
-                    let retorno = await fetch(item.pokemon.url)
-                    let dados = await retorno.json()
+                async function dadosPokemon () {
+                    let retornoPokemon = await fetch(item.pokemon.url)
+                    let dadosPokemon = await retornoPokemon.json()
 
-                    novaDiv.innerHTML = `
-                        <h3>${item.pokemon.name}</h3>
-                        <img src="${dados.sprites.other["official-artwork"].front_default}"></img>
-                        <img src="${dados.sprites.other["official-artwork"].front_shiny}"></img>                          
+                    async function habilidadesPokemon () {
+                        let retornoHabilidade = await fetch(dadosPokemon.abilities[0].ability.url)
+                        let dadosHabilidade = await retornoHabilidade.json()
+                        let peso = (dadosPokemon.weight * 0.01).toFixed(2)
+                        let altura = (dadosPokemon.height * 0.1).toFixed(2)
+
+                        novaDiv.innerHTML = `
+                        <h3 class="nome">${dadosPokemon.name.toUpperCase()}</h3>
+                        <p>Base experience: ${dadosPokemon.base_experience}</p>
+                        <p>Altura: ${altura.replace('.', ',')} m</p>
+                        <p>Peso: ${peso.replace('.', ',')} kg</p>
+                        <p>Habilidade: ${dadosPokemon.abilities[0].ability.name}</p>
+                        <p>Efeitos: ${dadosHabilidade.effect_entries[1].short_effect}</p>
+                        <button id="imagem" class="d_block" onmouseover="changeClass(this)"><img src="${dadosPokemon.sprites.other["official-artwork"].front_default}"></img></button>
+                        <button id="imagem2" class="d_none" onmouseout="changeClass2(this)"><img src="${dadosPokemon.sprites.other["official-artwork"].front_shiny}"></img></button>                       
                     `
-                    listaPokemons.append(novaDiv)
-
+                    listaPokemons.append(novaDiv)                    
+                    }
+                    habilidadesPokemon()
                 }
-            maisDados()
+                dadosPokemon()
             }) 
         }
-        
+
+       async function changeClass (element) {
+            const elementoPai = element.parentElement
+            const verificaNome = elementoPai.querySelector('.nome').innerHTML
+            
+            let changeClass1 = document.getElementById('imagem')
+            changeClass1.classList = 'd_none'
+            let changeClass2 = document.getElementById('imagem2')
+            changeClass2.classList = 'd_block'
+        }
+        function changeClass2 (element) {
+            const elementoPai = element.parentElement
+            const verificaNome = elementoPai.querySelector('.nome').innerHTML
+
+            let changeClass1 = document.getElementById('imagem')
+            changeClass1.classList = 'd_block'
+            let changeClass2 = document.getElementById('imagem2')
+            changeClass2.classList = 'd_none'
+        }
+
+
     </script>
 
 </body>
