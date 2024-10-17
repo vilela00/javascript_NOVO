@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="./img/favicon.png">
     <style>
         .d_none {
             display: none;
@@ -16,31 +18,39 @@
             border: none;
             background-color: transparent;
         }
+
         .card {
             max-width: 330px;
-            padding: 8px;
+            padding: 20px;
+            height: 100%;
+        }
+        #lista_pokemons {
+            margin-top: 100px;
         }
     </style>
 
-    <title>Document</title>
+    <title>Fetch Pokemon API</title>
 </head>
+
 <body>
-    
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Pokemon list</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <select name="select_tipo" id="select_tipo" onchange="filtrarTipo(event)"></select>
+            <a class="navbar-brand" href="#">Pokemon list</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <select name="select_tipo" id="select_tipo" onchange="filtrarTipo(event)"></select>
         </div>
-      </nav>
+    </nav>
 
     <section id="lista_pokemons" class="container-fluid d-flex gap-3 flex-wrap justify-content-center"></section>
 
     <script>
 
-        async function aoCarregar () {
+        async function aoCarregar() {
             let retorno = await fetch('https://pokeapi.co/api/v2/type/')
             let dados = await retorno.json()
 
@@ -51,67 +61,102 @@
                 option.value = tipo.url
                 option.text = tipo.name
 
-                selectTipo.append(option)                
+                selectTipo.append(option)
             });
+            filtrarTipo({ target: { value: dados.results[0].url } })
         }
-
         aoCarregar()
 
         // usamos o event para nao ter que chamar o elemento com document.getElement
         // usamos o .target.value para trazer o valor da opcao slecionada no select
-        async function filtrarTipo (event) {
-            
+        async function filtrarTipo(event) {
+
             let opcao = event.target.value
 
             let listaPokemons = document.getElementById('lista_pokemons')
-                listaPokemons.innerHTML = ''
+            listaPokemons.innerHTML = ''
 
             let retorno = await fetch(opcao)
             let pokemons = await retorno.json()
 
             pokemons.pokemon.forEach((item) => {
                 let novaDiv = document.createElement('div')
-                
-                async function dadosPokemon () {
+
+                async function dadosPokemon() {
                     let retornoPokemon = await fetch(item.pokemon.url)
                     let dadosPokemon = await retornoPokemon.json()
 
-                    async function habilidadesPokemon () {
-                        let retornoHabilidade = await fetch(dadosPokemon.abilities[0].ability.url)
-                        let dadosHabilidade = await retornoHabilidade.json()
-                        let peso = (dadosPokemon.weight * 0.01).toFixed(2)
-                        let altura = (dadosPokemon.height * 0.1).toFixed(2)
+                    let peso = (dadosPokemon.weight * 0.01).toFixed(2)
+                    let altura = (dadosPokemon.height * 0.1).toFixed(2)
 
-                        novaDiv.innerHTML = `
+                    novaDiv.innerHTML = `
                         <div class="card">
-                            <button id="imagem-${dadosPokemon.name}" class="d_block" onmouseover="changeClass(this)"><img src="${dadosPokemon.sprites.other["official-artwork"].front_default}" width="330px"></img></button>
-                            <button id="imagem2-${dadosPokemon.name}" class="d_none" onmouseout="changeClass2(this)"><img src="${dadosPokemon.sprites.other["official-artwork"].front_shiny}" width="330px"></img></button>
+                            <button id="imagem-${dadosPokemon.name}" class="d_block" onmouseover="changeClass(this)"><img src="${dadosPokemon.sprites.other["official-artwork"].front_default}" width="300px"></img></button>
+                            <button id="imagem2-${dadosPokemon.name}" class="d_none" onmouseout="changeClass2(this)"><img src="${dadosPokemon.sprites.other["official-artwork"].front_shiny}" width="300px"></img></button>
                             <h3 class="nome">${dadosPokemon.name}</h3>
+                            <p>iD: ${dadosPokemon.id}</p>
                             <p>Base experience: ${dadosPokemon.base_experience}</p>
                             <p>Altura: ${altura.replace('.', ',')} m</p>
                             <p>Peso: ${peso.replace('.', ',')} kg</p>
-                            <p>Habilidade: ${dadosPokemon.abilities[0].ability.name}</p>
-                            <p>Efeitos: ${dadosHabilidade.effect_entries[1].short_effect}</p>
+                            <p id="habilidades-${dadosPokemon.name}">Habilidades:</p>
+                            <p id="itens-${dadosPokemon.name}">Itens que carrega:</p>
                         </div>
                     `
-                    listaPokemons.append(novaDiv)                    
+                    listaPokemons.append(novaDiv)
+
+                    function listaHabilidades() {
+                        let habilidades = document.getElementById(`habilidades-${dadosPokemon.name}`)
+                        dadosPokemon.abilities.forEach((ability) => {
+                            async function efeitoHabilidade() {
+                                let retornoHabiliade = await fetch(ability.ability.url)
+                                let dadosEfeito = await retornoHabiliade.json()
+
+                                for (let busca of dadosEfeito.effect_entries) {
+                                    let language = dadosEfeito.effect_entries[0].language.name
+                                    if (language === 'en') {
+                                        let index = 0
+                                        return index
+                                    } else {
+                                        index = 1
+                                    }
+                                }
+                                let novoLi = document.createElement('li')
+                                novoLi.innerHTML += `
+                                        ${ability.ability.name}
+                                        <p>${dadosEfeito.effect_entries[index].short_effect}</p>  
+                                    `
+                                habilidades.append(novoLi)
+                            }
+                            efeitoHabilidade()
+                        })
                     }
-                    habilidadesPokemon()
+                    listaHabilidades()
+                    function listaItens() {
+                        let itens = document.getElementById(`itens-${dadosPokemon.name}`)
+                        dadosPokemon.held_items.forEach((held) => {
+                            let novoLi = document.createElement('li')
+
+                            novoLi.innerHTML += `${held.item.name}`
+                            itens.append(novoLi)
+                        })
+                    }
+                    listaItens()
                 }
                 dadosPokemon()
-            }) 
+            })
         }
 
-       async function changeClass (element) {
+        function changeClass(element) {
             const elementoPai = element.parentElement
             const verificaNome = elementoPai.querySelector('.nome').innerHTML
-            
+
             let changeClass1 = document.getElementById(`imagem-${verificaNome}`)
             changeClass1.classList = 'd_none'
             let changeClass2 = document.getElementById(`imagem2-${verificaNome}`)
             changeClass2.classList = 'd_block'
         }
-        function changeClass2 (element) {
+
+        function changeClass2(element) {
             const elementoPai = element.parentElement
             const verificaNome = elementoPai.querySelector('.nome').innerHTML
 
@@ -121,8 +166,8 @@
             changeClass2.classList = 'd_none'
         }
 
-
     </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
