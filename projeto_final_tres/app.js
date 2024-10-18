@@ -9,7 +9,7 @@ for (let vitrine of produtos) {
     produtoVitrine += `
         <div class="box_vitrine">
           <div id="favorito">
-            <button class="botao_fav" onclick="clicarFavorito(this)">
+            <button class="botao_fav" id="botao_fav-${vitrine.nome}" onclick="clicarFavorito(this)">
               <li style="--color:#424242;"><i class="fa-solid fa-heart"></i></li>
             </button>
           </div>
@@ -436,9 +436,11 @@ function removeCart (elementRemove) {
 } 
 }
 
-function clicarFavorito() {
+function clicarFavorito(element) {
+  const elementoPai = element.parentElement.parentElement
+  const nomeProduto = elementoPai.querySelector('.titulo_box_produto').innerHTML
 
-  let favorito = document.querySelector('.botao_fav')
+  let favorito = document.getElementById(`botao_fav-${nomeProduto}`)
   favorito.className = 'favorito_click'
   }
 

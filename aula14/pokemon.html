@@ -7,6 +7,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="icon" href="./img/favicon.png">
     <style>
+        * {
+            list-style: none;
+        }
+
         .d_none {
             display: none;
             border: none;
@@ -18,21 +22,63 @@
             border: none;
             background-color: transparent;
         }
-
         .card {
             max-width: 330px;
-            padding: 20px;
             height: 100%;
         }
         #lista_pokemons {
             margin-top: 100px;
         }
+        .alinha_carrossel {
+            display: flex;
+            justify-content: center;
+            background-color: rgb(219, 219, 219);
+            min-height: 110px;
+        }
+        .carousel-dark {
+            width: 100%;
+        }
+        .carousel-dark img {
+            max-width: 110px;
+        }
+        .carousel-item {
+            left: calc(50% - 55px)
+        }
+        .titulo {
+            font-weight: bold;
+            font-style: italic;
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+        .titulo_2 {
+            text-decoration: underline;
+            margin-bottom: 4px;
+            font-style: italic;
+        }
+        .texto {
+            margin-bottom: 0;
+        }
+        .container_card {
+            padding: 10px 20px 10px 20px;
+        }
+        .container_info {
+            margin: 12px 0 12px 0;
+        }
+        .locais {
+            margin: 0;
+        }
+        .form-select {
+            margin-top: 2px;
+            font-size: 12px;
+            font-style: italic;
+        }
+
     </style>
 
     <title>Fetch Pokemon API</title>
 </head>
 
-<body>
+<body class="bg-body-secondary">
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
         <div class="container-fluid">
@@ -46,7 +92,7 @@
         </div>
     </nav>
 
-    <section id="lista_pokemons" class="container-fluid d-flex gap-3 flex-wrap justify-content-center"></section>
+    <section id="lista_pokemons" class="container-fluid d-flex gap-4 flex-wrap justify-content-center"></section>
 
     <script>
 
@@ -84,66 +130,133 @@
 
                 async function dadosPokemon() {
                     let retornoPokemon = await fetch(item.pokemon.url)
-                    let dadosPokemon = await retornoPokemon.json()
+                    let dadosPokemon = await retornoPokemon.json()                      
 
-                    let peso = (dadosPokemon.weight * 0.01).toFixed(2)
-                    let altura = (dadosPokemon.height * 0.1).toFixed(2)
+                        let peso = (dadosPokemon.weight * 0.01).toFixed(2)
+                        let altura = (dadosPokemon.height * 0.1).toFixed(2)
 
-                    novaDiv.innerHTML = `
-                        <div class="card">
-                            <button id="imagem-${dadosPokemon.name}" class="d_block" onmouseover="changeClass(this)"><img src="${dadosPokemon.sprites.other["official-artwork"].front_default}" width="300px"></img></button>
-                            <button id="imagem2-${dadosPokemon.name}" class="d_none" onmouseout="changeClass2(this)"><img src="${dadosPokemon.sprites.other["official-artwork"].front_shiny}" width="300px"></img></button>
-                            <h3 class="nome">${dadosPokemon.name}</h3>
-                            <p>iD: ${dadosPokemon.id}</p>
-                            <p>Base experience: ${dadosPokemon.base_experience}</p>
-                            <p>Altura: ${altura.replace('.', ',')} m</p>
-                            <p>Peso: ${peso.replace('.', ',')} kg</p>
-                            <p id="habilidades-${dadosPokemon.name}">Habilidades:</p>
-                            <p id="itens-${dadosPokemon.name}">Itens que carrega:</p>
-                        </div>
-                    `
-                    listaPokemons.append(novaDiv)
+                        novaDiv.innerHTML = `
+                            <div class="card">
+                                <button id="imagem-${dadosPokemon.name}" class="d_block" onmouseover="changeClass(this)"><img src="${dadosPokemon.sprites.other["official-artwork"].front_default}" width="300px"></img></button>
+                                <button id="imagem2-${dadosPokemon.name}" class="d_none" onmouseout="changeClass2(this)"><img src="${dadosPokemon.sprites.other["official-artwork"].front_shiny}" width="300px"></img></button>                           
+                                
+                                <div class="alinha_carrossel">
+                                    <div id="carouselExample-${dadosPokemon.name}" class="carousel carousel-dark slide w-100">
+                                        <div class="carousel-inner">
+                                            ${carregarImagem(dadosPokemon.sprites.versions["generation-v"]["black-white"])}                                   
+                                        </div>
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample-${dadosPokemon.name}" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample-${dadosPokemon.name}" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="container_card">
+                                    <h3 class="nome">${dadosPokemon.name}</h3>
+                                    <p class="titulo">iD: ${dadosPokemon.id}</p>
+                                    <p class="texto">Onde encontrar:</p>
+                                    <select class="form-select" name="locais" id="locais-${dadosPokemon.name}"></select>
+                                    <div class="container_info">
+                                        <p class="texto">Base experience: ${dadosPokemon.base_experience}</p>
+                                        <p class="texto">Altura: ${altura.replace('.', ',')} m</p>
+                                        <p class="texto">Peso: ${peso.replace('.', ',')} kg</p>
+                                    </div>
+                                    <p class="titulo_2">Habilidades:<p id="habilidades-${dadosPokemon.name}"></p></p>
+                                    <p class="titulo">Itens que carrega:<p id="itens-${dadosPokemon.name}"></p></p>
+                                </div>
+                            </div>
+                        `
+                        listaPokemons.append(novaDiv)
 
-                    function listaHabilidades() {
-                        let habilidades = document.getElementById(`habilidades-${dadosPokemon.name}`)
-                        dadosPokemon.abilities.forEach((ability) => {
-                            async function efeitoHabilidade() {
-                                let retornoHabiliade = await fetch(ability.ability.url)
-                                let dadosEfeito = await retornoHabiliade.json()
+                        
+                        async function ondeEncontrar () {
+                            let retornoLocal = await fetch(dadosPokemon.location_area_encounters)
+                            let dadosLocal = await retornoLocal.json() 
 
-                                for (let busca of dadosEfeito.effect_entries) {
-                                    let language = dadosEfeito.effect_entries[0].language.name
-                                    if (language === 'en') {
-                                        let index = 0
-                                        return index
-                                    } else {
-                                        index = 1
+                            let locais = document.getElementById(`locais-${dadosPokemon.name}`)  
+
+                            dadosLocal.forEach((local) => {
+                                let option = document.createElement('option')
+                                option.text = local.location_area.name.replaceAll('-', ' ')
+                                locais.append(option)                                            
+                            })
+                        }
+                        ondeEncontrar()
+
+                        function listaHabilidades() {
+                            let habilidades = document.getElementById(`habilidades-${dadosPokemon.name}`)
+                            dadosPokemon.abilities.forEach((ability) => {
+                                async function efeitoHabilidade() {
+                                    let retornoHabiliade = await fetch(ability.ability.url)
+                                    let dadosEfeito = await retornoHabiliade.json()
+
+                                    for (let busca of dadosEfeito.effect_entries) {
+                                        let language = dadosEfeito.effect_entries[0].language.name
+                                        if (language === 'en') {
+                                            let index = 0
+                                            return index
+                                        } else {
+                                            index = 1
+                                        }
                                     }
+                                    let novoLi = document.createElement('li')
+                                    novoLi.innerHTML += `
+                                            <p class="titulo">${ability.ability.name}</p>
+                                            <p>${dadosEfeito.effect_entries[index].effect}</p>  
+                                        `
+                                    habilidades.append(novoLi)
                                 }
-                                let novoLi = document.createElement('li')
-                                novoLi.innerHTML += `
-                                        ${ability.ability.name}
-                                        <p>${dadosEfeito.effect_entries[index].short_effect}</p>  
-                                    `
-                                habilidades.append(novoLi)
-                            }
-                            efeitoHabilidade()
-                        })
-                    }
-                    listaHabilidades()
-                    function listaItens() {
-                        let itens = document.getElementById(`itens-${dadosPokemon.name}`)
-                        dadosPokemon.held_items.forEach((held) => {
-                            let novoLi = document.createElement('li')
+                                efeitoHabilidade()
+                            })
+                        }
+                        listaHabilidades()
 
-                            novoLi.innerHTML += `${held.item.name}`
-                            itens.append(novoLi)
-                        })
-                    }
-                    listaItens()
+                        function listaItens() {
+                            let itens = document.getElementById(`itens-${dadosPokemon.name}`)
+                            if(dadosPokemon.held_items != '') {
+                                dadosPokemon.held_items.forEach((held) => {
+                                    async function dadosItens () {
+                                        let retornoItens = await fetch(held.item.url)
+                                        let dadosItens = await retornoItens.json()
+
+                                        let novoLi = document.createElement('li')
+
+                                        novoLi.innerHTML += `
+                                            <p class="texto">${held.item.name}<img src="${dadosItens.sprites.default}"</img></p>
+                                        `
+                                        itens.append(novoLi)     
+                                    }
+                                    dadosItens()                      
+                                })
+                            } else {
+                                let novoP = document.createElement('p')
+
+                                    novoP.innerHTML += `Nenhum item encontrado`
+                                    itens.append(novoP)   
+                            }
+                        }
+                        listaItens()
                 }
                 dadosPokemon()
             })
+
+            function carregarImagem(imagens) {
+                let imagem = ''
+                for (let carregador in imagens) {
+                    if(typeof imagens[carregador] === 'string') {
+                            imagem += `
+                            <div class="carousel-item ${!imagem ? 'active' : ''}">
+                                <img src="${imagens[carregador]}" class="d-block w-100" alt="...">
+                            </div>
+                        `
+                    }
+                }
+                return imagem
+            }
         }
 
         function changeClass(element) {
