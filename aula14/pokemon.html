@@ -77,6 +77,7 @@
             border: none;
             background-color: transparent;
             height: auto;
+            padding: 1px;
         }
 
         #modal::backdrop {
@@ -99,6 +100,10 @@
             display: flex;
             justify-content: space-between;
             border-bottom: #747474 solid 0.1px;
+            position: fixed;
+            min-width: 598px;
+            background-color: #eeeeee;
+            border-radius: 8px 8px 0 0;
         }
 
         .titulo_modal {
@@ -111,6 +116,7 @@
 
         .modal_body {
             padding: 15px;
+            margin-top: 60px;
         }
 
         .modal_footer {
@@ -127,6 +133,16 @@
             width: 20px;
             height: 20px;
             border: 0;
+        }
+        .chance {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .detalhe {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
         }
 
 
@@ -234,7 +250,7 @@
                                     <h3 class="nome">${dadosPokemon.name}</h3>
                                     <p class="titulo">iD: ${dadosPokemon.id}</p>
                                     <p class="texto">Onde encontrar:</p>
-                                    <select class="form-select" name="locais" id="locais-${dadosPokemon.name}" onchange="detalhesLocal(event)"></select>
+                                    <select class="form-select" name="locais" id="locais-${dadosPokemon.name}" onchange="detalhesLocal(event)"><option>Selecione...</option></select>
                                     <div class="container_info">
                                         <p class="texto">Base experience: ${dadosPokemon.base_experience}</p>
                                         <p class="texto">Altura: ${altura.replace('.', ',')} m</p>
@@ -352,37 +368,56 @@
             let dadosLocal = await fetch(opcaoLocal)
             let retornoLocal = await dadosLocal.json()
             
-            let novoH = document.createElement('h3')
-                tituloLocal.innerHTML = `
-                    ${retornoLocal.names[0].name}
-                `
-                tituloLocal.append(novoH)
-
+            let novoH = document.createElement('div')
+                tituloLocal.innerHTML = ''
+                if(retornoLocal.names == '') {
+                    tituloLocal.innerHTML = `
+                        <h6>Lista de Pokemons encontrados em: <strong>${retornoLocal.name.replaceAll('-', ' ')}</strong></h6>
+                    `
+                    tituloLocal.append(novoH)
+                    } else {
+                    tituloLocal.innerHTML = `
+                        <h6>Lista de Pokemons encontrados em: <strong>${retornoLocal.names[0].name}</strong></h6>
+                    `
+                    tituloLocal.append(novoH)
+                }
+            nomePokemon.innerHTML = ''
             retornoLocal.pokemon_encounters.forEach((pokemon) => {
-                let novoNome = document.createElement('p')
+                let novoNome = document.createElement('div')
                     novoNome.innerHTML = `
-                        ${pokemon.pokemon.name}
-                        <div id="versao-${pokemon.pokemon.name}">
-                            <ul id="dados_pokemon-${pokemon.pokemon.name}"></ul>
-                        </div>
+                        <h5>Pokemon: ${pokemon.pokemon.name}</h5>
+                        <div id="versao-${pokemon.pokemon.name}"></div>
                     `
                 nomePokemon.append(novoNome)
                 
                 pokemon.version_details.forEach((detalhe) => {
                     let dadosVersao = document.getElementById(`versao-${pokemon.pokemon.name}`)
-                    let novoH = document.createElement('h5')
+                    let novoH = document.createElement('div')
                         novoH.innerHTML = `
-                            ${detalhe.max_chance}
-                            ${detalhe.version.name}
+                            <div class="detalhe">
+                                <h6>Versao: ${detalhe.version.name}</h6>
+                                <h6>max_chance: ${detalhe.max_chance}</h6>                                
+                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" width="33%">Chance</th>
+                                        <th scope="col" width="33%">Level min</th>
+                                        <th scope="col" width="33%">Level max</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="" id="dados_pokemon-${pokemon.pokemon.name}-${detalhe.version.name}"></tbody>
+                            </table>
                         `
                     dadosVersao.append(novoH)
 
                     detalhe.encounter_details.forEach((chance) => {
-                        let dadosPokemon = document.getElementById(`dados_pokemon-${pokemon.pokemon.name}`)
-                        let novoLi = document.createElement('li')
+                        let dadosPokemon = document.getElementById(`dados_pokemon-${pokemon.pokemon.name}-${detalhe.version.name}`)
+                        let novoLi = document.createElement('tr')
                             novoLi.innerHTML = `
-                                ${chance.chance}
-                                ${chance.max_level}
+                                <td>${chance.chance}</td>
+                                <td>${chance.min_level}</td>
+                                <td>${chance.max_level}</td>
                             `
                         dadosPokemon.append(novoLi)
                     })
