@@ -73,6 +73,63 @@
             font-style: italic;
         }
 
+        #modal {
+            border: none;
+            background-color: transparent;
+            height: auto;
+        }
+
+        #modal::backdrop {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal1 {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-radius: 8px;
+            width: 100%;
+            min-width: 600px;
+            background-color: #eeeeee;
+            border: #757575 solid 1px;
+            text-align: center;
+        }
+
+        .modal_header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: #747474 solid 0.1px;
+        }
+
+        .titulo_modal {
+            padding: 10px 0 10px 16px;
+        }
+
+        .botao_x {
+            padding: 3px 5px 0 0;
+        }
+
+        .modal_body {
+            padding: 15px;
+        }
+
+        .modal_footer {
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            border-top: #747474 solid 0.1px;
+            padding: 8px;
+        }
+
+        .close_x, .close_x_1 {
+            padding: 0;
+            font-size: 10px;
+            width: 20px;
+            height: 20px;
+            border: 0;
+        }
+
+
     </style>
 
     <title>Fetch Pokemon API</title>
@@ -93,6 +150,24 @@
     </nav>
 
     <section id="lista_pokemons" class="container-fluid d-flex gap-4 flex-wrap justify-content-center"></section>
+
+    <dialog id="modal">
+        <div class="modal1">
+            <div class="modal_header">
+                <h4 class="titulo_modal">Detalhes de caça</h4>
+                <div class="botao_x"><button class="btn btn-secondary close_x">X</button></div>
+            </div>
+            <div class="modal_body" id="modal_body">
+                <div id="titulo_local"></div>
+                <div id="lista_modal">
+                    <div id="nome_pokemon"></div>
+                </div>
+            </div>
+            <div class="modal_footer">
+                <button class="btn btn-secondary close">Voltar</button>
+            </div>                
+        </div>
+    </dialog>
 
     <script>
 
@@ -159,7 +234,7 @@
                                     <h3 class="nome">${dadosPokemon.name}</h3>
                                     <p class="titulo">iD: ${dadosPokemon.id}</p>
                                     <p class="texto">Onde encontrar:</p>
-                                    <select class="form-select" name="locais" id="locais-${dadosPokemon.name}"></select>
+                                    <select class="form-select" name="locais" id="locais-${dadosPokemon.name}" onchange="detalhesLocal(event)"></select>
                                     <div class="container_info">
                                         <p class="texto">Base experience: ${dadosPokemon.base_experience}</p>
                                         <p class="texto">Altura: ${altura.replace('.', ',')} m</p>
@@ -171,7 +246,6 @@
                             </div>
                         `
                         listaPokemons.append(novaDiv)
-
                         
                         async function ondeEncontrar () {
                             let retornoLocal = await fetch(dadosPokemon.location_area_encounters)
@@ -181,12 +255,15 @@
 
                             dadosLocal.forEach((local) => {
                                 let option = document.createElement('option')
+                                option.value = local.location_area.url
                                 option.text = local.location_area.name.replaceAll('-', ' ')
                                 locais.append(option)                                            
                             })
+                            return dadosLocal
+                            return option.value
                         }
                         ondeEncontrar()
-
+                        
                         function listaHabilidades() {
                             let habilidades = document.getElementById(`habilidades-${dadosPokemon.name}`)
                             dadosPokemon.abilities.forEach((ability) => {
@@ -257,6 +334,60 @@
                 }
                 return imagem
             }
+        }
+
+        async function detalhesLocal(event) {
+            const modal = document.getElementById('modal')
+            const closeModalBtn = document.querySelector('.close')
+            closeModalBtn.addEventListener('click', () => modal.close())
+            const closeModalBtnX = document.querySelector('.close_x')
+            closeModalBtnX.addEventListener('click', () => modal.close())
+            modal.showModal()
+
+            let opcaoLocal = event.target.value
+
+            let tituloLocal = document.getElementById('titulo_local')
+            let nomePokemon = document.getElementById('nome_pokemon')
+
+            let dadosLocal = await fetch(opcaoLocal)
+            let retornoLocal = await dadosLocal.json()
+            
+            let novoH = document.createElement('h3')
+                tituloLocal.innerHTML = `
+                    ${retornoLocal.names[0].name}
+                `
+                tituloLocal.append(novoH)
+
+            retornoLocal.pokemon_encounters.forEach((pokemon) => {
+                let novoNome = document.createElement('p')
+                    novoNome.innerHTML = `
+                        ${pokemon.pokemon.name}
+                        <div id="versao-${pokemon.pokemon.name}">
+                            <ul id="dados_pokemon-${pokemon.pokemon.name}"></ul>
+                        </div>
+                    `
+                nomePokemon.append(novoNome)
+                
+                pokemon.version_details.forEach((detalhe) => {
+                    let dadosVersao = document.getElementById(`versao-${pokemon.pokemon.name}`)
+                    let novoH = document.createElement('h5')
+                        novoH.innerHTML = `
+                            ${detalhe.max_chance}
+                            ${detalhe.version.name}
+                        `
+                    dadosVersao.append(novoH)
+
+                    detalhe.encounter_details.forEach((chance) => {
+                        let dadosPokemon = document.getElementById(`dados_pokemon-${pokemon.pokemon.name}`)
+                        let novoLi = document.createElement('li')
+                            novoLi.innerHTML = `
+                                ${chance.chance}
+                                ${chance.max_level}
+                            `
+                        dadosPokemon.append(novoLi)
+                    })
+                })
+            })
         }
 
         function changeClass(element) {
