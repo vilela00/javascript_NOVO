@@ -16,7 +16,7 @@ if (arrayCarrinho == '') {
   valorCarrinho.classList = 'valorTotalVazio'
   valorCarrinho.innerHTML = `
     <h5 class="carrinho_vazio">Seu carrinho está vazio!</h5>
-    <a href="./index.html"><button class="btn btn-secondary">Voltar para a Pagina Inicial</button></a>
+    <a href="./home.html"><button class="btn btn-secondary">Voltar para a Pagina Inicial</button></a>
   `
 } else {
   comprar ()
@@ -280,7 +280,7 @@ function removeCart (elementRemove) {
   valorCarrinho.classList = 'valorTotalVazio'
   valorCarrinho.innerHTML = `
     <h5 class="carrinho_vazio">Seu carrinho está vazio!</h5>
-    <a href="./index.html"><button class="btn btn-secondary">Voltar para a Pagina Inicial</button></a>
+    <a href="./home.html"><button class="btn btn-secondary">Voltar para a Pagina Inicial</button></a>
   `
 } 
 }
