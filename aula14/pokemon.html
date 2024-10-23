@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/6336585fd2.js" crossorigin="anonymous"></script>
     <link rel="icon" href="./img/favicon.png">
     <style>
         * {
@@ -23,7 +24,7 @@
             background-color: transparent;
         }
         .card {
-            max-width: 330px;
+            width: 330px;
             height: 100%;
         }
         #lista_pokemons {
@@ -45,18 +46,21 @@
             left: calc(50% - 55px)
         }
         .titulo {
-            font-weight: bold;
+            text-decoration: underline;
             font-style: italic;
             margin-top: 10px;
             margin-bottom: 0;
         }
         .titulo_2 {
-            text-decoration: underline;
+            font-weight: bold;
             margin-bottom: 4px;
             font-style: italic;
         }
         .texto {
             margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         .container_card {
             padding: 10px 20px 10px 20px;
@@ -90,8 +94,8 @@
             justify-content: space-between;
             border-radius: 8px;
             width: 100%;
-            min-width: 600px;
-            background-color: #eeeeee;
+            max-width: 400px;
+            background-color: #ffffff;
             border: #757575 solid 1px;
             text-align: center;
         }
@@ -99,15 +103,16 @@
         .modal_header {
             display: flex;
             justify-content: space-between;
-            border-bottom: #747474 solid 0.1px;
-            position: fixed;
-            min-width: 598px;
-            background-color: #eeeeee;
-            border-radius: 8px 8px 0 0;
+            background-color: #f3f3f3;
+            border-radius: 8px;
         }
 
         .titulo_modal {
             padding: 10px 0 10px 16px;
+            display: flex;
+            justify-content: center;
+            text-wrap: wrap;
+            width: 100%;
         }
 
         .botao_x {
@@ -116,7 +121,6 @@
 
         .modal_body {
             padding: 15px;
-            margin-top: 60px;
         }
 
         .modal_footer {
@@ -134,6 +138,17 @@
             height: 20px;
             border: 0;
         }
+        .table>:not(caption)>*>* {
+            background-color: #f3f3f3;
+            border-color: #ffffff;
+            font-size: 12px;
+        }
+        .titulo_pokemon {
+            margin-bottom: 12px;
+        }
+        .versao_pokemon {
+            font-style: italic;
+        }
         .chance {
             display: flex;
             justify-content: center;
@@ -144,7 +159,20 @@
             justify-content: center;
             gap: 10px;
         }
-
+        .legendary, .mythical {
+            display: flex;
+            padding: 0 10px 0 10px;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 16px;
+            background: linear-gradient(45deg, #df5151, #f33333, #e71b1b, #e71b1b, #f33333, #df5151);
+            border-radius: 5px;
+            color: #ffffff;
+            cursor: pointer;
+        }
+        .legendary:hover, .mythical:hover {
+            transform: scale(1.02);
+        }
 
     </style>
 
@@ -170,11 +198,10 @@
     <dialog id="modal">
         <div class="modal1">
             <div class="modal_header">
-                <h4 class="titulo_modal">Detalhes de caça</h4>
+                <div class="titulo_modal"></div>
                 <div class="botao_x"><button class="btn btn-secondary close_x">X</button></div>
             </div>
             <div class="modal_body" id="modal_body">
-                <div id="titulo_local"></div>
                 <div id="lista_modal">
                     <div id="nome_pokemon"></div>
                 </div>
@@ -221,7 +248,11 @@
 
                 async function dadosPokemon() {
                     let retornoPokemon = await fetch(item.pokemon.url)
-                    let dadosPokemon = await retornoPokemon.json()                      
+                    let dadosPokemon = await retornoPokemon.json()
+                    
+                    async function detalheEspecie () {
+                        let retornoEspecie = await fetch(dadosPokemon.species.url)
+                        let dadosEspecie = await retornoEspecie.json()                    
 
                         let peso = (dadosPokemon.weight * 0.01).toFixed(2)
                         let altura = (dadosPokemon.height * 0.1).toFixed(2)
@@ -251,17 +282,39 @@
                                     <p class="titulo">iD: ${dadosPokemon.id}</p>
                                     <p class="texto">Onde encontrar:</p>
                                     <select class="form-select" name="locais" id="locais-${dadosPokemon.name}" onchange="detalhesLocal(event)"><option>Selecione...</option></select>
+                                    <div id="container_legendary-${dadosPokemon.name}"></div>
+                                    <div id="container_mythical-${dadosPokemon.name}"></div>                                         
                                     <div class="container_info">
-                                        <p class="texto">Base experience: ${dadosPokemon.base_experience}</p>
+                                        
+                                        
                                         <p class="texto">Altura: ${altura.replace('.', ',')} m</p>
                                         <p class="texto">Peso: ${peso.replace('.', ',')} kg</p>
+                                        <p class="texto">Base experience: ${dadosPokemon.base_experience}</p>
+                                        <p class="texto">Base happiness: ${dadosEspecie.base_happiness}</p>
+                                        <p class="texto">Capture rate: ${dadosEspecie.capture_rate}</p>
+                                        <p class="texto">Original color: ${dadosEspecie.color.name}</p>
+                                        <p class="texto">Geracao: ${dadosEspecie.generation.name.replace('-', ' ')}</p>
+                                        <p class="texto">Growth rate: ${dadosEspecie.growth_rate.name.replace('-', ' ')}</p>
                                     </div>
                                     <p class="titulo_2">Habilidades:<p id="habilidades-${dadosPokemon.name}"></p></p>
-                                    <p class="titulo">Itens que carrega:<p id="itens-${dadosPokemon.name}"></p></p>
+                                    <p class="titulo_2">Itens que carrega:<p id="itens-${dadosPokemon.name}"></p></p>
                                 </div>
                             </div>
                         `
                         listaPokemons.append(novaDiv)
+
+                        if(dadosEspecie.is_legendary !== false) {
+                            let legendary = document.getElementById(`container_legendary-${dadosPokemon.name}`)
+                                legendary.innerHTML = `
+                                    <p class="legendary"><i class="fa-solid fa-bolt"></i> Esse Pokemon e Lendario <i class="fa-solid fa-bolt"></i></p>
+                                `
+                        }
+                        if(dadosEspecie.is_mythical !== false) {
+                            let mythical = document.getElementById(`container_mythical-${dadosPokemon.name}`)
+                                mythical.innerHTML = `
+                                    <p class="mythical"><i class="fa-solid fa-fire"></i> Esse Pokemon e Mitico <i class="fa-solid fa-fire"></i></p>                                    
+                                `
+                        }
                         
                         async function ondeEncontrar () {
                             let retornoLocal = await fetch(dadosPokemon.location_area_encounters)
@@ -319,7 +372,7 @@
                                         let novoLi = document.createElement('li')
 
                                         novoLi.innerHTML += `
-                                            <p class="texto">${held.item.name}<img src="${dadosItens.sprites.default}"</img></p>
+                                            <p class="texto"><img src="${dadosItens.sprites.default}"</img>${held.item.name.replaceAll('-', ' ')}</p>
                                         `
                                         itens.append(novoLi)     
                                     }
@@ -333,6 +386,8 @@
                             }
                         }
                         listaItens()
+                    }
+                    detalheEspecie()
                 }
                 dadosPokemon()
             })
@@ -362,30 +417,27 @@
 
             let opcaoLocal = event.target.value
 
-            let tituloLocal = document.getElementById('titulo_local')
             let nomePokemon = document.getElementById('nome_pokemon')
 
             let dadosLocal = await fetch(opcaoLocal)
             let retornoLocal = await dadosLocal.json()
             
-            let novoH = document.createElement('div')
-                tituloLocal.innerHTML = ''
+            let novoTitulo = document.querySelector('.titulo_modal')
+            novoTitulo.innerHTML = ''
                 if(retornoLocal.names == '') {
-                    tituloLocal.innerHTML = `
-                        <h6>Lista de Pokemons encontrados em: <strong>${retornoLocal.name.replaceAll('-', ' ')}</strong></h6>
-                    `
-                    tituloLocal.append(novoH)
+                    novoTitulo.innerHTML = `
+                        <h5>Lista de Pokemons encontrados em: <strong>${retornoLocal.name.replaceAll('-', ' ')}</strong></h5>
+                    `                    
                     } else {
-                    tituloLocal.innerHTML = `
-                        <h6>Lista de Pokemons encontrados em: <strong>${retornoLocal.names[0].name}</strong></h6>
-                    `
-                    tituloLocal.append(novoH)
+                        novoTitulo.innerHTML = `
+                        <h5>Lista de Pokemons encontrados em: <strong>${retornoLocal.names[0].name}</strong></h5>
+                    `                    
                 }
-            nomePokemon.innerHTML = ''
-            retornoLocal.pokemon_encounters.forEach((pokemon) => {
+                nomePokemon.innerHTML = ''
+                retornoLocal.pokemon_encounters.forEach((pokemon) => {
                 let novoNome = document.createElement('div')
                     novoNome.innerHTML = `
-                        <h5>Pokemon: ${pokemon.pokemon.name}</h5>
+                        <h5 class="titulo_pokemon">Pokemon: ${pokemon.pokemon.name}</h5>
                         <div id="versao-${pokemon.pokemon.name}"></div>
                     `
                 nomePokemon.append(novoNome)
@@ -395,8 +447,8 @@
                     let novoH = document.createElement('div')
                         novoH.innerHTML = `
                             <div class="detalhe">
-                                <h6>Versao: ${detalhe.version.name}</h6>
-                                <h6>max_chance: ${detalhe.max_chance}</h6>                                
+                                <h6 class="versao_pokemon">Versao: ${detalhe.version.name}</h6>
+                                <h6 class="versao_pokemon">max_chance: ${detalhe.max_chance}</h6>                                
                             </div>
                             <table class="table">
                                 <thead>

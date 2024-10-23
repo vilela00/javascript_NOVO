@@ -311,3 +311,21 @@ const modal = document.getElementById('modal')
       }, 3000)
     })
 }
+
+function limparCarrinho () {
+  let arrayCarrinho = JSON.parse(localStorage.getItem('carrinho'))
+  let arrayCarrinhoObjeto = JSON.parse(localStorage.getItem('carrinho_objeto'))
+  let innerValorTotal = JSON.parse(localStorage.getItem('valor_total'))
+
+    arrayCarrinho = []
+    arrayCarrinhoObjeto = []
+    innerValorTotal = `
+      <h5 class="carrinho_vazio">Seu carrinho está vazio!</h5>
+    `
+
+    localStorage.setItem('valor_total', JSON.stringify(innerValorTotal))
+    localStorage.setItem('carrinho_objeto', JSON.stringify(arrayCarrinhoObjeto))
+    localStorage.setItem('carrinho', JSON.stringify(arrayCarrinho))
+
+    window.location.href = './home.html'
+}
